@@ -42,4 +42,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+use App\Http\Controllers\Auth\RegisteredUserController;
+
+// Sửa 2 dòng cuối file web.php của bạn thành:
+
+Route::get('/otp-verify', [RegisteredUserController::class, 'verify_form'])
+    ->name('verification.otp'); // Tên này phải khớp với dòng 69 trong Controller
+
+Route::post('/otp-verify', [RegisteredUserController::class, 'verify'])
+    ->name('verification.verify_otp'); // Tên này phải khớp với lệnh gọi bên Vue
+
+require __DIR__ . '/auth.php';
