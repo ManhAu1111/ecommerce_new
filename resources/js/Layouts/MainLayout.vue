@@ -23,7 +23,7 @@
         </div>
 
         <nav class="nav container">
-            <a href="index.html" class="nav__logo">
+            <a :href="route('home')" class="nav__logo">
             <img
                 class="nav__logo-img"
                 src="/assets/img/logo.svg"
@@ -32,7 +32,7 @@
             </a>
             <div class="nav__menu" id="nav-menu">
             <div class="nav__menu-top">
-                <a href="index.html" class="nav__menu-logo">
+                <a :href="route('home')" class="nav__menu-logo">
                 <img src="/assets/img/logo.svg" alt="">
                 </a>
                 <div class="nav__close" id="nav-close">
@@ -41,19 +41,16 @@
             </div>
             <ul class="nav__list">
                 <li class="nav__item">
-                <a href="index.html" class="nav__link active-link">Home</a>
+                <a :href="route('home')" class="nav__link active-link">Home</a>
                 </li>
                 <li class="nav__item">
-                <a href="shop.html" class="nav__link">Shop</a>
+                <a :href="route('shop')" class="nav__link">Shop</a>
                 </li>
                 <li class="nav__item">
-                <a href="accounts.html" class="nav__link">My Account</a>
+                <a :href="route('account')" class="nav__link">My Account</a>
                 </li>
                 <li class="nav__item">
-                <a href="compare.html" class="nav__link">Compare</a>
-                </li>
-                <li class="nav__item">
-                <a href="login-register.html" class="nav__link">Login</a>
+                <a :href="route('login')" class="nav__link">Login</a>
                 </li>
             </ul>
             <div class="header__search">
@@ -72,7 +69,7 @@
                 <img src="/assets/img/icon-heart.svg" alt="" />
                 <span class="count">3</span>
             </a>
-            <a href="cart.html" class="header__action-btn" title="Cart">
+            <a :href="route('cart')" class="header__action-btn" title="Cart">
                 <img src="/assets/img/icon-cart.svg" alt="" />
                 <span class="count">3</span>
             </a>
@@ -90,7 +87,7 @@
         <footer class="footer container">
         <div class="footer__container grid">
             <div class="footer__content">
-            <a href="index.html" class="footer__logo">
+            <a :href="route('home')" class="footer__logo">
                 <img src="/assets/img/logo.svg" alt="" class="footer__logo-img" />
             </a>
             <h4 class="footer__subtitle">Contact</h4>
@@ -116,7 +113,7 @@
                 <a href="#">
                     <img
                     src="/assets/img/icon-twitter.svg"
-                    alt=""G
+                    alt=""
                     class="footer__social-icon"
                     />
                 </a>
@@ -158,8 +155,8 @@
             <div class="footer__content">
             <h3 class="footer__title">My Account</h3>
             <ul class="footer__links">
-                <li><a href="#" class="footer__link">Sign In</a></li>
-                <li><a href="#" class="footer__link">View Cart</a></li>
+                <li><a :href="route('login')" class="footer__link">Sign In</a></li>
+                <li><a :href="route('cart')" class="footer__link">View Cart</a></li>
                 <li><a href="#" class="footer__link">My Wishlist</a></li>
                 <li><a href="#" class="footer__link">Track My Order</a></li>
                 <li><a href="#" class="footer__link">Help</a></li>
