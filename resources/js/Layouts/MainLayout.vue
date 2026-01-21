@@ -5,7 +5,7 @@
 <template>
     <div class="main-layout">
         <header class="header">
-        <div class="header__top">
+        <!-- <div class="header__top">
             <div class="header__container container">
             <div class="header__contact">
                 <span>(+01) - 2345 - 6789</span>
@@ -20,13 +20,13 @@
                 <Link :href="route('register')" class="header__top-action">Sign Up</Link>
             </div>
             </div>
-        </div>
+        </div> -->
 
         <nav class="nav container">
             <a :href="route('home')" class="nav__logo">
             <img
                 class="nav__logo-img"
-                src="/assets/img/logo.svg"
+                src="/assets/img/logo_toyMark.png"
                 alt="website logo"
             />
             </a>

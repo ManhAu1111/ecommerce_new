@@ -18,8 +18,8 @@
   --border-color-alt: hsl(113, 15%, 90%);
 
   /*========== Font and typography ==========*/
-  --body-font: "Lato", sans-serif;
-  --second-font: "League Spartan" sans-serif;
+  --body-font: "Spartan", sans-serif;
+  --second-font: "League Spartan", sans-serif;
   --big-font-size: 3.5rem;
   --h1-font-size: 2.75rem;
   --h2-font-size: 2rem;
@@ -233,7 +233,7 @@ table {
 }
 
 .nav__logo-img {
-  width: 120px;
+  width: 170px;
 }
 
 .nav__menu {
@@ -1149,6 +1149,7 @@ table {
 .details__price .new__price {
   font-size: var(--h2-font-size);
 }
+
 .details__price .old__price {
   font-size: var(--normal-font-size);
   font-weight: var(--weight-500);
@@ -1278,6 +1279,7 @@ table {
   font-weight: var(--weight-500);
   text-align: left;
 }
+
 .info__table tr td {
   color: var(--text-color-light);
 }
@@ -1923,6 +1925,7 @@ table {
     height: 42px;
     line-height: 35px;
   }
+
   .btn--sm {
     height: 38px;
     line-height: 35px;
@@ -2011,6 +2014,7 @@ table {
   .category__img {
     margin-bottom: 1rem;
   }
+
   .deals__item,
   .checkout__group:nth-child(2) {
     padding: 1.25rem;

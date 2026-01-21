@@ -42,8 +42,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <Head title="Home - Ecommerce" />
-
   <MainLayout>
     <section class="home__container">
     <main class="main">
@@ -51,16 +49,16 @@ onMounted(() => {
       <section class="home section--lg">
         <div class="home__container container grid">
           <div class="home__content">
-            <span class="home__subtitle">Hot Promotions</span>
+            <span class="home__subtitle">Đồ chơi nổi bật</span>
             <h1 class="home__title">
-              Fashion Trending <span>Great Collection</span>
-            </h1>
-            <p class="home__description">
-              Save more with coupons & up tp 20% off
+              Thế giới đồ chơi <span>Vô vàn niềm vui</span>
+              </h1>
+              <p class="home__description">
+              Khám phá những món đồ chơi thú vị 
             </p>
-            <a href="shop.html" class="btn">Shop Now</a>
+            <a href="shop.html" class="btn">Mua ngay</a>
           </div>
-          <img src="/assets/img/home-img.png" class="home__img" alt="hats" />
+          <img src="/assets/img/home-img-toy-1.png" class="home__img" alt="đồ chơi" />
         </div>
       </section>
 
