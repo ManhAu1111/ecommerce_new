@@ -47,15 +47,15 @@ onMounted(() => {
       <!--=============== BREADCRUMB ===============-->
       <section class="breadcrumb">
         <ul class="breadcrumb__list flex container">
-          <li><a href="index.html" class="breadcrumb__link">Home</a></li>
+          <li><a href="index.html" class="breadcrumb__link">Trang chủ</a></li>
           <li><span class="breadcrumb__link"></span>></li>
-          <li><span class="breadcrumb__link">Shop</span></li>
+          <li><span class="breadcrumb__link">Cửa hàng</span></li>
         </ul>
       </section>
 
       <!--=============== PRODUCTS ===============-->
       <section class="products container section--lg">
-        <p class="total__products">We found <span>688</span> items for you!</p>
+        <p class="total__products">Chúng tôi tìm thấy <span>688</span> sản phẩm cho bạn!</p>
         <div class="products__container grid">
           <div class="product__item">
             <div class="product__banner">
@@ -72,26 +72,26 @@ onMounted(() => {
                 />
               </a>
               <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Quick View">
+                <a href="#" class="action__btn" aria-label="Xem nhanh">
                   <i class="fi fi-rs-eye"></i>
                 </a>
                 <a
                   href="#"
                   class="action__btn"
-                  aria-label="Add to Wishlist"
+                  aria-label="Thêm vào yêu thích"
                 >
                   <i class="fi fi-rs-heart"></i>
                 </a>
-                <a href="#" class="action__btn" aria-label="Compare">
+                <a href="#" class="action__btn" aria-label="So sánh">
                   <i class="fi fi-rs-shuffle"></i>
                 </a>
               </div>
               <div class="product__badge light-pink">Hot</div>
             </div>
             <div class="product__content">
-              <span class="product__category">Clothing</span>
+              <span class="product__category">Quần áo</span>
               <a href="details.html">
-                <h3 class="product__title">Colorful Pattern Shirts</h3>
+                <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">
                 <i class="fi fi-rs-star"></i>
@@ -128,26 +128,26 @@ onMounted(() => {
                 />
               </a>
               <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Quick View">
+                <a href="#" class="action__btn" aria-label="Xem nhanh">
                   <i class="fi fi-rs-eye"></i>
                 </a>
                 <a
                   href="#"
                   class="action__btn"
-                  aria-label="Add to Wishlist"
+                  aria-label="Thêm vào yêu thích"
                 >
                   <i class="fi fi-rs-heart"></i>
                 </a>
-                <a href="#" class="action__btn" aria-label="Compare">
+                <a href="#" class="action__btn" aria-label="So sánh">
                   <i class="fi fi-rs-shuffle"></i>
                 </a>
               </div>
               <div class="product__badge light-green">Hot</div>
             </div>
             <div class="product__content">
-              <span class="product__category">Clothing</span>
+              <span class="product__category">Quần áo</span>
               <a href="details.html">
-                <h3 class="product__title">Colorful Pattern Shirts</h3>
+                <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">
                 <i class="fi fi-rs-star"></i>
@@ -184,26 +184,26 @@ onMounted(() => {
                 />
               </a>
               <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Quick View">
+                <a href="#" class="action__btn" aria-label="Xem nhanh">
                   <i class="fi fi-rs-eye"></i>
                 </a>
                 <a
                   href="#"
                   class="action__btn"
-                  aria-label="Add to Wishlist"
+                  aria-label="Thêm vào yêu thích"
                 >
                   <i class="fi fi-rs-heart"></i>
                 </a>
-                <a href="#" class="action__btn" aria-label="Compare">
+                <a href="#" class="action__btn" aria-label="So sánh">
                   <i class="fi fi-rs-shuffle"></i>
                 </a>
               </div>
               <div class="product__badge light-orange">Hot</div>
             </div>
             <div class="product__content">
-              <span class="product__category">Clothing</span>
+              <span class="product__category">Quần áo</span>
               <a href="details.html">
-                <h3 class="product__title">Colorful Pattern Shirts</h3>
+                <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">
                 <i class="fi fi-rs-star"></i>
@@ -240,26 +240,26 @@ onMounted(() => {
                 />
               </a>
               <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Quick View">
+                <a href="#" class="action__btn" aria-label="Xem nhanh">
                   <i class="fi fi-rs-eye"></i>
                 </a>
                 <a
                   href="#"
                   class="action__btn"
-                  aria-label="Add to Wishlist"
+                  aria-label="Thêm vào yêu thích"
                 >
                   <i class="fi fi-rs-heart"></i>
                 </a>
-                <a href="#" class="action__btn" aria-label="Compare">
+                <a href="#" class="action__btn" aria-label="So sánh">
                   <i class="fi fi-rs-shuffle"></i>
                 </a>
               </div>
               <div class="product__badge light-blue">Hot</div>
             </div>
             <div class="product__content">
-              <span class="product__category">Clothing</span>
+              <span class="product__category">Quần áo</span>
               <a href="details.html">
-                <h3 class="product__title">Colorful Pattern Shirts</h3>
+                <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">
                 <i class="fi fi-rs-star"></i>
@@ -296,26 +296,26 @@ onMounted(() => {
                 />
               </a>
               <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Quick View">
+                <a href="#" class="action__btn" aria-label="Xem nhanh">
                   <i class="fi fi-rs-eye"></i>
                 </a>
                 <a
                   href="#"
                   class="action__btn"
-                  aria-label="Add to Wishlist"
+                  aria-label="Thêm vào yêu thích"
                 >
                   <i class="fi fi-rs-heart"></i>
                 </a>
-                <a href="#" class="action__btn" aria-label="Compare">
+                <a href="#" class="action__btn" aria-label="So sánh">
                   <i class="fi fi-rs-shuffle"></i>
                 </a>
               </div>
               <div class="product__badge light-blue">-30%</div>
             </div>
             <div class="product__content">
-              <span class="product__category">Clothing</span>
+              <span class="product__category">Quần áo</span>
               <a href="details.html">
-                <h3 class="product__title">Colorful Pattern Shirts</h3>
+                <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">
                 <i class="fi fi-rs-star"></i>
@@ -352,26 +352,26 @@ onMounted(() => {
                 />
               </a>
               <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Quick View">
+                <a href="#" class="action__btn" aria-label="Xem nhanh">
                   <i class="fi fi-rs-eye"></i>
                 </a>
                 <a
                   href="#"
                   class="action__btn"
-                  aria-label="Add to Wishlist"
+                  aria-label="Thêm vào yêu thích"
                 >
                   <i class="fi fi-rs-heart"></i>
                 </a>
-                <a href="#" class="action__btn" aria-label="Compare">
+                <a href="#" class="action__btn" aria-label="So sánh">
                   <i class="fi fi-rs-shuffle"></i>
                 </a>
               </div>
               <div class="product__badge light-blue">-22%</div>
             </div>
             <div class="product__content">
-              <span class="product__category">Clothing</span>
+              <span class="product__category">Quần áo</span>
               <a href="details.html">
-                <h3 class="product__title">Colorful Pattern Shirts</h3>
+                <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">
                 <i class="fi fi-rs-star"></i>
@@ -408,26 +408,26 @@ onMounted(() => {
                 />
               </a>
               <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Quick View">
+                <a href="#" class="action__btn" aria-label="Xem nhanh">
                   <i class="fi fi-rs-eye"></i>
                 </a>
                 <a
                   href="#"
                   class="action__btn"
-                  aria-label="Add to Wishlist"
+                  aria-label="Thêm vào yêu thích"
                 >
                   <i class="fi fi-rs-heart"></i>
                 </a>
-                <a href="#" class="action__btn" aria-label="Compare">
+                <a href="#" class="action__btn" aria-label="So sánh">
                   <i class="fi fi-rs-shuffle"></i>
                 </a>
               </div>
               <div class="product__badge light-green">-22%</div>
             </div>
             <div class="product__content">
-              <span class="product__category">Clothing</span>
+              <span class="product__category">Quần áo</span>
               <a href="details.html">
-                <h3 class="product__title">Colorful Pattern Shirts</h3>
+                <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">
                 <i class="fi fi-rs-star"></i>
@@ -464,25 +464,25 @@ onMounted(() => {
                 />
               </a>
               <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Quick View">
+                <a href="#" class="action__btn" aria-label="Xem nhanh">
                   <i class="fi fi-rs-eye"></i>
                 </a>
                 <a
                   href="#"
                   class="action__btn"
-                  aria-label="Add to Wishlist"
+                  aria-label="Thêm vào yêu thích"
                 >
                   <i class="fi fi-rs-heart"></i>
                 </a>
-                <a href="#" class="action__btn" aria-label="Compare">
+                <a href="#" class="action__btn" aria-label="So sánh">
                   <i class="fi fi-rs-shuffle"></i>
                 </a>
               </div>
             </div>
             <div class="product__content">
-              <span class="product__category">Clothing</span>
+              <span class="product__category">Quần áo</span>
               <a href="details.html">
-                <h3 class="product__title">Colorful Pattern Shirts</h3>
+                <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">
                 <i class="fi fi-rs-star"></i>
@@ -519,26 +519,26 @@ onMounted(() => {
                 />
               </a>
               <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Quick View">
+                <a href="#" class="action__btn" aria-label="Xem nhanh">
                   <i class="fi fi-rs-eye"></i>
                 </a>
                 <a
                   href="#"
                   class="action__btn"
-                  aria-label="Add to Wishlist"
+                  aria-label="Thêm vào yêu thích"
                 >
                   <i class="fi fi-rs-heart"></i>
                 </a>
-                <a href="#" class="action__btn" aria-label="Compare">
+                <a href="#" class="action__btn" aria-label="So sánh">
                   <i class="fi fi-rs-shuffle"></i>
                 </a>
               </div>
               <div class="product__badge light-blue">-30%</div>
             </div>
             <div class="product__content">
-              <span class="product__category">Clothing</span>
+              <span class="product__category">Quần áo</span>
               <a href="details.html">
-                <h3 class="product__title">Colorful Pattern Shirts</h3>
+                <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">
                 <i class="fi fi-rs-star"></i>
@@ -575,26 +575,26 @@ onMounted(() => {
                 />
               </a>
               <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Quick View">
+                <a href="#" class="action__btn" aria-label="Xem nhanh">
                   <i class="fi fi-rs-eye"></i>
                 </a>
                 <a
                   href="#"
                   class="action__btn"
-                  aria-label="Add to Wishlist"
+                  aria-label="Thêm vào yêu thích"
                 >
                   <i class="fi fi-rs-heart"></i>
                 </a>
-                <a href="#" class="action__btn" aria-label="Compare">
+                <a href="#" class="action__btn" aria-label="So sánh">
                   <i class="fi fi-rs-shuffle"></i>
                 </a>
               </div>
               <div class="product__badge light-blue">-22%</div>
             </div>
             <div class="product__content">
-              <span class="product__category">Clothing</span>
+              <span class="product__category">Quần áo</span>
               <a href="details.html">
-                <h3 class="product__title">Colorful Pattern Shirts</h3>
+                <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">
                 <i class="fi fi-rs-star"></i>
@@ -631,26 +631,26 @@ onMounted(() => {
                 />
               </a>
               <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Quick View">
+                <a href="#" class="action__btn" aria-label="Xem nhanh">
                   <i class="fi fi-rs-eye"></i>
                 </a>
                 <a
                   href="#"
                   class="action__btn"
-                  aria-label="Add to Wishlist"
+                  aria-label="Thêm vào yêu thích"
                 >
                   <i class="fi fi-rs-heart"></i>
                 </a>
-                <a href="#" class="action__btn" aria-label="Compare">
+                <a href="#" class="action__btn" aria-label="So sánh">
                   <i class="fi fi-rs-shuffle"></i>
                 </a>
               </div>
               <div class="product__badge light-green">-22%</div>
             </div>
             <div class="product__content">
-              <span class="product__category">Clothing</span>
+              <span class="product__category">Quần áo</span>
               <a href="details.html">
-                <h3 class="product__title">Colorful Pattern Shirts</h3>
+                <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">
                 <i class="fi fi-rs-star"></i>
@@ -687,25 +687,25 @@ onMounted(() => {
                 />
               </a>
               <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Quick View">
+                <a href="#" class="action__btn" aria-label="Xem nhanh">
                   <i class="fi fi-rs-eye"></i>
                 </a>
                 <a
                   href="#"
                   class="action__btn"
-                  aria-label="Add to Wishlist"
+                  aria-label="Thêm vào yêu thích"
                 >
                   <i class="fi fi-rs-heart"></i>
                 </a>
-                <a href="#" class="action__btn" aria-label="Compare">
+                <a href="#" class="action__btn" aria-label="So sánh">
                   <i class="fi fi-rs-shuffle"></i>
                 </a>
               </div>
             </div>
             <div class="product__content">
-              <span class="product__category">Clothing</span>
+              <span class="product__category">Quần áo</span>
               <a href="details.html">
-                <h3 class="product__title">Colorful Pattern Shirts</h3>
+                <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">
                 <i class="fi fi-rs-star"></i>
@@ -749,18 +749,18 @@ onMounted(() => {
               alt=""
               class="newsletter__icon"
             />
-            Sign in to Newsletter
+            Đăng ký nhận bản tin
           </h3>
           <p class="newsletter__description">
-            ...and receive $25 coupon for first shopping.
+            ...và nhận phiếu giảm giá $25 cho lần mua sắm đầu tiên.
           </p>
           <form action="" class="newsletter__form">
             <input
               type="text"
-              placeholder="Enter Your Email"
+              placeholder="Nhập email của bạn"
               class="newsletter__input"
             />
-            <button type="submit" class="newsletter__btn">Subscribe</button>
+            <button type="submit" class="newsletter__btn">Đăng ký</button>
           </form>
         </div>
       </section>

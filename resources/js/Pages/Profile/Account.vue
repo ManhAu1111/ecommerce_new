@@ -47,9 +47,9 @@ onMounted(() => {
       <!--=============== BREADCRUMB ===============-->
       <section class="breadcrumb">
         <ul class="breadcrumb__list flex container">
-          <li><a href="index.html" class="breadcrumb__link">Home</a></li>
+          <li><a href="index.html" class="breadcrumb__link">Trang chủ</a></li>
           <li><span class="breadcrumb__link">></span></li>
-          <li><span class="breadcrumb__link">Account</span></li>
+          <li><span class="breadcrumb__link">Tài khoản</span></li>
         </ul>
       </section>
 
@@ -58,89 +58,87 @@ onMounted(() => {
         <div class="accounts__container container grid">
           <div class="account__tabs">
             <p class="account__tab active-tab" data-target="#dashboard">
-              <i class="fi fi-rs-settings-sliders"></i> Dashboard
+              <i class="fi fi-rs-settings-sliders"></i> Bảng điều khiển
             </p>
             <p class="account__tab" data-target="#orders">
-              <i class="fi fi-rs-shopping-bag"></i> Orders
+              <i class="fi fi-rs-shopping-bag"></i> Đơn hàng
             </p>
             <p class="account__tab" data-target="#update-profile">
-              <i class="fi fi-rs-user"></i> Update Profile
+              <i class="fi fi-rs-user"></i> Cập nhật hồ sơ
             </p>
             <p class="account__tab" data-target="#address">
-              <i class="fi fi-rs-marker"></i> My Address
+              <i class="fi fi-rs-marker"></i> Địa chỉ của tôi
             </p>
             <p class="account__tab" data-target="#change-password">
-              <i class="fi fi-rs-settings-sliders"></i> Change Password
+              <i class="fi fi-rs-settings-sliders"></i> Đổi mật khẩu
             </p>
-            <p class="account__tab"><i class="fi fi-rs-exit"></i> Logout</p>
+            <p class="account__tab"><i class="fi fi-rs-exit"></i> Đăng xuất</p>
           </div>
           <div class="tabs__content">
             <div class="tab__content active-tab" content id="dashboard">
-              <h3 class="tab__header">Hello Rosie</h3>
+              <h3 class="tab__header">Xin chào Rosie</h3>
               <div class="tab__body">
                 <p class="tab__description">
-                  From your account dashboard. you can easily check & view your
-                  recent order, manage your shipping and billing addresses and
-                  edit your password and account details
+                  Từ bảng điều khiển tài khoản của bạn, bạn có thể dễ dàng kiểm tra & xem các đơn hàng gần đây, quản lý địa chỉ giao hàng và thanh toán cũng như chỉnh sửa mật khẩu và thông tin tài khoản của bạn
                 </p>
               </div>
             </div>
             <div class="tab__content" content id="orders">
-              <h3 class="tab__header">Your Orders</h3>
+              <h3 class="tab__header">Đơn hàng của bạn</h3>
               <div class="tab__body">
                 <table class="placed__order-table">
                   <thead>
                     <tr>
-                      <th>Orders</th>
-                      <th>Date</th>
-                      <th>Status</th>
-                      <th>Totals</th>
-                      <th>Actions</th>
+                      <th>Đơn hàng</th>
+                      <th>Ngày</th>
+                      <th>Trạng thái</th>
+                      <th>Tổng tiền</th>
+                      <th>Hành động</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>#1357</td>
                       <td>March 19, 2022</td>
-                      <td>Processing</td>
+                      <td>Đang xử lý</td>
                       <td>$125.00</td>
-                      <td><a href="#" class="view__order">View</a></td>
+                      <td><a href="#" class="view__order">Xem</a></td>
                     </tr>
                     <tr>
                       <td>#2468</td>
                       <td>June 29, 2022</td>
-                      <td>Completed</td>
+                      <td>Hoàn thành</td>
                       <td>$364.00</td>
-                      <td><a href="#" class="view__order">View</a></td>
+                      <td><a href="#" class="view__order">Xem</a></td>
                     </tr>
                     <tr>
                       <td>#2366</td>
                       <td>August 02, 2022</td>
-                      <td>Completed</td>
+                      <td>Hoàn thành</td>
                       <td>$280.00</td>
-                      <td><a href="#" class="view__order">View</a></td>
+                      <td><a href="#" class="view__order">Xem</a></td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
             <div class="tab__content" content id="update-profile">
-              <h3 class="tab__header">Update Profile</h3>
+              <h3 class="tab__header">Cập nhật hồ sơ</h3>
               <div class="tab__body">
                 <form class="form grid">
                   <input
                     type="text"
-                    placeholder="Username"
+                    placeholder="Tên người dùng"
                     class="form__input"
                   />
                   <div class="form__btn">
-                    <button class="btn btn--md">Save</button>
+                    <button class="btn btn--md">Lưu</button>
                   </div>
                 </form>
               </div>
             </div>
             <div class="tab__content" content id="address">
-              <h3 class="tab__header">Shipping Address</h3>
+              <h3 class="tab__header">Địa chỉ giao hàng</h3>
               <div class="tab__body">
                 <address class="address">
                   3522 Interstate <br />
@@ -149,30 +147,30 @@ onMounted(() => {
                   Marie, Mi 49783
                 </address>
                 <p class="city">New York</p>
-                <a href="#" class="edit">Edit</a>
+                <a href="#" class="edit">Chỉnh sửa</a>
               </div>
             </div>
             <div class="tab__content" content id="change-password">
-              <h3 class="tab__header">Change Password</h3>
+              <h3 class="tab__header">Đổi mật khẩu</h3>
               <div class="tab__body">
                 <form class="form grid">
                   <input
                     type="password"
-                    placeholder="Current Password"
+                    placeholder="Mật khẩu hiện tại"
                     class="form__input"
                   />
                   <input
                     type="password"
-                    placeholder="New Password"
+                    placeholder="Mật khẩu mới"
                     class="form__input"
                   />
                   <input
                     type="password"
-                    placeholder="Confirm Password"
+                    placeholder="Xác nhận mật khẩu"
                     class="form__input"
                   />
                   <div class="form__btn">
-                    <button class="btn btn--md">Save</button>
+                    <button class="btn btn--md">Lưu</button>
                   </div>
                 </form>
               </div>
@@ -190,18 +188,18 @@ onMounted(() => {
               alt=""
               class="newsletter__icon"
             />
-            Sign in to Newsletter
+            Đăng ký nhận bản tin
           </h3>
           <p class="newsletter__description">
-            ...and receive $25 coupon for first shopping.
+            ...và nhận phiếu giảm giá $25 cho lần mua sắm đầu tiên.
           </p>
           <form action="" class="newsletter__form">
             <input
               type="text"
-              placeholder="Enter Your Email"
+              placeholder="Nhập email của bạn"
               class="newsletter__input"
             />
-            <button type="submit" class="newsletter__btn">Subscribe</button>
+            <button type="submit" class="newsletter__btn">Đăng ký</button>
           </form>
         </div>
       </section>

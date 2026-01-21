@@ -15,9 +15,9 @@
                 Super Values Deals - Save more coupons
             </p>
             <div class="header__top-action">
-                <Link :href="route('login')" class="header__top-action">Log In</Link>
+                <Link :href="route('login')" class="header__top-action">Đăng nhập</Link>
                 <span style="margin: 0 8px; color: var(--text-color-light);">|</span>
-                <Link :href="route('register')" class="header__top-action">Sign Up</Link>
+                <Link :href="route('register')" class="header__top-action">Đăng ký</Link>
             </div>
             </div>
         </div> -->
@@ -41,22 +41,22 @@
             </div>
             <ul class="nav__list">
                 <li class="nav__item">
-                <a :href="route('home')" class="nav__link active-link">Home</a>
+                <a :href="route('home')" class="nav__link active-link">Trang chủ</a>
                 </li>
                 <li class="nav__item">
-                <a :href="route('shop')" class="nav__link">Shop</a>
+                <a :href="route('shop')" class="nav__link">Cửa hàng</a>
                 </li>
                 <li class="nav__item">
-                <a :href="route('account')" class="nav__link">My Account</a>
+                <a :href="route('account')" class="nav__link">Tài khoản</a>
                 </li>
                 <li class="nav__item">
-                <a :href="route('login')" class="nav__link">Login</a>
+                <a :href="route('login')" class="nav__link">Đăng nhập</a>
                 </li>
             </ul>
             <div class="header__search">
                 <input
                 type="text"
-                placeholder="Search For Items..."
+                placeholder="Tìm kiếm sản phẩm..."
                 class="form__input"
                 />
                 <button class="search__btn">
@@ -65,11 +65,11 @@
             </div>
             </div>
             <div class="header__user-actions">
-            <a href="wishlist.html" class="header__action-btn" title="Wishlist">
+            <a href="wishlist.html" class="header__action-btn" title="Danh sách yêu thích">
                 <img src="/assets/img/icon-heart.svg" alt="" />
                 <span class="count">3</span>
             </a>
-            <a :href="route('cart')" class="header__action-btn" title="Cart">
+            <a :href="route('cart')" class="header__action-btn" title="Giỏ hàng">
                 <img src="/assets/img/icon-cart.svg" alt="" />
                 <span class="count">3</span>
             </a>
@@ -87,21 +87,28 @@
         <footer class="footer container">
         <div class="footer__container grid">
             <div class="footer__content">
-            <a :href="route('home')" class="footer__logo">
+            <!-- <a :href="route('home')" class="footer__logo">
                 <img src="/assets/img/logo.svg" alt="" class="footer__logo-img" />
+            </a> -->
+            <a :href="route('home')" class="nav__logo">
+            <img
+                class="nav__logo-img"
+                src="/assets/img/logo_toyMark.png"
+                alt="website logo"
+            />
             </a>
-            <h4 class="footer__subtitle">Contact</h4>
+            <h4 class="footer__subtitle">Liên hệ</h4>
             <p class="footer__description">
-                <span>Address:</span> 13 Tlemcen Road, Street 32, Beb-Wahren
+                <span>Địa chỉ:</span> 13 Tlemcen Road, Street 32, Beb-Wahren
             </p>
             <p class="footer__description">
-                <span>Phone:</span> +01 2222 365 /(+91) 01 2345 6789
+                <span>Điện thoại:</span> +01 2222 365 /(+91) 01 2345 6789
             </p>
             <p class="footer__description">
-                <span>Hours:</span> 10:00 - 18:00, Mon - Sat
+                <span>Giờ làm việc:</span> 10:00 - 18:00, Thứ 2 - Thứ 7
             </p>
             <div class="footer__social">
-                <h4 class="footer__subtitle">Follow Me</h4>
+                <h4 class="footer__subtitle">Theo dõi tôi</h4>
                 <div class="footer__links flex">
                 <a href="#">
                     <img
@@ -142,29 +149,29 @@
             </div>
             </div>
             <div class="footer__content">
-            <h3 class="footer__title">Address</h3>
+            <h3 class="footer__title">Thông tin</h3>
             <ul class="footer__links">
-                <li><a href="#" class="footer__link">About Us</a></li>
-                <li><a href="#" class="footer__link">Delivery Information</a></li>
-                <li><a href="#" class="footer__link">Privacy Policy</a></li>
-                <li><a href="#" class="footer__link">Terms & Conditions</a></li>
-                <li><a href="#" class="footer__link">Contact Us</a></li>
-                <li><a href="#" class="footer__link">Support Center</a></li>
+                <li><a href="#" class="footer__link">Về chúng tôi</a></li>
+                <li><a href="#" class="footer__link">Thông tin giao hàng</a></li>
+                <li><a href="#" class="footer__link">Chính sách bảo mật</a></li>
+                <li><a href="#" class="footer__link">Điều khoản & Điều kiện</a></li>
+                <li><a href="#" class="footer__link">Liên hệ với chúng tôi</a></li>
+                <li><a href="#" class="footer__link">Trung tâm hỗ trợ</a></li>
             </ul>
             </div>
             <div class="footer__content">
-            <h3 class="footer__title">My Account</h3>
+            <h3 class="footer__title">Tài khoản của tôi</h3>
             <ul class="footer__links">
-                <li><a :href="route('login')" class="footer__link">Sign In</a></li>
-                <li><a :href="route('cart')" class="footer__link">View Cart</a></li>
-                <li><a href="#" class="footer__link">My Wishlist</a></li>
-                <li><a href="#" class="footer__link">Track My Order</a></li>
-                <li><a href="#" class="footer__link">Help</a></li>
-                <li><a href="#" class="footer__link">Order</a></li>
+                <li><a :href="route('login')" class="footer__link">Đăng nhập</a></li>
+                <li><a :href="route('cart')" class="footer__link">Xem giỏ hàng</a></li>
+                <li><a href="#" class="footer__link">Danh sách yêu thích</a></li>
+                <li><a href="#" class="footer__link">Theo dõi đơn hàng</a></li>
+                <li><a href="#" class="footer__link">Trợ giúp</a></li>
+                <li><a href="#" class="footer__link">Đơn hàng</a></li>
             </ul>
             </div>
             <div class="footer__content">
-            <h3 class="footer__title">Secured Payed Gateways</h3>
+            <h3 class="footer__title">Cổng thanh toán an toàn</h3>
             <img
                 src="/assets/img/payment-method.png"
                 alt=""
@@ -173,8 +180,8 @@
             </div>
         </div>
         <div class="footer__bottom">
-            <p class="copyright">&copy; 2024 Evara. All right reserved</p>
-            <span class="designer">Designer by Crypticalcoder</span>
+            <p class="copyright">&copy; 2026 TOY MARK. Đã đăng ký bản quyền</p>
+            <span class="designer">Thiết kế bởi TOY MARK</span>
         </div>
         </footer>
     </div>

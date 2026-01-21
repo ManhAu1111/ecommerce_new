@@ -47,11 +47,11 @@ onMounted(() => {
       <!--=============== BREADCRUMB ===============-->
       <section class="breadcrumb">
         <ul class="breadcrumb__list flex container">
-          <li><a href="index.html" class="breadcrumb__link">Home</a></li>
+          <li><a href="index.html" class="breadcrumb__link">Trang chủ</a></li>
           <li><span class="breadcrumb__link"></span>></li>
-          <li><span class="breadcrumb__link">Shop</span></li>
+          <li><span class="breadcrumb__link">Cửa hàng</span></li>
           <li><span class="breadcrumb__link"></span>></li>
-          <li><span class="breadcrumb__link">Cart</span></li>
+          <li><span class="breadcrumb__link">Giỏ hàng</span></li>
         </ul>
       </section>
 
@@ -61,12 +61,12 @@ onMounted(() => {
           <table class="table">
             <thead>
               <tr>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Subtotal</th>
-                <th>Rename</th>
+                <th>Hình ảnh</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Tổng phụ</th>
+                <th>Xóa</th>
               </tr>
             </thead>
             <tbody>
@@ -143,10 +143,10 @@ onMounted(() => {
 
         <div class="cart__actions">
           <a href="#" class="btn flex btn__md">
-            <i class="fi-rs-shuffle"></i> Update Cart
+            <i class="fi-rs-shuffle"></i> Cập nhật giỏ hàng
           </a>
           <a href="#" class="btn flex btn__md">
-            <i class="fi-rs-shopping-bag"></i> Continue Shopping
+            <i class="fi-rs-shopping-bag"></i> Tiếp tục mua sắm
           </a>
         </div>
 
@@ -157,40 +157,40 @@ onMounted(() => {
         <div class="cart__group grid">
           <div>
             <div class="cart__shippinp">
-              <h3 class="section__title">Calculate Shipping</h3>
+              <h3 class="section__title">Tính phí vận chuyển</h3>
               <form action="" class="form grid">
                 <input
                   type="text"
                   class="form__input"
-                  placeholder="State / Country"
+                  placeholder="Tỉnh / Quốc gia"
                 />
                 <div class="form__group grid">
-                  <input type="text" class="form__input" placeholder="City" />
+                  <input type="text" class="form__input" placeholder="Thành phố" />
                   <input
                     type="text"
                     class="form__input"
-                    placeholder="PostCode"
+                    placeholder="Mã bưu điện"
                   />
                 </div>
                 <div class="form__btn">
                   <button class="btn flex btn--sm">
-                    <i class="fi-rs-shuffle"></i> Update
+                    <i class="fi-rs-shuffle"></i> Cập nhật
                   </button>
                 </div>
               </form>
             </div>
             <div class="cart__coupon">
-              <h3 class="section__title">Apply Coupon</h3>
+              <h3 class="section__title">Mã giảm giá</h3>
               <form action="" class="coupon__form form grid">
                 <div class="form__group grid">
                   <input
                     type="text"
                     class="form__input"
-                    placeholder="Enter Your Coupon"
+                    placeholder="Nhập mã giảm giá"
                   />
                   <div class="form__btn">
                     <button class="btn flex btn--sm">
-                      <i class="fi-rs-label"></i> Aplly
+                      <i class="fi-rs-label"></i> Áp dụng
                     </button>
                   </div>
                 </div>
@@ -199,23 +199,23 @@ onMounted(() => {
           </div>
 
           <div class="cart__total">
-            <h3 class="section__title">Cart Totals</h3>
+            <h3 class="section__title">Tổng giỏ hàng</h3>
             <table class="cart__total-table">
                 <tr>
-                  <td><span class="cart__total-title">Cart Subtotal</span></td>
+                  <td><span class="cart__total-title">Tổng phụ</span></td>
                   <td><span class="cart__total-price">$240.00</span></td>
                 </tr>
                 <tr>
-                  <td><span class="cart__total-title">Shipping</span></td>
+                  <td><span class="cart__total-title">Vận chuyển</span></td>
                   <td><span class="cart__total-price">$10.00</span></td>
                 </tr>
                 <tr>
-                  <td><span class="cart__total-title">Total</span></td>
+                  <td><span class="cart__total-title">Tổng cộng</span></td>
                   <td><span class="cart__total-price">$250.00</span></td>
                 </tr>
             </table>
             <a href="checkout.html" class="btn flex btn--md">
-              <i class="fi fi-rs-box-alt"></i> Proceed To Checkout
+              <i class="fi fi-rs-box-alt"></i> Tiến hành thanh toán
             </a>
           </div>
         </div>
@@ -230,18 +230,18 @@ onMounted(() => {
               alt=""
               class="newsletter__icon"
             />
-            Sign in to Newsletter
+            Đăng ký nhận bản tin
           </h3>
           <p class="newsletter__description">
-            ...and receive $25 coupon for first shopping.
+            ...và nhận phiếu giảm giá $25 cho lần mua sắm đầu tiên.
           </p>
           <form action="" class="newsletter__form">
             <input
               type="text"
-              placeholder="Enter Your Email"
+              placeholder="Nhập email của bạn"
               class="newsletter__input"
             />
-            <button type="submit" class="newsletter__btn">Subscribe</button>
+            <button type="submit" class="newsletter__btn">Đăng ký</button>
           </form>
         </div>
       </section>

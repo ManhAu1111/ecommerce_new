@@ -69,35 +69,50 @@ class RegisteredUserController extends Controller
         Mail::to($user)->send(new OtpMail($otp));
 
         // Redirect to OTP verification page
-        return redirect()->route('verification.otp')->with('email', $request->email);
+        session(['otp_email' => $request->email]); // Lưu email vào session với tên 'otp_email'
+        return redirect()->route('verification.otp');
     }
 
     public function verify_form()
     {
+        $email = session('otp_email');
+
+        if (!$email) {
+            return redirect()->route('register');
+        }
+
         return Inertia::render('Auth/VerifyOtp', [
-            'email' => session('email')
+            'email' => $email
         ]);
     }
 
     public function verify(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email',
-            'otp' => 'required|size:6',
-        ]);
+        $request->validate(
+            [
+                'email' => 'required|email',
+                'otp' => 'required|size:6',
+            ],
+            [
+                'otp.required' => 'Vui lòng nhập mã OTP.',
+                'otp.size' => 'Mã OTP bắt buộc phải có đúng 6 ký tự.',
+            ]
+        );
 
         $user = User::where('email', $request->email)
             ->where('verification_code', $request->otp)
             ->first();
 
         if (!$user) {
-            return back()->withErrors(['otp' => 'Mã OTP không hợp lệ hoặc Email không đúng.']);
+            return back()->withErrors(['otp' => 'Mã OTP không hợp lệ.']);
         }
 
         $user->update([
             'email_verified_at' => now(),
             'verification_code' => null
         ]);
+
+        session()->forget('otp_email');
 
         // Do not auto-login. Redirect to Login with success message.
         return redirect()->route('login')->with('success', 'Đăng ký thành công! Vui lòng đăng nhập.');
