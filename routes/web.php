@@ -16,13 +16,27 @@ Route::get('/', function () {
 
 Route::get('/home', function () {
     return Inertia::render('Home');
-});
+})->name('home');
+
+// Route::get('/account', function () {
+//     return Inertia::render('profile/Account');
+// })->name('account');
+Route::get('/shop', function () {
+    return Inertia::render('Shop');
+})->name('shop');
+
+Route::get('/cart', function () {
+    return Inertia::render('Cart');
+})->name('cart');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/account', function () {
+        return Inertia::render('Profile/Account');
+    })->name('account');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
