@@ -107,7 +107,7 @@
                         <td align="center" style="padding: 0px 30px 40px 30px;">
                             <p
                                 style="margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; color: #9ca3af; line-height: 20px;">
-                                Mã này sẽ hết hạn trong 10 phút. Nếu bạn không yêu cầu mã này, vui lòng bỏ qua email
+                                Mã này chỉ giới hạn 1 lần sử dụng. Nếu bạn không yêu cầu mã này, vui lòng bỏ qua email
                                 này.
                             </p>
                         </td>
