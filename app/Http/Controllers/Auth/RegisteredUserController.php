@@ -32,11 +32,27 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255',
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        $request->validate(
+            [
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|lowercase|email:rfc,dns|max:255',
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                // 'password' => [
+                //     'required',
+                //     'confirmed',
+                //     'digits:6',
+                // ],
+            ],
+            [
+                'name.required' => 'Vui lòng nhập họ tên.',
+                'email.required' => 'Vui lòng nhập email.',
+                'email.email' => 'Email không đúng định dạng.',
+                'email.dns' => 'Tên miền email không tồn tại.',
+                'password.required' => 'Vui lòng nhập mật khẩu.',
+                'password.min' => 'Mật khẩu phải có ít nhất 8 ký tự.',
+                'password.confirmed' => 'Mật khẩu nhập lại không khớp.',
+            ]
+        );
 
         $user = User::where('email', $request->email)->first();
 
