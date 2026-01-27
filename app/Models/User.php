@@ -6,7 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Notifications\ResetPasswordCustom;
+use App\Mail\ResetPasswordMail;
+use Illuminate\Support\Facades\Mail;
 
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -58,11 +59,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function sendPasswordResetNotification($token)
     {
-        $url = url(route('password.reset', [
+        $url = route('password.reset', [
             'token' => $token,
             'email' => $this->email,
-        ], false));
+        ]);
 
-        $this->notify(new ResetPasswordCustom($url));
+        Mail::to($this->email)->send(new ResetPasswordMail($url));
     }
 }
