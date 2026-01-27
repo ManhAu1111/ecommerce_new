@@ -35,67 +35,99 @@ const submit = () => {
     <GuestLayout>
         <Head title="Đặt lại mật khẩu" />
 
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
+        <div class="min-h-screen flex items-center justify-center bg-[#e9f8ec] px-4">
+            <div
+                class="w-full max-w-md bg-white rounded-xl shadow-lg overflow-hidden border border-[#cce7d0]"
+            >
+                <!-- Header -->
+                <div class="bg-[#088178] py-6 text-center">
+                    <h1
+                        class="text-white text-2xl font-bold tracking-widest uppercase"
+                    >
+                        TOY MARK
+                    </h1>
+                    <p class="text-white/90 mt-1">
+                        Đặt lại mật khẩu
+                    </p>
+                </div>
 
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
+                <!-- Body -->
+                <form @submit.prevent="submit" class="p-6 space-y-4">
+                    <div class="text-sm text-gray-600">
+                        Vui lòng nhập mật khẩu mới cho tài khoản của bạn.
+                    </div>
 
-                <InputError class="mt-2" :message="form.errors.email" />
+                    <!-- Email (readonly) -->
+                    <div>
+                        <InputLabel for="email" value="Email" />
+
+                        <TextInput
+                            id="email"
+                            type="email"
+                            class="mt-1 block w-full bg-gray-100 cursor-not-allowed"
+                            v-model="form.email"
+                            readonly
+                            disabled
+                        />
+
+                        <InputError class="mt-2" :message="form.errors.email" />
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <InputLabel for="password" value="Mật khẩu mới" />
+
+                        <TextInput
+                            id="password"
+                            type="password"
+                            class="mt-1 block w-full"
+                            v-model="form.password"
+                            required
+                            autocomplete="new-password"
+                        />
+
+                        <InputError class="mt-2" :message="form.errors.password" />
+                    </div>
+
+                    <!-- Confirm -->
+                    <div>
+                        <InputLabel
+                            for="password_confirmation"
+                            value="Xác nhận mật khẩu"
+                        />
+
+                        <TextInput
+                            id="password_confirmation"
+                            type="password"
+                            class="mt-1 block w-full"
+                            v-model="form.password_confirmation"
+                            required
+                            autocomplete="new-password"
+                        />
+
+                        <InputError
+                            class="mt-2"
+                            :message="form.errors.password_confirmation"
+                        />
+                    </div>
+
+                    <!-- Button -->
+                    <div class="pt-4">
+                        <PrimaryButton
+                            class="w-full justify-center bg-[#088178] hover:bg-[#066f67]"
+                            :class="{ 'opacity-25': form.processing }"
+                            :disabled="form.processing"
+                        >
+                            ĐẶT LẠI MẬT KHẨU
+                        </PrimaryButton>
+                    </div>
+                </form>
+
+                <!-- Footer -->
+                <div class="bg-[#f6fffa] text-center py-4 text-xs text-gray-500">
+                    © {{ new Date().getFullYear() }} TOY MARK Store. All rights reserved.
+                </div>
             </div>
-
-            <div class="mt-4">
-                <InputLabel for="password" value="Mật khẩu" />
-
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="new-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel
-                    for="password_confirmation"
-                    value="Xác nhận mật khẩu"
-                />
-
-                <TextInput
-                    id="password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password_confirmation"
-                    required
-                    autocomplete="new-password"
-                />
-
-                <InputError
-                    class="mt-2"
-                    :message="form.errors.password_confirmation"
-                />
-            </div>
-
-            <div class="mt-4 flex items-center justify-end">
-                <PrimaryButton
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Đặt lại mật khẩu
-                </PrimaryButton>
-            </div>
-        </form>
+        </div>
     </GuestLayout>
 </template>
