@@ -1,9 +1,14 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+/*
+|--------------------------------------------------------------------------
+| Public Routes
+|--------------------------------------------------------------------------
+*/
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -18,12 +23,13 @@ Route::get('/home', function () {
     return Inertia::render('Home');
 })->name('home');
 
-// Route::get('/account', function () {
-//     return Inertia::render('profile/Account');
-// })->name('account');
 Route::get('/shop', function () {
     return Inertia::render('Shop');
 })->name('shop');
+
+Route::get('/detail', function () {
+    return Inertia::render('Detail');
+})->name('detail');
 
 Route::get('/cart', function () {
     return Inertia::render('Cart');
@@ -33,32 +39,19 @@ Route::get('/wishlist', function () {
     return Inertia::render('Wishlist');
 })->name('wishlist');
 
-Route::get('/detail', function () {
-    return Inertia::render('Detail');
-})->name('detail');
-
 Route::get('/checkout', function () {
     return Inertia::render('Checkout');
 })->name('checkout');
 
-// admin routes
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('admin.dashboard');
-});
 
-Route::middleware('auth')->group(function () {
-    Route::get('/account', function () {
-        return Inertia::render('Profile/Account');
-    })->name('account');
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+
+/*
+|--------------------------------------------------------------------------
+| Authentication & OTP
+|--------------------------------------------------------------------------
+*/
 
 use App\Http\Controllers\Auth\RegisteredUserController;
-
 
 Route::get('/otp-verify', [RegisteredUserController::class, 'verify_form'])
     ->name('verification.otp');
@@ -68,7 +61,55 @@ Route::post('/otp-verify', [RegisteredUserController::class, 'verify'])
 
 require __DIR__ . '/auth.php';
 
-// đăng xuất
+
+
+/*
+|--------------------------------------------------------------------------
+| Authenticated User Routes
+|--------------------------------------------------------------------------
+*/
+
+use App\Http\Controllers\ProfileController;
+
+Route::middleware('auth')->group(function () {
+
+    Route::get('/account', function () {
+        return Inertia::render('Profile/Account');
+    })->name('account');
+
+    Route::get('/profile', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
+
+    Route::patch('/profile', [ProfileController::class, 'update'])
+        ->name('profile.update');
+
+    Route::delete('/profile', [ProfileController::class, 'destroy'])
+        ->name('profile.destroy');
+});
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Admin Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('admin.dashboard');
+});
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Logout
+|--------------------------------------------------------------------------
+*/
+
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
