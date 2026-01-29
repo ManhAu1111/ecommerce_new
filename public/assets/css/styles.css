@@ -390,10 +390,28 @@ table {
   line-height: 40px;
 }
 
-.btn--sm {
+/* .btn--sm {
   height: 40px;
   line-height: 35px;
+} */
+
+.btn--sm {
+  height: 60px;
+  /* thấp lại */
+  min-width: 120px;
+  /* rộng ra */
+  padding: 0 24px;
+  /* tăng ngang */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  line-height: 1;
+  /* tránh chữ lệch */
+  white-space: nowrap;
+  /* KHÔNG xuống dòng */
 }
+
 
 /*=============== CATEGORIES ===============*/
 .categories {

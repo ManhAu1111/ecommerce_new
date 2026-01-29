@@ -4,52 +4,52 @@ import { Head } from '@inertiajs/vue3';
 import { onMounted } from 'vue';
 
 onMounted(() => {
-    /* Đảm bảo Swiper đã được tải từ CDN trong app.blade.php */
-    if (typeof Swiper !== 'undefined') {
-        // Khởi tạo Categories Slider
-        new Swiper('.categories__container', {
-            spaceBetween: 24,
-            loop: true,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            breakpoints: {
-                350: { slidesPerView: 2, spaceBetween: 18 },
-                768: { slidesPerView: 3, spaceBetween: 24 },
-                992: { slidesPerView: 5, spaceBetween: 24 },
-                1200: { slidesPerView: 6, spaceBetween: 24 },
-                1400: { slidesPerView: 8, spaceBetween: 24 },
-            },
-        });
+  /* Đảm bảo Swiper đã được tải từ CDN trong app.blade.php */
+  if (typeof Swiper !== 'undefined') {
+    // Khởi tạo Categories Slider
+    new Swiper('.categories__container', {
+      spaceBetween: 24,
+      loop: true,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        350: { slidesPerView: 2, spaceBetween: 18 },
+        768: { slidesPerView: 3, spaceBetween: 24 },
+        992: { slidesPerView: 5, spaceBetween: 24 },
+        1200: { slidesPerView: 6, spaceBetween: 24 },
+        1400: { slidesPerView: 8, spaceBetween: 24 },
+      },
+    });
 
-        // Khởi tạo New Arrivals Slider
-        new Swiper('.new__container', {
-            spaceBetween: 24,
-            loop: true,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            breakpoints: {
-                768: { slidesPerView: 2, spaceBetween: 24 },
-                992: { slidesPerView: 3, spaceBetween: 24 },
-                1400: { slidesPerView: 4, spaceBetween: 24 },
-            },
-        });
-    }
+    // Khởi tạo New Arrivals Slider
+    new Swiper('.new__container', {
+      spaceBetween: 24,
+      loop: true,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        768: { slidesPerView: 2, spaceBetween: 24 },
+        992: { slidesPerView: 3, spaceBetween: 24 },
+        1400: { slidesPerView: 4, spaceBetween: 24 },
+      },
+    });
+  }
 });
 </script>
 
 <template>
   <MainLayout>
-        <main class="main">
+    <main class="main">
       <!--=============== BREADCRUMB ===============-->
       <section class="breadcrumb">
         <ul class="breadcrumb__list flex container">
           <li><a :href="route('home')" class="breadcrumb__link">Trang chủ</a></li>
           <li><span class="breadcrumb__link"></span>></li>
-          <li><span class="breadcrumb__link">Cửa hàng</span></li>
+          <li><a :href="route('shop')" class="breadcrumb__link">Cửa hàng</a></li>
           <li><span class="breadcrumb__link"></span>></li>
           <li><span class="breadcrumb__link">Giỏ hàng</span></li>
         </ul>
@@ -72,11 +72,7 @@ onMounted(() => {
             <tbody>
               <tr>
                 <td>
-                  <img
-                    src="/assets//img/product-1-2.jpg"
-                    alt=""
-                    class="table__img"
-                  />
+                  <img src="/assets//img/product-1-2.jpg" alt="" class="table__img" />
                 </td>
                 <td>
                   <h3 class="table__title">
@@ -95,11 +91,7 @@ onMounted(() => {
               </tr>
               <tr>
                 <td>
-                  <img
-                    src="/assets//img/product-7-1.jpg"
-                    alt=""
-                    class="table__img"
-                  />
+                  <img src="/assets//img/product-7-1.jpg" alt="" class="table__img" />
                 </td>
                 <td>
                   <h3 class="table__title">Amazon Essentials Women's Tank</h3>
@@ -116,11 +108,7 @@ onMounted(() => {
               </tr>
               <tr>
                 <td>
-                  <img
-                    src="/assets//img/product-2-1.jpg"
-                    alt=""
-                    class="table__img"
-                  />
+                  <img src="/assets//img/product-2-1.jpg" alt="" class="table__img" />
                 </td>
                 <td>
                   <h3 class="table__title">
@@ -159,18 +147,10 @@ onMounted(() => {
             <div class="cart__shippinp">
               <h3 class="section__title">Tính phí vận chuyển</h3>
               <form action="" class="form grid">
-                <input
-                  type="text"
-                  class="form__input"
-                  placeholder="Tỉnh / Quốc gia"
-                />
+                <input type="text" class="form__input" placeholder="Tỉnh / Quốc gia" />
                 <div class="form__group grid">
                   <input type="text" class="form__input" placeholder="Thành phố" />
-                  <input
-                    type="text"
-                    class="form__input"
-                    placeholder="Mã bưu điện"
-                  />
+                  <input type="text" class="form__input" placeholder="Mã bưu điện" />
                 </div>
                 <div class="form__btn">
                   <button class="btn flex btn--sm">
@@ -183,11 +163,7 @@ onMounted(() => {
               <h3 class="section__title">Mã giảm giá</h3>
               <form action="" class="coupon__form form grid">
                 <div class="form__group grid">
-                  <input
-                    type="text"
-                    class="form__input"
-                    placeholder="Nhập mã giảm giá"
-                  />
+                  <input type="text" class="form__input" placeholder="Nhập mã giảm giá" />
                   <div class="form__btn">
                     <button class="btn flex btn--sm">
                       <i class="fi-rs-label"></i> Áp dụng
@@ -201,18 +177,18 @@ onMounted(() => {
           <div class="cart__total">
             <h3 class="section__title">Tổng giỏ hàng</h3>
             <table class="cart__total-table">
-                <tr>
-                  <td><span class="cart__total-title">Tổng phụ</span></td>
-                  <td><span class="cart__total-price">$240.00</span></td>
-                </tr>
-                <tr>
-                  <td><span class="cart__total-title">Vận chuyển</span></td>
-                  <td><span class="cart__total-price">$10.00</span></td>
-                </tr>
-                <tr>
-                  <td><span class="cart__total-title">Tổng cộng</span></td>
-                  <td><span class="cart__total-price">$250.00</span></td>
-                </tr>
+              <tr>
+                <td><span class="cart__total-title">Tổng phụ</span></td>
+                <td><span class="cart__total-price">$240.00</span></td>
+              </tr>
+              <tr>
+                <td><span class="cart__total-title">Vận chuyển</span></td>
+                <td><span class="cart__total-price">$10.00</span></td>
+              </tr>
+              <tr>
+                <td><span class="cart__total-title">Tổng cộng</span></td>
+                <td><span class="cart__total-price">$250.00</span></td>
+              </tr>
             </table>
             <a :href="route('checkout')" class="btn flex btn--md">
               <i class="fi fi-rs-box-alt"></i> Tiến hành thanh toán
@@ -225,22 +201,14 @@ onMounted(() => {
       <section class="newsletter section">
         <div class="newsletter__container container grid">
           <h3 class="newsletter__title flex">
-            <img
-              src="/assets/img/icon-email.svg"
-              alt=""
-              class="newsletter__icon"
-            />
+            <img src="/assets/img/icon-email.svg" alt="" class="newsletter__icon" />
             Đăng ký nhận bản tin
           </h3>
           <p class="newsletter__description">
             ...và nhận phiếu giảm giá $25 cho lần mua sắm đầu tiên.
           </p>
           <form action="" class="newsletter__form">
-            <input
-              type="text"
-              placeholder="Nhập email của bạn"
-              class="newsletter__input"
-            />
+            <input type="text" placeholder="Nhập email của bạn" class="newsletter__input" />
             <button type="submit" class="newsletter__btn">Đăng ký</button>
           </form>
         </div>
