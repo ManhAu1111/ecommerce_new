@@ -69,7 +69,9 @@ require __DIR__ . '/auth.php';
 |--------------------------------------------------------------------------
 */
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Profile\ProfileController;
+use App\Http\Controllers\Profile\PasswordController;
+
 
 Route::middleware('auth')->group(function () {
 
@@ -79,6 +81,9 @@ Route::middleware('auth')->group(function () {
 
     Route::put('/profile', [ProfileController::class, 'update'])
         ->name('profile.update');
+
+    Route::put('/profile/password', [PasswordController::class, 'update'])
+        ->name('password.update');
 });
 
 /*

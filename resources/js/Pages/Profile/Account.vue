@@ -29,6 +29,29 @@ const updateProfile = () => {
   })
 }
 
+// đổi mẩt khẩu
+const passwordForm = useForm({
+  current_password: '',
+  password: '',
+  password_confirmation: '',
+})
+
+const updatePassword = () => {
+  passwordForm.put(route('password.update'), {
+    preserveScroll: true,
+    onSuccess: () => {
+      passwordForm.reset()
+      alert('Đổi mật khẩu thành công!')
+    }
+  })
+}
+
+const showPassword = ref({
+  current: false,
+  new: false,
+  confirm: false,
+})
+
 // đăng xuất
 const showLogoutModal = ref(false)
 
@@ -232,12 +255,33 @@ onMounted(() => {
               v-if="activeTab === 'change-password'">
               <h3 class="tab__header">Đổi mật khẩu</h3>
               <div class="tab__body">
-                <form class="form grid">
-                  <input type="password" placeholder="Mật khẩu hiện tại" class="form__input" />
-                  <input type="password" placeholder="Mật khẩu mới" class="form__input" />
-                  <input type="password" placeholder="Xác nhận mật khẩu" class="form__input" />
+                <form class="form grid" @submit.prevent="updatePassword">
+                  <input type="password" placeholder="Mật khẩu hiện tại" class="form__input"
+                    v-model="passwordForm.current_password" />
+                  <p v-if="passwordForm.errors.current_password" class="text-red-500 text-sm">
+                    {{ passwordForm.errors.current_password }}
+                  </p>
+
+                  <input type="password" placeholder="Mật khẩu mới" class="form__input"
+                    v-model="passwordForm.password" />
+                  <p v-if="passwordForm.errors.password" class="text-red-500 text-sm">
+                    {{ passwordForm.errors.password }}
+                  </p>
+
+                  <input type="password" placeholder="Xác nhận mật khẩu" class="form__input"
+                    v-model="passwordForm.password_confirmation" />
+                  <p v-if="passwordForm.errors.password_confirmation" class="text-red-500 text-sm">
+                    {{ passwordForm.errors.password_confirmation }}
+                  </p>
+
+                  <p v-if="passwordForm.errors.general" class="text-red-500 text-sm mb-2">
+                    {{ passwordForm.errors.general }}
+                  </p>
+
                   <div class="form__btn">
-                    <button class="btn btn--md">Lưu</button>
+                    <button type="submit" class="btn btn--md" :disabled="passwordForm.processing">
+                      Lưu
+                    </button>
                   </div>
                 </form>
               </div>
