@@ -1,6 +1,6 @@
 <script setup>
 import MainLayout from '@/Layouts/MainLayout.vue';
-import { Head, router, usePage } from '@inertiajs/vue3'
+import { Head, router, usePage, useForm } from '@inertiajs/vue3'
 import { onMounted, ref, computed } from 'vue';
 
 const activeTab = ref('dashboard');
@@ -13,6 +13,23 @@ const changeTab = (tabName) => {
   activeTab.value = tabName;
 };
 
+// đổi tên
+const form = useForm({
+  name: user.value?.name || '',
+  email: user.value?.email || '',
+
+})
+
+const updateProfile = () => {
+  form.put(route('profile.update'), {
+    preserveScroll: true,
+    onSuccess: () => {
+      alert('Cập nhật tên người dùng thành công!')
+    }
+  })
+}
+
+// đăng xuất
 const showLogoutModal = ref(false)
 
 const logout = () => {
@@ -187,10 +204,11 @@ onMounted(() => {
               v-if="activeTab === 'update-profile'">
               <h3 class="tab__header">Cập nhật hồ sơ</h3>
               <div class="tab__body">
-                <form class="form grid">
-                  <input type="text" placeholder="Tên người dùng" class="form__input" />
+                <form class="form grid" @submit.prevent="updateProfile">
+                  <input type="text" placeholder="Tên người dùng" class="form__input" v-model="form.name" />
+                  <input type="email" class="form__input" placeholder="Email" v-model="form.email" disabled />
                   <div class="form__btn">
-                    <button class="btn btn--md">Lưu</button>
+                    <button type="submit" class="btn btn--md" :disabled="form.processing">Lưu</button>
                   </div>
                 </form>
               </div>
