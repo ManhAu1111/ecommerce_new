@@ -41,23 +41,32 @@ const user = page.props.auth.user
                     </div>
                     <ul class="nav__list">
                         <li class="nav__item">
-                            <Link :href="route('home')" class="nav__link active-link">Trang chủ</Link>
+                            <Link :href="route('home')" class="nav__link"
+                                :class="{ 'active-link': route().current('home') }">
+                                Trang chủ
+                            </Link>
                         </li>
+
                         <li class="nav__item">
-                            <Link :href="route('shop')" class="nav__link">Cửa hàng</Link>
+                            <Link :href="route('shop')" class="nav__link"
+                                :class="{ 'active-link': route().current('shop*') }">
+                                Cửa hàng
+                            </Link>
                         </li>
+
                         <li class="nav__item" v-if="user">
-                            <Link :href="route('account')" class="nav__link">
+                            <Link :href="route('account')" class="nav__link"
+                                :class="{ 'active-link': route().current('account*') }">
                                 Tài khoản
                             </Link>
                         </li>
 
                         <li class="nav__item" v-if="!user">
-                            <Link :href="route('login')" class="nav__link">
+                            <Link :href="route('login')" class="nav__link"
+                                :class="{ 'active-link': route().current('login') }">
                                 Đăng nhập
                             </Link>
                         </li>
-
                     </ul>
                     <div class="header__search">
                         <input type="text" placeholder="Tìm kiếm sản phẩm..." class="form__input" />
@@ -97,13 +106,13 @@ const user = page.props.auth.user
                     </a>
                     <h4 class="footer__subtitle">Liên hệ</h4>
                     <p class="footer__description">
-                        <span>Địa chỉ:</span> 13 Tlemcen Road, Street 32, Beb-Wahren
+                        <span>Địa chỉ:</span> Đại học Kiến Trúc Hà Nội
                     </p>
                     <p class="footer__description">
-                        <span>Điện thoại:</span> +01 2222 365 /(+91) 01 2345 6789
+                        <span>Điện thoại:</span> +0123456789
                     </p>
                     <p class="footer__description">
-                        <span>Giờ làm việc:</span> 10:00 - 18:00, Thứ 2 - Thứ 7
+                        <span>Giờ làm việc:</span> 8:00 - 20:00, Thứ 2 - Thứ 7
                     </p>
                     <div class="footer__social">
                         <h4 class="footer__subtitle">Theo dõi tôi</h4>
