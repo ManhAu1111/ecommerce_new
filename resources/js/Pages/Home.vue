@@ -67,35 +67,35 @@ onMounted(() => {
           <h3 class="section__title"><span>Danh mục</span> Phổ biến</h3>
           <div class="categories__container swiper">
             <div class="swiper-wrapper">
-              <a href="shop.html" class="category__item swiper-slide">
+              <a :href="route('shop')" class="category__item swiper-slide">
                 <img src="/assets/img/category-1.jpg" alt="" class="category__img" />
                 <h3 class="category__title">Áo thun</h3>
               </a>
-              <a href="shop.html" class="category__item swiper-slide">
+              <a :href="route('shop')" class="category__item swiper-slide">
                 <img src="/assets/img/category-2.jpg" alt="" class="category__img" />
                 <h3 class="category__title">Túi xách</h3>
               </a>
-              <a href="shop.html" class="category__item swiper-slide">
+              <a :href="route('shop')" class="category__item swiper-slide">
                 <img src="/assets/img/category-3.jpg" alt="" class="category__img" />
                 <h3 class="category__title">Dép</h3>
               </a>
-              <a href="shop.html" class="category__item swiper-slide">
+              <a :href="route('shop')" class="category__item swiper-slide">
                 <img src="/assets/img/category-4.jpg" alt="" class="category__img" />
                 <h3 class="category__title">Khăn & Mũ</h3>
               </a>
-              <a href="shop.html" class="category__item swiper-slide">
+              <a :href="route('shop')" class="category__item swiper-slide">
                 <img src="/assets/img/category-5.jpg" alt="" class="category__img" />
                 <h3 class="category__title">Giày</h3>
               </a>
-              <a href="shop.html" class="category__item swiper-slide">
+              <a :href="route('shop')" class="category__item swiper-slide">
                 <img src="/assets/img/category-6.jpg" alt="" class="category__img" />
                 <h3 class="category__title">Vỏ gối</h3>
               </a>
-              <a href="shop.html" class="category__item swiper-slide">
+              <a :href="route('shop')" class="category__item swiper-slide">
                 <img src="/assets/img/category-7.jpg" alt="" class="category__img" />
                 <h3 class="category__title">Jumpsuit</h3>
               </a>
-              <a href="shop.html" class="category__item swiper-slide">
+              <a :href="route('shop')" class="category__item swiper-slide">
                 <img src="/assets/img/category-8.jpg" alt="" class="category__img" />
                 <h3 class="category__title">Mũ</h3>
               </a>
@@ -1092,7 +1092,7 @@ onMounted(() => {
         </section>
 
         <!--=============== DEALS ===============-->
-        <section class="deals section">
+        <!-- <section class="deals section">
           <div class="deals__container container grid">
             <div class="deals__item">
               <div class="deals__group">
@@ -1165,7 +1165,7 @@ onMounted(() => {
               </div>
             </div>
           </div>
-        </section>
+        </section> -->
 
         <!--=============== NEW ARRIVALS ===============-->
         <section class="new__arrivals container section">
