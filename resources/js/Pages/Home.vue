@@ -69,35 +69,35 @@ onMounted(() => {
             <div class="swiper-wrapper">
               <a :href="route('shop')" class="category__item swiper-slide">
                 <img src="/assets/img/category-1.jpg" alt="" class="category__img" />
-                <h3 class="category__title">Áo thun</h3>
+                <h3 class="category__title">Lego</h3>
               </a>
               <a :href="route('shop')" class="category__item swiper-slide">
                 <img src="/assets/img/category-2.jpg" alt="" class="category__img" />
-                <h3 class="category__title">Túi xách</h3>
+                <h3 class="category__title">Mô hình</h3>
               </a>
               <a :href="route('shop')" class="category__item swiper-slide">
                 <img src="/assets/img/category-3.jpg" alt="" class="category__img" />
-                <h3 class="category__title">Dép</h3>
+                <h3 class="category__title">Robot</h3>
               </a>
               <a :href="route('shop')" class="category__item swiper-slide">
                 <img src="/assets/img/category-4.jpg" alt="" class="category__img" />
-                <h3 class="category__title">Khăn & Mũ</h3>
+                <h3 class="category__title">Rubik</h3>
               </a>
               <a :href="route('shop')" class="category__item swiper-slide">
                 <img src="/assets/img/category-5.jpg" alt="" class="category__img" />
-                <h3 class="category__title">Giày</h3>
+                <h3 class="category__title">Đồ chơi STEM</h3>
               </a>
               <a :href="route('shop')" class="category__item swiper-slide">
                 <img src="/assets/img/category-6.jpg" alt="" class="category__img" />
-                <h3 class="category__title">Vỏ gối</h3>
+                <h3 class="category__title">Gấu Bông</h3>
               </a>
               <a :href="route('shop')" class="category__item swiper-slide">
                 <img src="/assets/img/category-7.jpg" alt="" class="category__img" />
-                <h3 class="category__title">Jumpsuit</h3>
+                <h3 class="category__title">Blind Box</h3>
               </a>
               <a :href="route('shop')" class="category__item swiper-slide">
                 <img src="/assets/img/category-8.jpg" alt="" class="category__img" />
-                <h3 class="category__title">Mũ</h3>
+                <h3 class="category__title">Card Game</h3>
               </a>
             </div>
 
@@ -141,9 +141,9 @@ onMounted(() => {
                     <div class="product__badge light-pink">Hot</div>
                   </div>
                   <div class="product__content">
-                    <span class="product__category">Quần áo</span>
+                    <span class="product__category">Đồ chơi lắp ráp</span>
                     <a :href="route('detail')">
-                      <h3 class="product__title">Áo sơ mi họa tiết</h3>
+                      <h3 class="product__title">Bộ xếp hình LEGO City</h3>
                     </a>
                     <div class="product__rating">
                       <i class="fi fi-rs-star"></i>
@@ -181,9 +181,9 @@ onMounted(() => {
                     <div class="product__badge light-green">Hot</div>
                   </div>
                   <div class="product__content">
-                    <span class="product__category">Quần áo</span>
+                    <span class="product__category">Robot đồ chơi</span>
                     <a :href="route('detail')">
-                      <h3 class="product__title">Áo sơ mi họa tiết</h3>
+                      <h3 class="product__title">Robot điều khiển từ xa</h3>
                     </a>
                     <div class="product__rating">
                       <i class="fi fi-rs-star"></i>
@@ -221,9 +221,9 @@ onMounted(() => {
                     <div class="product__badge light-orange">Hot</div>
                   </div>
                   <div class="product__content">
-                    <span class="product__category">Quần áo</span>
+                    <span class="product__category">Xe mô hình</span>
                     <a :href="route('detail')">
-                      <h3 class="product__title">Áo sơ mi họa tiết</h3>
+                      <h3 class="product__title">Xe ô tô mô hình tỷ lệ 1:18</h3>
                     </a>
                     <div class="product__rating">
                       <i class="fi fi-rs-star"></i>
@@ -261,9 +261,9 @@ onMounted(() => {
                     <div class="product__badge light-blue">Hot</div>
                   </div>
                   <div class="product__content">
-                    <span class="product__category">Quần áo</span>
+                    <span class="product__category">Búp bê</span>
                     <a :href="route('detail')">
-                      <h3 class="product__title">Áo sơ mi họa tiết</h3>
+                      <h3 class="product__title">Búp bê thời trang</h3>
                     </a>
                     <div class="product__rating">
                       <i class="fi fi-rs-star"></i>
@@ -301,9 +301,9 @@ onMounted(() => {
                     <div class="product__badge light-blue">-30%</div>
                   </div>
                   <div class="product__content">
-                    <span class="product__category">Quần áo</span>
+                    <span class="product__category">Đồ chơi giáo dục</span>
                     <a :href="route('detail')">
-                      <h3 class="product__title">Áo sơ mi họa tiết</h3>
+                      <h3 class="product__title">Bộ học chữ và số cho bé</h3>
                     </a>
                     <div class="product__rating">
                       <i class="fi fi-rs-star"></i>
@@ -341,9 +341,9 @@ onMounted(() => {
                     <div class="product__badge light-blue">-22%</div>
                   </div>
                   <div class="product__content">
-                    <span class="product__category">Quần áo</span>
+                    <span class="product__category">Trò chơi bàn cờ</span>
                     <a :href="route('detail')">
-                      <h3 class="product__title">Áo sơ mi họa tiết</h3>
+                      <h3 class="product__title">Board Game Ma Sói</h3>
                     </a>
                     <div class="product__rating">
                       <i class="fi fi-rs-star"></i>
@@ -381,9 +381,9 @@ onMounted(() => {
                     <div class="product__badge light-green">-22%</div>
                   </div>
                   <div class="product__content">
-                    <span class="product__category">Quần áo</span>
+                    <span class="product__category">Đồ chơi vận động</span>
                     <a :href="route('detail')">
-                      <h3 class="product__title">Áo sơ mi họa tiết</h3>
+                      <h3 class="product__title">Xe scooter trẻ em</h3>
                     </a>
                     <div class="product__rating">
                       <i class="fi fi-rs-star"></i>
@@ -420,9 +420,9 @@ onMounted(() => {
                     </div>
                   </div>
                   <div class="product__content">
-                    <span class="product__category">Quần áo</span>
+                    <span class="product__category">Mô hình nhân vật</span>
                     <a :href="route('detail')">
-                      <h3 class="product__title">Áo sơ mi họa tiết</h3>
+                      <h3 class="product__title">Mô hình Naruto Uzumaki</h3>
                     </a>
                     <div class="product__rating">
                       <i class="fi fi-rs-star"></i>
@@ -1192,9 +1192,9 @@ onMounted(() => {
                   <div class="product__badge light-pink">Hot</div>
                 </div>
                 <div class="product__content">
-                  <span class="product__category">Clothing</span>
+                  <span class="product__category">Đồ chơi lắp ráp</span>
                   <a :href="route('detail')">
-                    <h3 class="product__title">Colorful Pattern Shirts</h3>
+                    <h3 class="product__title">Bộ xếp hình LEGO City</h3>
                   </a>
                   <div class="product__rating">
                     <i class="fi fi-rs-star"></i>
@@ -1232,9 +1232,9 @@ onMounted(() => {
                   <div class="product__badge light-green">Hot</div>
                 </div>
                 <div class="product__content">
-                  <span class="product__category">Clothing</span>
+                  <span class="product__category">Robot đồ chơi</span>
                   <a :href="route('detail')">
-                    <h3 class="product__title">Colorful Pattern Shirts</h3>
+                    <h3 class="product__title">Robot điều khiển từ xa</h3>
                   </a>
                   <div class="product__rating">
                     <i class="fi fi-rs-star"></i>
@@ -1272,9 +1272,9 @@ onMounted(() => {
                   <div class="product__badge light-orange">Hot</div>
                 </div>
                 <div class="product__content">
-                  <span class="product__category">Clothing</span>
+                  <span class="product__category">Búp bê</span>
                   <a :href="route('detail')">
-                    <h3 class="product__title">Colorful Pattern Shirts</h3>
+                    <h3 class="product__title">Búp bê thời trang Barbie</h3>
                   </a>
                   <div class="product__rating">
                     <i class="fi fi-rs-star"></i>
@@ -1312,9 +1312,9 @@ onMounted(() => {
                   <div class="product__badge light-blue">Hot</div>
                 </div>
                 <div class="product__content">
-                  <span class="product__category">Clothing</span>
+                  <span class="product__category">Trò chơi bàn cờ</span>
                   <a :href="route('detail')">
-                    <h3 class="product__title">Colorful Pattern Shirts</h3>
+                    <h3 class="product__title">Board Game Ma Sói</h3>
                   </a>
                   <div class="product__rating">
                     <i class="fi fi-rs-star"></i>
@@ -1352,9 +1352,9 @@ onMounted(() => {
                   <div class="product__badge light-blue">-30%</div>
                 </div>
                 <div class="product__content">
-                  <span class="product__category">Clothing</span>
+                  <span class="product__category">Mô hình nhân vật</span>
                   <a :href="route('detail')">
-                    <h3 class="product__title">Colorful Pattern Shirts</h3>
+                    <h3 class="product__title">Mô hình Naruto Uzumaki</h3>
                   </a>
                   <div class="product__rating">
                     <i class="fi fi-rs-star"></i>
@@ -1392,9 +1392,9 @@ onMounted(() => {
                   <div class="product__badge light-blue">-22%</div>
                 </div>
                 <div class="product__content">
-                  <span class="product__category">Clothing</span>
+                  <span class="product__category">Đồ chơi vận động</span>
                   <a :href="route('detail')">
-                    <h3 class="product__title">Colorful Pattern Shirts</h3>
+                    <h3 class="product__title">Xe scooter trẻ em</h3>
                   </a>
                   <div class="product__rating">
                     <i class="fi fi-rs-star"></i>
@@ -1432,9 +1432,9 @@ onMounted(() => {
                   <div class="product__badge light-green">-22%</div>
                 </div>
                 <div class="product__content">
-                  <span class="product__category">Clothing</span>
+                  <span class="product__category">Đồ chơi giáo dục</span>
                   <a :href="route('detail')">
-                    <h3 class="product__title">Colorful Pattern Shirts</h3>
+                    <h3 class="product__title">Bộ đồ chơi giáo dục STEM</h3>
                   </a>
                   <div class="product__rating">
                     <i class="fi fi-rs-star"></i>
