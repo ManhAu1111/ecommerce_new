@@ -1,8 +1,16 @@
 <script setup>
-import { Link, usePage } from '@inertiajs/vue3'
+import { Link, usePage, router } from '@inertiajs/vue3'
+import { ref } from 'vue'
 
 const page = usePage()
 const user = page.props.auth.user
+
+const showLogoutModal = ref(false)
+
+const logout = () => {
+    router.post(route('logout'))
+}
+
 </script>
 
 
@@ -84,6 +92,10 @@ const user = page.props.auth.user
                         <img src="/assets/img/icon-cart.svg" alt="" />
                         <span class="count">3</span>
                     </a>
+                    <button v-if="user" @click="showLogoutModal = true" class="header__action-btn" title="Đăng xuất"
+                        type="button">
+                        <img src="/assets/img/logout.svg" alt="logout" />
+                    </button>
                     <div class="header__action-btn nav__toggle" id="nav-toggle">
                         <img src="/assets/img/menu-burger.svg" alt="">
                     </div>
@@ -178,4 +190,31 @@ const user = page.props.auth.user
             </div>
         </footer>
     </div>
+
+    <!-- hỏi đăng xuất -->
+    <!-- Logout Confirm Modal -->
+    <div v-if="showLogoutModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-md p-6">
+            <h2 class="text-lg font-semibold text-gray-800 mb-4">
+                Xác nhận đăng xuất
+            </h2>
+
+            <p class="text-gray-600 mb-6">
+                Bạn có chắc chắn muốn đăng xuất khỏi tài khoản không?
+            </p>
+
+            <div class="flex justify-end gap-3">
+                <button @click="showLogoutModal = false"
+                    class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100">
+                    Hủy
+                </button>
+
+                <button @click="logout"
+                    class="px-4 py-2 rounded-lg text-white bg-[#088179] hover:bg-[#066f68] transition">
+                    Đăng xuất
+                </button>
+            </div>
+        </div>
+    </div>
+
 </template>
