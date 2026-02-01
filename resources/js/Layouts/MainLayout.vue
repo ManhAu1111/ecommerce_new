@@ -1,8 +1,16 @@
 <script setup>
-import { Link, usePage } from '@inertiajs/vue3'
+import { Link, usePage, router } from '@inertiajs/vue3'
+import { ref } from 'vue'
 
 const page = usePage()
 const user = page.props.auth.user
+
+const showLogoutModal = ref(false)
+
+const logout = () => {
+    router.post(route('logout'))
+}
+
 </script>
 
 
@@ -41,23 +49,32 @@ const user = page.props.auth.user
                     </div>
                     <ul class="nav__list">
                         <li class="nav__item">
-                            <Link :href="route('home')" class="nav__link active-link">Trang chủ</Link>
+                            <Link :href="route('home')" class="nav__link"
+                                :class="{ 'active-link': route().current('home') }">
+                                Trang chủ
+                            </Link>
                         </li>
+
                         <li class="nav__item">
-                            <Link :href="route('shop')" class="nav__link">Cửa hàng</Link>
+                            <Link :href="route('shop')" class="nav__link"
+                                :class="{ 'active-link': route().current('shop*') }">
+                                Cửa hàng
+                            </Link>
                         </li>
+
                         <li class="nav__item" v-if="user">
-                            <Link :href="route('account')" class="nav__link">
+                            <Link :href="route('account')" class="nav__link"
+                                :class="{ 'active-link': route().current('account*') }">
                                 Tài khoản
                             </Link>
                         </li>
 
                         <li class="nav__item" v-if="!user">
-                            <Link :href="route('login')" class="nav__link">
+                            <Link :href="route('login')" class="nav__link"
+                                :class="{ 'active-link': route().current('login') }">
                                 Đăng nhập
                             </Link>
                         </li>
-
                     </ul>
                     <div class="header__search">
                         <input type="text" placeholder="Tìm kiếm sản phẩm..." class="form__input" />
@@ -75,6 +92,10 @@ const user = page.props.auth.user
                         <img src="/assets/img/icon-cart.svg" alt="" />
                         <span class="count">3</span>
                     </a>
+                    <button v-if="user" @click="showLogoutModal = true" class="header__action-btn" title="Đăng xuất"
+                        type="button">
+                        <img src="/assets/img/logout.svg" alt="logout" />
+                    </button>
                     <div class="header__action-btn nav__toggle" id="nav-toggle">
                         <img src="/assets/img/menu-burger.svg" alt="">
                     </div>
@@ -97,13 +118,13 @@ const user = page.props.auth.user
                     </a>
                     <h4 class="footer__subtitle">Liên hệ</h4>
                     <p class="footer__description">
-                        <span>Địa chỉ:</span> 13 Tlemcen Road, Street 32, Beb-Wahren
+                        <span>Địa chỉ:</span> Đại học Kiến Trúc Hà Nội
                     </p>
                     <p class="footer__description">
-                        <span>Điện thoại:</span> +01 2222 365 /(+91) 01 2345 6789
+                        <span>Điện thoại:</span> +0123456789
                     </p>
                     <p class="footer__description">
-                        <span>Giờ làm việc:</span> 10:00 - 18:00, Thứ 2 - Thứ 7
+                        <span>Giờ làm việc:</span> 8:00 - 20:00, Thứ 2 - Thứ 7
                     </p>
                     <div class="footer__social">
                         <h4 class="footer__subtitle">Theo dõi tôi</h4>
@@ -169,4 +190,31 @@ const user = page.props.auth.user
             </div>
         </footer>
     </div>
+
+    <!-- hỏi đăng xuất -->
+    <!-- Logout Confirm Modal -->
+    <div v-if="showLogoutModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-md p-6">
+            <h2 class="text-lg font-semibold text-gray-800 mb-4">
+                Xác nhận đăng xuất
+            </h2>
+
+            <p class="text-gray-600 mb-6">
+                Bạn có chắc chắn muốn đăng xuất khỏi tài khoản không?
+            </p>
+
+            <div class="flex justify-end gap-3">
+                <button @click="showLogoutModal = false"
+                    class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100">
+                    Hủy
+                </button>
+
+                <button @click="logout"
+                    class="px-4 py-2 rounded-lg text-white bg-[#088179] hover:bg-[#066f68] transition">
+                    Đăng xuất
+                </button>
+            </div>
+        </div>
+    </div>
+
 </template>
