@@ -156,7 +156,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -196,7 +196,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -236,7 +236,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -276,7 +276,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -316,7 +316,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -356,7 +356,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -396,7 +396,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -435,7 +435,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -479,7 +479,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -519,7 +519,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -559,7 +559,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -599,7 +599,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -639,7 +639,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -679,7 +679,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -719,7 +719,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -758,7 +758,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -802,7 +802,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -842,7 +842,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -882,7 +882,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -922,7 +922,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -962,7 +962,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -1002,7 +1002,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -1042,7 +1042,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -1081,7 +1081,7 @@ onMounted(() => {
                       <span class="new__price">$238.85</span>
                       <span class="old__price">$245.8</span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
                   </div>
@@ -1207,7 +1207,7 @@ onMounted(() => {
                     <span class="new__price">$238.85</span>
                     <span class="old__price">$245.8</span>
                   </div>
-                  <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                  <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                     <i class="fi fi-rs-shopping-bag-add"></i>
                   </a>
                 </div>
@@ -1247,7 +1247,7 @@ onMounted(() => {
                     <span class="new__price">$238.85</span>
                     <span class="old__price">$245.8</span>
                   </div>
-                  <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                  <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                     <i class="fi fi-rs-shopping-bag-add"></i>
                   </a>
                 </div>
@@ -1287,7 +1287,7 @@ onMounted(() => {
                     <span class="new__price">$238.85</span>
                     <span class="old__price">$245.8</span>
                   </div>
-                  <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                  <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                     <i class="fi fi-rs-shopping-bag-add"></i>
                   </a>
                 </div>
@@ -1327,7 +1327,7 @@ onMounted(() => {
                     <span class="new__price">$238.85</span>
                     <span class="old__price">$245.8</span>
                   </div>
-                  <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                  <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                     <i class="fi fi-rs-shopping-bag-add"></i>
                   </a>
                 </div>
@@ -1367,7 +1367,7 @@ onMounted(() => {
                     <span class="new__price">$238.85</span>
                     <span class="old__price">$245.8</span>
                   </div>
-                  <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                  <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                     <i class="fi fi-rs-shopping-bag-add"></i>
                   </a>
                 </div>
@@ -1407,7 +1407,7 @@ onMounted(() => {
                     <span class="new__price">$238.85</span>
                     <span class="old__price">$245.8</span>
                   </div>
-                  <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                  <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                     <i class="fi fi-rs-shopping-bag-add"></i>
                   </a>
                 </div>
@@ -1447,7 +1447,7 @@ onMounted(() => {
                     <span class="new__price">$238.85</span>
                     <span class="old__price">$245.8</span>
                   </div>
-                  <a href="#" class="action__btn cart__btn" aria-label="Add To Cart">
+                  <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                     <i class="fi fi-rs-shopping-bag-add"></i>
                   </a>
                 </div>
