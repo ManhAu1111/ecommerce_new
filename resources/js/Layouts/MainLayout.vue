@@ -84,11 +84,11 @@ const logout = () => {
                     </div>
                 </div>
                 <div class="header__user-actions">
-                    <a :href="route('wishlist')" class="header__action-btn" title="Danh sách yêu thích">
+                    <a v-if="user" :href="route('wishlist')" class="header__action-btn" title="Danh sách yêu thích">
                         <img src="/assets/img/icon-heart.svg" alt="" />
                         <span class="count">3</span>
                     </a>
-                    <a :href="route('cart')" class="header__action-btn" title="Giỏ hàng">
+                    <a v-if="user" :href="route('cart')" class="header__action-btn" title="Giỏ hàng">
                         <img src="/assets/img/icon-cart.svg" alt="" />
                         <span class="count">3</span>
                     </a>
