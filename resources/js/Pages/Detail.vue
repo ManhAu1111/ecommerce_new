@@ -128,19 +128,13 @@ onMounted(() => {
           </div>
 
           <div class="details__group">
-            <h3 class="details__title">Henley Shirt</h3>
-            <p class="details__brand">Brand: <span>adidas</span></p>
+            <h3 class="details__title">Đồ chơi gỗ mê cung hạt – Bead Maze Montessori cho bé</h3>
+            <p class="details__brand">Danh mục: <span>Đồ chơi trí tuệ</span></p>
             <div class="details__price flex">
-              <span class="new__price">$116</span>
-              <span class="old__price">$200.00</span>
-              <span class="save__price">25% Off</span>
+              <span class="new__price">250.000₫</span>
             </div>
             <p class="short__description">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Voluptate, fuga. Quo blanditiis recusandae facere nobis cum optio,
-              inventore aperiam placeat, quis maxime nam officiis illum? Optio
-              et nisi eius, inventore impedit ratione sunt, cumque, eligendi
-              asperiores iste porro non error?
+              Đồ chơi mê cung hạt gỗ giúp bé rèn luyện tư duy logic, khả năng phối hợp tay – mắt và nhận biết màu sắc thông qua việc di chuyển các hạt trên khung dây kim loại nhiều hình dạng.
             </p>
             <ul class="products__list">
               <li class="list__item flex">
