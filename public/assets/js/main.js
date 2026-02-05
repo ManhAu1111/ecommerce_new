@@ -112,3 +112,29 @@ tabs.forEach((tab) => {
     tab.classList.add("active-tab");
   });
 });
+
+
+// js cho trang sản phẩm
+const mainViewer = document.getElementById('mainViewer');
+const mainImage  = document.getElementById('mainImage');
+const thumbs = document.querySelectorAll('.thumb');
+
+thumbs.forEach(thumb => {
+    thumb.addEventListener('click', () => {
+
+        // remove active
+        thumbs.forEach(t => t.classList.remove('active'));
+        thumb.classList.add('active');
+
+        const type = thumb.dataset.type;
+
+        if (type === 'model') {
+            mainViewer.style.display = 'block';
+            mainImage.style.display = 'none';
+        } else {
+            mainImage.src = thumb.dataset.src;
+            mainImage.style.display = 'block';
+            mainViewer.style.display = 'none';
+        }
+    });
+});

@@ -59,27 +59,68 @@ onMounted(() => {
       <section class="details section--lg">
         <div class="details__container container grid">
           <div class="details__group">
-            <img
-              src="/assets/img/product-8-1.jpg"
-              alt=""
-              class="details__img"
-            />
+
+            <!-- KHUNG HIỂN THỊ CHÍNH -->
+            <div class="details__main">
+
+                <!-- MODEL 3D (mặc định hiển thị) -->
+                <model-viewer
+                    id="mainViewer"
+                    src="/uploads/model3d/1/kid_toy_low_poly.glb"
+                    alt="Model 3D"
+                    auto-rotate
+                    camera-controls
+                    shadow-intensity="1"
+                    exposure="1"
+                    style="width:100%; height:400px; background:#f1f1f1; border-radius:8px;">
+                </model-viewer>
+
+                <!-- ẢNH LỚN (ẩn ban đầu) -->
+                <img
+                    id="mainImage"
+                    src=""
+                    alt=""
+                    class="details__img"
+                    style="display:none;"
+                />
+            </div>
+
+            <!-- THANH ẢNH NHỎ -->
             <div class="details__small-images grid">
-              <img
-                src="/assets/img/product-8-2.jpg"
-                alt=""
-                class="details__small-img"
-              />
-              <img
-                src="/assets/img/product-8-1.jpg"
-                alt=""
-                class="details__small-img"
-              />
-              <img
-                src="/assets/img/product-8-2.jpg"
-                alt=""
-                class="details__small-img"
-              />
+
+                <!-- THUMB MODEL -->
+                <div class="thumb active" data-type="model">
+                    <model-viewer
+                        src="/uploads/model3d/1/kid_toy_low_poly.glb"
+                        interaction-prompt="none"
+                        disable-zoom
+                        disable-pan
+                        disable-tap
+                        style="width:100%; height:100%; background:#eee;">
+                    </model-viewer>
+                </div>
+
+                <!-- THUMB ẢNH -->
+                <img
+                    src="/uploads/product_images/1/1.jpg"
+                    class="details__small-img thumb"
+                    data-type="image"
+                    data-src="/uploads/product_images/1/1.jpg"
+                />
+
+                <img
+                    src="/uploads/product_images/1/2.jpg"
+                    class="details__small-img thumb"
+                    data-type="image"
+                    data-src="/uploads/product_images/1/2.jpg"
+                />
+
+                <img
+                    src="/uploads/product_images/1/3.jpg"
+                    class="details__small-img thumb"
+                    data-type="image"
+                    data-src="/uploads/product_images/1/3.jpg"
+                />
             </div>
           </div>
           <div class="details__group">

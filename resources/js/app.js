@@ -25,3 +25,29 @@ createInertiaApp({
         color: '#4B5563',
     },
 });
+
+// js cho trang sản phẩm
+document.addEventListener('click', function (e) {
+
+    const thumb = e.target.closest('.thumb');
+    if (!thumb) return;
+
+    const type = thumb.dataset.type;
+    const mainViewer = document.getElementById('mainViewer');
+    const mainImage  = document.getElementById('mainImage');
+
+    // remove active
+    document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+    thumb.classList.add('active');
+
+    if (type === 'image') {
+        mainImage.src = thumb.dataset.src;
+        mainImage.style.display = 'block';
+        mainViewer.style.display = 'none';
+    }
+
+    if (type === 'model') {
+        mainViewer.style.display = 'block';
+        mainImage.style.display = 'none';
+    }
+});
