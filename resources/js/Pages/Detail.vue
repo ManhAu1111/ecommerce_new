@@ -58,71 +58,75 @@ onMounted(() => {
       <!--=============== DETAILS ===============-->
       <section class="details section--lg">
         <div class="details__container container grid">
-          <div class="details__group">
+          <div class="details">
+            <div class="details__group">
 
-            <!-- KHUNG HIỂN THỊ CHÍNH -->
-            <div class="details__main">
+              <!-- KHUNG HIỂN THỊ CHÍNH -->
+              <div class="details__main">
 
-                <!-- MODEL 3D (mặc định hiển thị) -->
-                <model-viewer
+                  <!-- MODEL 3D (mặc định hiển thị) -->
+                  <model-viewer
                     id="mainViewer"
                     src="/uploads/model3d/1/kid_toy_low_poly.glb"
-                    alt="Model 3D"
-                    auto-rotate
                     camera-controls
-                    shadow-intensity="1"
-                    exposure="1"
-                    style="width:100%; height:400px; background:#f1f1f1; border-radius:8px;">
+                    auto-rotate
+                    camera-orbit="0deg 75deg 105%"
+                    min-camera-orbit="auto auto 80%"
+                    max-camera-orbit="auto auto 120%"
+                    style="width:100%; height:100%;">
                 </model-viewer>
 
-                <!-- ẢNH LỚN (ẩn ban đầu) -->
-                <img
-                    id="mainImage"
-                    src=""
-                    alt=""
-                    class="details__img"
-                    style="display:none;"
-                />
-            </div>
 
-            <!-- THANH ẢNH NHỎ -->
-            <div class="details__small-images grid">
+                  <!-- ẢNH LỚN (ẩn ban đầu) -->
+                  <img
+                      id="mainImage"
+                      src=""
+                      alt=""
+                      class="details__img"
+                      style="display:none;"
+                  />
+              </div>
 
-                <!-- THUMB MODEL -->
-                <div class="thumb active" data-type="model">
-                    <model-viewer
-                        src="/uploads/model3d/1/kid_toy_low_poly.glb"
-                        interaction-prompt="none"
-                        disable-zoom
-                        disable-pan
-                        disable-tap
-                        style="width:100%; height:100%; background:#eee;">
-                    </model-viewer>
-                </div>
+              <!-- THANH ẢNH NHỎ -->
+              <div class="details__small-images grid">
 
-                <!-- THUMB ẢNH -->
-                <img
-                    src="/uploads/product_images/1/1.jpg"
-                    class="details__small-img thumb"
-                    data-type="image"
-                    data-src="/uploads/product_images/1/1.jpg"
-                />
+                  <!-- THUMB MODEL -->
+                  <div class="thumb active" data-type="model">
+                      <model-viewer
+                          src="/uploads/model3d/1/kid_toy_low_poly.glb"
+                          interaction-prompt="none"
+                          disable-zoom
+                          disable-pan
+                          disable-tap
+                          style="width:100%; height:100%; background:#eee;">
+                      </model-viewer>
+                  </div>
 
-                <img
-                    src="/uploads/product_images/1/2.jpg"
-                    class="details__small-img thumb"
-                    data-type="image"
-                    data-src="/uploads/product_images/1/2.jpg"
-                />
+                  <!-- THUMB ẢNH -->
+                  <img
+                      src="/uploads/product_images/1/1.jpg"
+                      class="details__small-img thumb"
+                      data-type="image"
+                      data-src="/uploads/product_images/1/1.jpg"
+                  />
 
-                <img
-                    src="/uploads/product_images/1/3.jpg"
-                    class="details__small-img thumb"
-                    data-type="image"
-                    data-src="/uploads/product_images/1/3.jpg"
-                />
+                  <img
+                      src="/uploads/product_images/1/2.jpg"
+                      class="details__small-img thumb"
+                      data-type="image"
+                      data-src="/uploads/product_images/1/2.jpg"
+                  />
+
+                  <img
+                      src="/uploads/product_images/1/3.jpg"
+                      class="details__small-img thumb"
+                      data-type="image"
+                      data-src="/uploads/product_images/1/3.jpg"
+                  />
+              </div>
             </div>
           </div>
+
           <div class="details__group">
             <h3 class="details__title">Henley Shirt</h3>
             <p class="details__brand">Brand: <span>adidas</span></p>
@@ -149,66 +153,9 @@ onMounted(() => {
                 <i class="fi-rs-credit-card"></i> Cash on Delivery available
               </li>
             </ul>
-            <div class="details__color flex">
-              <span class="details__color-title">Color</span>
-              <ul class="color__list">
-                <li>
-                  <a
-                    href="#"
-                    class="color__link"
-                    style="background-color: hsl(37, 100%, 65%)"
-                  ></a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="color__link"
-                    style="background-color: hsl(353, 100%, 65%)"
-                  ></a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="color__link"
-                    style="background-color: hsl(49, 100%, 60%)"
-                  ></a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="color__link"
-                    style="background-color: hsl(304, 100%, 78%)"
-                  ></a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    class="color__link"
-                    style="background-color: hsl(126, 61%, 52%)"
-                  ></a>
-                </li>
-              </ul>
-            </div>
-            <div class="details__size flex">
-              <span class="details__size-title">Size</span>
-              <ul class="size__list">
-                <li>
-                  <a href="#" class="size__link size-active">M</a>
-                </li>
-                <li>
-                  <a href="#" class="size__link">L</a>
-                </li>
-                <li>
-                  <a href="#" class="size__link">XL</a>
-                </li>
-                <li>
-                  <a href="#" class="size__link">XXL</a>
-                </li>
-              </ul>
-            </div>
             <div class="details__action">
               <input type="number" class="quantity" value="3" />
-              <a href="#" class="btn btn--sm">Add To Card</a>
+              <a href="#" class="btn btn--sm">Thêm vào giỏ hàng</a>
               <a href="#" class="details__action-btn">
                 <i class="fi fi-rs-heart"></i>
               </a>
