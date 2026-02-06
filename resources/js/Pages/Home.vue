@@ -1149,22 +1149,22 @@ onMounted(async () => {
         <!--=============== NEW ARRIVALS ===============-->
         <section class="new__arrivals container section">
           <h3 class="section__title"><span>Sản phẩm</span> Mới</h3>
-          <div class="new__container swiper">
-            <div class="swiper-wrapper">
-              <div class="product__item swiper-slide">
+          <div class="new__container">
+            <div class="products__container grid">
+              <div class="product__item">
                 <div class="product__banner">
                   <a :href="route('detail')" class="product__images">
                     <img src="/assets/img/product-1-1.jpg" alt="" class="product__img default" />
                     <img src="/assets/img/product-1-2.jpg" alt="" class="product__img hover" />
                   </a>
                   <div class="product__actions">
-                    <a href="#" class="action__btn" aria-label="Quick View">
+                    <a href="#" class="action__btn" aria-label="Xem nhanh">
                       <i class="fi fi-rs-eye"></i>
                     </a>
-                    <a href="#" class="action__btn" aria-label="Add to Wishlist">
+                    <a href="#" class="action__btn" aria-label="Thêm vào yêu thích">
                       <i class="fi fi-rs-heart"></i>
                     </a>
-                    <a href="#" class="action__btn" aria-label="Compare">
+                    <a href="#" class="action__btn" aria-label="So sánh">
                       <i class="fi fi-rs-shuffle"></i>
                     </a>
                   </div>
@@ -1191,20 +1191,20 @@ onMounted(async () => {
                   </a>
                 </div>
               </div>
-              <div class="product__item swiper-slide">
+              <div class="product__item">
                 <div class="product__banner">
                   <a :href="route('detail')" class="product__images">
                     <img src="/assets/img/product-2-1.jpg" alt="" class="product__img default" />
                     <img src="/assets/img/product-2-2.jpg" alt="" class="product__img hover" />
                   </a>
                   <div class="product__actions">
-                    <a href="#" class="action__btn" aria-label="Quick View">
+                    <a href="#" class="action__btn" aria-label="Xem nhanh">
                       <i class="fi fi-rs-eye"></i>
                     </a>
-                    <a href="#" class="action__btn" aria-label="Add to Wishlist">
+                    <a href="#" class="action__btn" aria-label="Thêm vào yêu thích">
                       <i class="fi fi-rs-heart"></i>
                     </a>
-                    <a href="#" class="action__btn" aria-label="Compare">
+                    <a href="#" class="action__btn" aria-label="So sánh">
                       <i class="fi fi-rs-shuffle"></i>
                     </a>
                   </div>
@@ -1231,29 +1231,29 @@ onMounted(async () => {
                   </a>
                 </div>
               </div>
-              <div class="product__item swiper-slide">
+              <div class="product__item">
                 <div class="product__banner">
                   <a :href="route('detail')" class="product__images">
                     <img src="/assets/img/product-3-1.jpg" alt="" class="product__img default" />
                     <img src="/assets/img/product-3-2.jpg" alt="" class="product__img hover" />
                   </a>
                   <div class="product__actions">
-                    <a href="#" class="action__btn" aria-label="Quick View">
+                    <a href="#" class="action__btn" aria-label="Xem nhanh">
                       <i class="fi fi-rs-eye"></i>
                     </a>
-                    <a href="#" class="action__btn" aria-label="Add to Wishlist">
+                    <a href="#" class="action__btn" aria-label="Thêm vào yêu thích">
                       <i class="fi fi-rs-heart"></i>
                     </a>
-                    <a href="#" class="action__btn" aria-label="Compare">
+                    <a href="#" class="action__btn" aria-label="So sánh">
                       <i class="fi fi-rs-shuffle"></i>
                     </a>
                   </div>
                   <div class="product__badge light-orange">Hot</div>
                 </div>
                 <div class="product__content">
-                  <span class="product__category">Búp bê</span>
+                  <span class="product__category">Xe mô hình</span>
                   <a :href="route('detail')">
-                    <h3 class="product__title">Búp bê thời trang Barbie</h3>
+                    <h3 class="product__title">Xe ô tô mô hình tỷ lệ 1:18</h3>
                   </a>
                   <div class="product__rating">
                     <i class="fi fi-rs-star"></i>
@@ -1271,24 +1271,104 @@ onMounted(async () => {
                   </a>
                 </div>
               </div>
-              <div class="product__item swiper-slide">
+              <div class="product__item">
                 <div class="product__banner">
                   <a :href="route('detail')" class="product__images">
                     <img src="/assets/img/product-4-1.jpg" alt="" class="product__img default" />
                     <img src="/assets/img/product-4-2.jpg" alt="" class="product__img hover" />
                   </a>
                   <div class="product__actions">
-                    <a href="#" class="action__btn" aria-label="Quick View">
+                    <a href="#" class="action__btn" aria-label="Xem nhanh">
                       <i class="fi fi-rs-eye"></i>
                     </a>
-                    <a href="#" class="action__btn" aria-label="Add to Wishlist">
+                    <a href="#" class="action__btn" aria-label="Thêm vào yêu thích">
                       <i class="fi fi-rs-heart"></i>
                     </a>
-                    <a href="#" class="action__btn" aria-label="Compare">
+                    <a href="#" class="action__btn" aria-label="So sánh">
                       <i class="fi fi-rs-shuffle"></i>
                     </a>
                   </div>
                   <div class="product__badge light-blue">Hot</div>
+                </div>
+                <div class="product__content">
+                  <span class="product__category">Búp bê</span>
+                  <a :href="route('detail')">
+                    <h3 class="product__title">Búp bê thời trang</h3>
+                  </a>
+                  <div class="product__rating">
+                    <i class="fi fi-rs-star"></i>
+                    <i class="fi fi-rs-star"></i>
+                    <i class="fi fi-rs-star"></i>
+                    <i class="fi fi-rs-star"></i>
+                    <i class="fi fi-rs-star"></i>
+                  </div>
+                  <div class="product__price flex">
+                    <span class="new__price">$238.85</span>
+                    <span class="old__price">$245.8</span>
+                  </div>
+                  <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
+                    <i class="fi fi-rs-shopping-bag-add"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="product__item">
+                <div class="product__banner">
+                  <a :href="route('detail')" class="product__images">
+                    <img src="/assets/img/product-5-1.jpg" alt="" class="product__img default" />
+                    <img src="/assets/img/product-5-2.jpg" alt="" class="product__img hover" />
+                  </a>
+                  <div class="product__actions">
+                    <a href="#" class="action__btn" aria-label="Xem nhanh">
+                      <i class="fi fi-rs-eye"></i>
+                    </a>
+                    <a href="#" class="action__btn" aria-label="Thêm vào yêu thích">
+                      <i class="fi fi-rs-heart"></i>
+                    </a>
+                    <a href="#" class="action__btn" aria-label="So sánh">
+                      <i class="fi fi-rs-shuffle"></i>
+                    </a>
+                  </div>
+                  <div class="product__badge light-blue">-30%</div>
+                </div>
+                <div class="product__content">
+                  <span class="product__category">Đồ chơi giáo dục</span>
+                  <a :href="route('detail')">
+                    <h3 class="product__title">Bộ học chữ và số cho bé</h3>
+                  </a>
+                  <div class="product__rating">
+                    <i class="fi fi-rs-star"></i>
+                    <i class="fi fi-rs-star"></i>
+                    <i class="fi fi-rs-star"></i>
+                    <i class="fi fi-rs-star"></i>
+                    <i class="fi fi-rs-star"></i>
+                  </div>
+                  <div class="product__price flex">
+                    <span class="new__price">$238.85</span>
+                    <span class="old__price">$245.8</span>
+                  </div>
+                  <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
+                    <i class="fi fi-rs-shopping-bag-add"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="product__item">
+                <div class="product__banner">
+                  <a :href="route('detail')" class="product__images">
+                    <img src="/assets/img/product-6-1.jpg" alt="" class="product__img default" />
+                    <img src="/assets/img/product-6-2.jpg" alt="" class="product__img hover" />
+                  </a>
+                  <div class="product__actions">
+                    <a href="#" class="action__btn" aria-label="Xem nhanh">
+                      <i class="fi fi-rs-eye"></i>
+                    </a>
+                    <a href="#" class="action__btn" aria-label="Thêm vào yêu thích">
+                      <i class="fi fi-rs-heart"></i>
+                    </a>
+                    <a href="#" class="action__btn" aria-label="So sánh">
+                      <i class="fi fi-rs-shuffle"></i>
+                    </a>
+                  </div>
+                  <div class="product__badge light-blue">-22%</div>
                 </div>
                 <div class="product__content">
                   <span class="product__category">Trò chơi bàn cờ</span>
@@ -1311,64 +1391,24 @@ onMounted(async () => {
                   </a>
                 </div>
               </div>
-              <div class="product__item swiper-slide">
+              <div class="product__item">
                 <div class="product__banner">
                   <a :href="route('detail')" class="product__images">
-                    <img src="/assets/img/product-5-1.jpg" alt="" class="product__img default" />
-                    <img src="/assets/img/product-5-2.jpg" alt="" class="product__img hover" />
+                    <img src="/assets/img/product-7-1.jpg" alt="" class="product__img default" />
+                    <img src="/assets/img/product-7-2.jpg" alt="" class="product__img hover" />
                   </a>
                   <div class="product__actions">
-                    <a href="#" class="action__btn" aria-label="Quick View">
+                    <a href="#" class="action__btn" aria-label="Xem nhanh">
                       <i class="fi fi-rs-eye"></i>
                     </a>
-                    <a href="#" class="action__btn" aria-label="Add to Wishlist">
+                    <a href="#" class="action__btn" aria-label="Thêm vào yêu thích">
                       <i class="fi fi-rs-heart"></i>
                     </a>
-                    <a href="#" class="action__btn" aria-label="Compare">
+                    <a href="#" class="action__btn" aria-label="So sánh">
                       <i class="fi fi-rs-shuffle"></i>
                     </a>
                   </div>
-                  <div class="product__badge light-blue">-30%</div>
-                </div>
-                <div class="product__content">
-                  <span class="product__category">Mô hình nhân vật</span>
-                  <a :href="route('detail')">
-                    <h3 class="product__title">Mô hình Naruto Uzumaki</h3>
-                  </a>
-                  <div class="product__rating">
-                    <i class="fi fi-rs-star"></i>
-                    <i class="fi fi-rs-star"></i>
-                    <i class="fi fi-rs-star"></i>
-                    <i class="fi fi-rs-star"></i>
-                    <i class="fi fi-rs-star"></i>
-                  </div>
-                  <div class="product__price flex">
-                    <span class="new__price">$238.85</span>
-                    <span class="old__price">$245.8</span>
-                  </div>
-                  <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
-                    <i class="fi fi-rs-shopping-bag-add"></i>
-                  </a>
-                </div>
-              </div>
-              <div class="product__item swiper-slide">
-                <div class="product__banner">
-                  <a :href="route('detail')" class="product__images">
-                    <img src="/assets/img/product-6-1.jpg" alt="" class="product__img default" />
-                    <img src="/assets/img/product-6-2.jpg" alt="" class="product__img hover" />
-                  </a>
-                  <div class="product__actions">
-                    <a href="#" class="action__btn" aria-label="Quick View">
-                      <i class="fi fi-rs-eye"></i>
-                    </a>
-                    <a href="#" class="action__btn" aria-label="Add to Wishlist">
-                      <i class="fi fi-rs-heart"></i>
-                    </a>
-                    <a href="#" class="action__btn" aria-label="Compare">
-                      <i class="fi fi-rs-shuffle"></i>
-                    </a>
-                  </div>
-                  <div class="product__badge light-blue">-22%</div>
+                  <div class="product__badge light-green">-22%</div>
                 </div>
                 <div class="product__content">
                   <span class="product__category">Đồ chơi vận động</span>
@@ -1391,29 +1431,28 @@ onMounted(async () => {
                   </a>
                 </div>
               </div>
-              <div class="product__item swiper-slide">
+              <div class="product__item">
                 <div class="product__banner">
                   <a :href="route('detail')" class="product__images">
-                    <img src="/assets/img/product-7-1.jpg" alt="" class="product__img default" />
-                    <img src="/assets/img/product-7-2.jpg" alt="" class="product__img hover" />
+                    <img src="/assets/img/product-8-1.jpg" alt="" class="product__img default" />
+                    <img src="/assets/img/product-8-2.jpg" alt="" class="product__img hover" />
                   </a>
                   <div class="product__actions">
-                    <a href="#" class="action__btn" aria-label="Quick View">
+                    <a href="#" class="action__btn" aria-label="Xem nhanh">
                       <i class="fi fi-rs-eye"></i>
                     </a>
-                    <a href="#" class="action__btn" aria-label="Add to Wishlist">
+                    <a href="#" class="action__btn" aria-label="Thêm vào yêu thích">
                       <i class="fi fi-rs-heart"></i>
                     </a>
-                    <a href="#" class="action__btn" aria-label="Compare">
+                    <a href="#" class="action__btn" aria-label="So sánh">
                       <i class="fi fi-rs-shuffle"></i>
                     </a>
                   </div>
-                  <div class="product__badge light-green">-22%</div>
                 </div>
                 <div class="product__content">
-                  <span class="product__category">Đồ chơi giáo dục</span>
+                  <span class="product__category">Mô hình nhân vật</span>
                   <a :href="route('detail')">
-                    <h3 class="product__title">Bộ đồ chơi giáo dục STEM</h3>
+                    <h3 class="product__title">Mô hình Naruto Uzumaki</h3>
                   </a>
                   <div class="product__rating">
                     <i class="fi fi-rs-star"></i>
@@ -1431,13 +1470,6 @@ onMounted(async () => {
                   </a>
                 </div>
               </div>
-            </div>
-
-            <div class="swiper-button-prev">
-              <i class="fi fi-rs-angle-left"></i>
-            </div>
-            <div class="swiper-button-next">
-              <i class="fi fi-rs-angle-right"></i>
             </div>
           </div>
         </section>
