@@ -74,7 +74,7 @@ onMounted(() => {
                     min-camera-orbit="auto auto 80%"
                     max-camera-orbit="auto auto 120%"
                     style="width:100%; height:100%;">
-                </model-viewer>
+                  </model-viewer>
 
 
                   <!-- ẢNH LỚN (ẩn ban đầu) -->
@@ -176,7 +176,7 @@ onMounted(() => {
           <span class="detail__tab" data-target="#reviews">Reviews(3)</span>
         </div>
         <div class="details__tabs-content">
-          <div class="details__tab-content active-tab" content id="info">
+          <div class="details__tab-content active-tab" id="info">
             <table class="info__table">
               <tr>
                 <th>Stand Up</th>
@@ -236,7 +236,7 @@ onMounted(() => {
               </tr>
             </table>
           </div>
-          <div class="details__tab-content" content id="reviews">
+          <div class="details__tab-content" id="reviews">
             <div class="reviews__container grid">
               <div class="review__single">
                 <div>

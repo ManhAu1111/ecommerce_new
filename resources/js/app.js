@@ -51,3 +51,29 @@ document.addEventListener('click', function (e) {
         mainImage.style.display = 'none';
     }
 });
+
+function initDetailTabs() {
+  const tabs = document.querySelectorAll('.detail__tab');
+  const tabContents = document.querySelectorAll('.details__tab-content');
+
+  if (!tabs.length || !tabContents.length) return;
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // remove active
+      tabs.forEach(t => t.classList.remove('active-tab'));
+      tabContents.forEach(c => c.classList.remove('active-tab'));
+
+      // add active
+      tab.classList.add('active-tab');
+      const target = document.querySelector(tab.dataset.target);
+      if (target) {
+        target.classList.add('active-tab');
+      }
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initDetailTabs();
+});

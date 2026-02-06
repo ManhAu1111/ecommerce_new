@@ -1291,7 +1291,25 @@ table {
   padding-top: 1rem;
 }
 
-/*=============== DETAILS INFO & REVIEWS ===============*/
+/*=============== DETAILS INFO & REVIEWS ===============*/c
+.details__tab {
+  cursor: pointer;
+  padding: 12px 20px;
+  font-weight: 600;
+  border-bottom: 2px solid transparent;
+  transition: 0.3s;
+}
+.details__tab.active-tab {
+  color: #088178;
+  border-color: #088178;
+}
+.details__tab-content {
+  display: none;
+  margin-top: 20px;
+}
+.details__tab-content.active-tab {
+  display: block;
+}
 .detail__tabs {
   display: flex;
   column-gap: 1.75rem;
