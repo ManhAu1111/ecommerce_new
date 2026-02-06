@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->id(); // bigint unsigned mặc định
             $table->string('name');
             $table->string('slug')->unique();
+            $table->string('image_url');
             $table->foreignId('parent_id')->nullable()->constrained('categories')->onDelete('set null');
             $table->timestamps();
         });
