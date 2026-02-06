@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
 use Inertia\Inertia;
 
 /*
@@ -42,7 +43,12 @@ Route::get('/wishlist', function () {
 Route::get('/checkout', function () {
     return Inertia::render('Checkout');
 })->name('checkout');
-
+/*
+|--------------------------------------------------------------------------
+| Category Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/categories', [CategoryController::class, 'index']);
 
 
 /*
@@ -112,3 +118,4 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
+

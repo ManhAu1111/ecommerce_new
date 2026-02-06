@@ -1,15 +1,21 @@
 <script setup>
-import MainLayout from '@/Layouts/MainLayout.vue';
-import { Head } from '@inertiajs/vue3';
-import { onMounted } from 'vue';
+import MainLayout from '@/Layouts/MainLayout.vue'
+import { Head } from '@inertiajs/vue3'
+import { ref, onMounted, nextTick } from 'vue'
+import axios from 'axios'
 
-onMounted(() => {
-  /* Đảm bảo Swiper đã được tải từ CDN trong app.blade.php */
+const categories = ref([])
+
+onMounted(async () => {
+  const res = await axios.get('/categories')
+  categories.value = res.data
+
+  await nextTick()
+
   if (typeof Swiper !== 'undefined') {
-    // Khởi tạo Categories Slider
     new Swiper('.categories__container', {
       spaceBetween: 24,
-      loop: true,
+      loop: categories.value.length > 6,
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
@@ -17,29 +23,15 @@ onMounted(() => {
       breakpoints: {
         350: { slidesPerView: 2, spaceBetween: 18 },
         768: { slidesPerView: 3, spaceBetween: 24 },
-        992: { slidesPerView: 5, spaceBetween: 24 },
-        1200: { slidesPerView: 6, spaceBetween: 24 },
-        1400: { slidesPerView: 8, spaceBetween: 24 },
+        992: { slidesPerView: 4, spaceBetween: 24 },
+        1200: { slidesPerView: 5, spaceBetween: 24 },
+        1400: { slidesPerView: 6, spaceBetween: 24 },
       },
-    });
-
-    // Khởi tạo New Arrivals Slider
-    new Swiper('.new__container', {
-      spaceBetween: 24,
-      loop: true,
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      breakpoints: {
-        768: { slidesPerView: 2, spaceBetween: 24 },
-        992: { slidesPerView: 3, spaceBetween: 24 },
-        1400: { slidesPerView: 4, spaceBetween: 24 },
-      },
-    });
+    })
   }
-});
+})
 </script>
+
 
 <template>
   <MainLayout>
@@ -64,51 +56,38 @@ onMounted(() => {
 
         <!--=============== CATEGORIES ===============-->
         <section class="categories container section">
-          <h3 class="section__title"><span>Danh mục</span> Phổ biến</h3>
+          <h3 class="section__title">
+            <span>Danh mục</span> Sản phẩm
+          </h3>
+
           <div class="categories__container swiper">
             <div class="swiper-wrapper">
-              <a :href="route('shop')" class="category__item swiper-slide">
-                <img src="/assets/img/category-1.jpg" alt="" class="category__img" />
-                <h3 class="category__title">Lego</h3>
-              </a>
-              <a :href="route('shop')" class="category__item swiper-slide">
-                <img src="/assets/img/category-2.jpg" alt="" class="category__img" />
-                <h3 class="category__title">Mô hình</h3>
-              </a>
-              <a :href="route('shop')" class="category__item swiper-slide">
-                <img src="/assets/img/category-3.jpg" alt="" class="category__img" />
-                <h3 class="category__title">Robot</h3>
-              </a>
-              <a :href="route('shop')" class="category__item swiper-slide">
-                <img src="/assets/img/category-4.jpg" alt="" class="category__img" />
-                <h3 class="category__title">Rubik</h3>
-              </a>
-              <a :href="route('shop')" class="category__item swiper-slide">
-                <img src="/assets/img/category-5.jpg" alt="" class="category__img" />
-                <h3 class="category__title">Đồ chơi STEM</h3>
-              </a>
-              <a :href="route('shop')" class="category__item swiper-slide">
-                <img src="/assets/img/category-6.jpg" alt="" class="category__img" />
-                <h3 class="category__title">Gấu Bông</h3>
-              </a>
-              <a :href="route('shop')" class="category__item swiper-slide">
-                <img src="/assets/img/category-7.jpg" alt="" class="category__img" />
-                <h3 class="category__title">Blind Box</h3>
-              </a>
-              <a :href="route('shop')" class="category__item swiper-slide">
-                <img src="/assets/img/category-8.jpg" alt="" class="category__img" />
-                <h3 class="category__title">Card Game</h3>
+              <a
+                v-for="category in categories"
+                :key="category.id"
+                :href="route('shop', { category: category.id })"
+                class="category__item swiper-slide"
+              >
+              <img
+                :src="category.image_url"
+                :alt="category.name"
+                class="category__img"
+              />
+
+
+              <h3 class="category__title">{{ category.name }}</h3>
               </a>
             </div>
 
-            <div class="swiper-button-prev">
-              <i class="fi fi-rs-angle-left"></i>
+              <div class="swiper-button-prev categories-nav">
+                <i class="fa-solid fa-chevron-left"></i>
+              </div>
+              <div class="swiper-button-next categories-nav">
+                <i class="fa-solid fa-chevron-right"></i>
+              </div>
             </div>
-            <div class="swiper-button-next">
-              <i class="fi fi-rs-angle-right"></i>
-            </div>
-          </div>
         </section>
+
 
         <!--=============== PRODUCTS ===============-->
         <section class="products container section">
