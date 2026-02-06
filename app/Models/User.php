@@ -66,4 +66,19 @@ class User extends Authenticatable implements MustVerifyEmail
 
         Mail::to($this->email)->send(new ResetPasswordMail($url));
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function wishlistProducts()
+    {
+        return $this->belongsToMany(Product::class, 'wishlists');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(ProductReview::class);
+    }
 }
