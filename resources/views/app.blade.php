@@ -31,6 +31,6 @@
         <script src="https://unpkg.com/@egjs/flicking/dist/flicking.pkgd.min.js"></script>
 
 
-        <script src="/assets/js/main.js"></script>
+        <script src="/assets/js/main.js" defer></script>
     </body>
 </html>

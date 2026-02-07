@@ -33,108 +33,37 @@ function imgGallery() {
 
 imgGallery();
 
-/*=============== SWIPER CATEGORIES ===============*/
-let swiperCategories = new Swiper(".categories__container", {
-  spaceBetween: 24,
-  loop: true,
-  navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
-  },
+// js trang home
+document.addEventListener("click", function (e) {
 
-  breakpoints: {
-    350: {
-      slidesPerView: 2,
-      spaceBetween: 24,
-    },
-    768: {
-      slidesPerView: 3,
-      spaceBetween: 24,
-    },
-    992: {
-      slidesPerView: 4,
-      spaceBetween: 24,
-    },
-    1200: {
-      slidesPerView: 5,
-      spaceBetween: 24,
-    },
-    1400: {
-      slidesPerView: 6,
-      spaceBetween: 24,
-    },
-  },
-});
+  /* ================= TAB PRODUCT ================= */
+  const tabBtn = e.target.closest(".tab__btn");
+  if (tabBtn) {
+    const target = tabBtn.dataset.target;
 
-/*=============== SWIPER PRODUCTS ===============*/
-let swiperProducts = new Swiper(".new__container", {
-  spaceBetween: 24,
-  loop: true,
-  navigation: {
-    nextEl: ".swiper-button-next",
-    prevEl: ".swiper-button-prev",
-  },
+    document.querySelectorAll(".tab__btn").forEach(btn =>
+      btn.classList.remove("active-tab")
+    );
+    document.querySelectorAll(".tab__item").forEach(tab =>
+      tab.classList.remove("active-tab")
+    );
 
-  breakpoints: {
-    768: {
-      slidesPerView: 2,
-      spaceBetween: 24,
-    },
-    992: {
-      slidesPerView: 4,
-      spaceBetween: 24,
-    },
-    1400: {
-      slidesPerView: 4,
-      spaceBetween: 24,
-    },
-  },
-});
+    tabBtn.classList.add("active-tab");
+    document.querySelector(target)?.classList.add("active-tab");
+  }
 
-/*=============== PRODUCTS TABS ===============*/
-const tabs = document.querySelectorAll("[data-target]"),
-  tabsContents = document.querySelectorAll("[content]");
+  /* ================= TOGGLE REVIEWS ================= */
+  if (e.target.id === "toggleReviews") {
+    const wrapper = document.getElementById("reviewsWrapper");
+    if (!wrapper) return;
 
-tabs.forEach((tab) => {
-  tab.addEventListener("click", () => {
-    const target = document.querySelector(tab.dataset.target);
-
-    tabsContents.forEach((tabsContent) => {
-      tabsContent.classList.remove("active-tab");
-    });
-
-    target.classList.add("active-tab");
-
-    tabs.forEach((tab) => {
-      tab.classList.remove("active-tab");
-    });
-
-    tab.classList.add("active-tab");
-  });
+    wrapper.classList.toggle("hidden");
+    e.target.textContent = wrapper.classList.contains("hidden")
+      ? "Show reviews"
+      : "Hide reviews";
+  }
 });
 
 
-// js cho trang sản phẩm
-const mainViewer = document.getElementById('mainViewer');
-const mainImage  = document.getElementById('mainImage');
-const thumbs = document.querySelectorAll('.thumb');
 
-thumbs.forEach(thumb => {
-    thumb.addEventListener('click', () => {
 
-        // remove active
-        thumbs.forEach(t => t.classList.remove('active'));
-        thumb.classList.add('active');
-
-        const type = thumb.dataset.type;
-
-        if (type === 'model') {
-            mainViewer.style.display = 'block';
-            mainImage.style.display = 'none';
-        } else {
-            mainImage.src = thumb.dataset.src;
-            mainImage.style.display = 'block';
-            mainViewer.style.display = 'none';
-        }
-    });
-});

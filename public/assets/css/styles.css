@@ -704,11 +704,13 @@ table {
   color: var(--first-color);
   background-color: var(--second-color);
 }
-
-.tab__item:not(.active-tab) {
+.tab__item {
   display: none;
 }
 
+.tab__item.active-tab {
+  display: block;
+}
 /* Product Hover */
 .product__img.hover,
 .product__actions,

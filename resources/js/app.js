@@ -52,28 +52,43 @@ document.addEventListener('click', function (e) {
     }
 });
 
-function initDetailTabs() {
-  const tabs = document.querySelectorAll('.detail__tab');
-  const tabContents = document.querySelectorAll('.details__tab-content');
 
-  if (!tabs.length || !tabContents.length) return;
+let selectedRating = 0;
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      // remove active
-      tabs.forEach(t => t.classList.remove('active-tab'));
-      tabContents.forEach(c => c.classList.remove('active-tab'));
+// hover: chỉ preview
+document.addEventListener("mouseover", function (e) {
+  if (!e.target.matches("#starRating i")) return;
 
-      // add active
-      tab.classList.add('active-tab');
-      const target = document.querySelector(tab.dataset.target);
-      if (target) {
-        target.classList.add('active-tab');
-      }
-    });
+  const value = Number(e.target.dataset.value);
+
+  document.querySelectorAll("#starRating i").forEach(star => {
+    star.classList.toggle("active", Number(star.dataset.value) <= value);
   });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  initDetailTabs();
 });
+
+// click: lưu rating
+document.addEventListener("click", function (e) {
+  if (!e.target.matches("#starRating i")) return;
+
+  selectedRating = Number(e.target.dataset.value);
+  document.getElementById("ratingValue").value = selectedRating;
+});
+
+// rời chuột: trả về rating đã chọn
+document.addEventListener(
+  "mouseleave",
+  function (e) {
+    const starBox = document.getElementById("starRating");
+    if (!starBox || !starBox.contains(e.target)) return;
+
+    document.querySelectorAll("#starRating i").forEach(star => {
+      star.classList.toggle(
+        "active",
+        Number(star.dataset.value) <= selectedRating
+      );
+    });
+  },
+  true
+);
+
+

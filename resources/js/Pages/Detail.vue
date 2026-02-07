@@ -167,174 +167,129 @@ onMounted(() => {
         </div>
       </section>
 
-      <!--=============== DETAILS TAB ===============-->
-      <section class="details__tab container">
-        <div class="detail__tabs">
-          <span class="detail__tab active-tab" data-target="#info">
-            Additional Info
-          </span>
-          <span class="detail__tab" data-target="#reviews">Reviews(3)</span>
-        </div>
-        <div class="details__tabs-content">
-          <div class="details__tab-content active-tab" id="info">
-            <table class="info__table">
-              <tr>
-                <th>Stand Up</th>
-                <td>35" L x 24"W x 37-45"H(front to back wheel)</td>
-              </tr>
-              <tr>
-                <th>Folded (w/o wheels)</th>
-                <td>32.5"L x 18.5"W x 16.5"H</td>
-              </tr>
-              <tr>
-                <th>Folded (w/o wheels)</th>
-                <td>32.5"L x 24"W x 18.5"H</td>
-              </tr>
-              <tr>
-                <th>Door Pass THrough</th>
-                <td>24</td>
-              </tr>
-              <tr>
-                <th>Frame</th>
-                <td>Aluminum</td>
-              </tr>
-              <tr>
-                <th>Weight (w/o wheels)</th>
-                <td>20 LBS</td>
-              </tr>
-              <tr>
-                <th>Weight Capacity</th>
-                <td>60 LBS</td>
-              </tr>
-              <tr>
-                <th>Width</th>
-                <td>24</td>
-              </tr>
-              <tr>
-                <th>Handle Height (ground to handle)</th>
-                <td>37-45</td>
-              </tr>
-              <tr>
-                <th>Wheels</th>
-                <td>12" air / wide track slick tread</td>
-              </tr>
-              <tr>
-                <th>Seat back height</th>
-                <td>21.5</td>
-              </tr>
-              <tr>
-                <th>Head Room(inside canopy)</th>
-                <td>25"</td>
-              </tr>
-              <tr>
-                <th>Color</th>
-                <td>Black, Blue, Red, White</td>
-              </tr>
-              <tr>
-                <th>Size</th>
-                <td>M, S</td>
-              </tr>
-            </table>
+      <!--=============== REVIEWS ONLY ===============-->
+      <section class="details__review container">
+
+        <!-- ADD REVIEW -->
+        <div class="review__form">
+          <h4 class="review__form-title">Add a review</h4>
+
+          <!-- STAR RATING -->
+          <div class="rate__product" id="starRating">
+            <i class="fi fi-rs-star" data-value="1"></i>
+            <i class="fi fi-rs-star" data-value="2"></i>
+            <i class="fi fi-rs-star" data-value="3"></i>
+            <i class="fi fi-rs-star" data-value="4"></i>
+            <i class="fi fi-rs-star" data-value="5"></i>
           </div>
-          <div class="details__tab-content" id="reviews">
-            <div class="reviews__container grid">
-              <div class="review__single">
-                <div>
-                  <img
-                    src="/assets/img/avatar-1.jpg"
-                    alt=""
-                    class="review__img"
-                  />
-                  <h4 class="review__title">Jacky Chan</h4>
-                </div>
-                <div class="review__data">
-                  <div class="review__rating">
-                    <i class="fi fi-rs-star"></i>
-                    <i class="fi fi-rs-star"></i>
-                    <i class="fi fi-rs-star"></i>
-                    <i class="fi fi-rs-star"></i>
-                    <i class="fi fi-rs-star"></i>
-                  </div>
-                  <p class="review__description">
-                    Thank you, very fast shipping from Poland only 3days.
-                  </p>
-                  <span class="review__date">December 4, 2022 at 3:12 pm</span>
-                </div>
+          <input type="hidden" id="ratingValue" value="0">
+
+          <form class="form grid">
+            <textarea class="form__input textarea" placeholder="Write Comment"></textarea>
+            <div class="form__group grid">
+              <input type="text" placeholder="Name" class="form__input">
+              <input type="email" placeholder="Email" class="form__input">
+            </div>
+            <div class="form__btn">
+              <button class="btn">Submit Review</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- TOGGLE BUTTON -->
+        <button class="btn btn--outline review__toggle" id="toggleReviews">
+          Show reviews
+        </button>
+
+        <!-- REVIEW LIST -->
+        <div class="reviews__wrapper hidden" id="reviewsWrapper">
+
+          <div class="reviews__container grid" id="reviewsList">
+            <!-- REVIEW ITEM -->
+            <div class="review__single">
+              <div>
+                <img src="/assets/img/avatar-1.jpg" class="review__img" />
+                <h4 class="review__title">Jacky Chan</h4>
               </div>
-              <div class="review__single">
-                <div>
-                  <img
-                    src="/assets/img/avatar-2.jpg"
-                    alt=""
-                    class="review__img"
-                  />
-                  <h4 class="review__title">Meriem Js</h4>
+              <div class="review__data">
+                <div class="review__rating">
+                  <i class="fi fi-rs-star active"></i>
+                  <i class="fi fi-rs-star active"></i>
+                  <i class="fi fi-rs-star active"></i>
+                  <i class="fi fi-rs-star active"></i>
+                  <i class="fi fi-rs-star active"></i>
                 </div>
-                <div class="review__data">
-                  <div class="review__rating">
-                    <i class="fi fi-rs-star"></i>
-                    <i class="fi fi-rs-star"></i>
-                    <i class="fi fi-rs-star"></i>
-                    <i class="fi fi-rs-star"></i>
-                    <i class="fi fi-rs-star"></i>
-                  </div>
-                  <p class="review__description">
-                    Great low price and works well
-                  </p>
-                  <span class="review__date">August 23, 2022 at 19:45 pm</span>
-                </div>
-              </div>
-              <div class="review__single">
-                <div>
-                  <img
-                    src="/assets/img/avatar-3.jpg"
-                    alt=""
-                    class="review__img"
-                  />
-                  <h4 class="review__title">Moh Benz</h4>
-                </div>
-                <div class="review__data">
-                  <div class="review__rating">
-                    <i class="fi fi-rs-star"></i>
-                    <i class="fi fi-rs-star"></i>
-                    <i class="fi fi-rs-star"></i>
-                    <i class="fi fi-rs-star"></i>
-                    <i class="fi fi-rs-star"></i>
-                  </div>
-                  <p class="review__description">
-                    Authentic and beautiful, Love these ways more than ever
-                    expected, They are great earphones.
-                  </p>
-                  <span class="review__date">March 2, 2021 at 10:01 am</span>
-                </div>
+                <p class="review__description">
+                  Thank you, very fast shipping from Poland only 3days.
+                </p>
+                <span class="review__date">December 4, 2022</span>
               </div>
             </div>
-            <div class="review__form">
-              <h4 class="review__form-title">Add a review</h4>
-              <div class="rate__product">
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
+            <div class="review__single">
+              <div>
+                <img src="/assets/img/avatar-1.jpg" class="review__img" />
+                <h4 class="review__title">Jacky Chan</h4>
               </div>
-              <form action="" class="form grid">
-                <textarea
-                  class="form__input textarea"
-                  placeholder="Write Comment"
-                ></textarea>
-                <div class="form__group grid">
-                  <input type="text" placeholder="Name" class="form__input">
-                  <input type="email" placeholder="Email" class="form__input">
+              <div class="review__data">
+                <div class="review__rating">
+                  <i class="fi fi-rs-star active"></i>
+                  <i class="fi fi-rs-star active"></i>
+                  <i class="fi fi-rs-star active"></i>
+                  <i class="fi fi-rs-star active"></i>
+                  <i class="fi fi-rs-star active"></i>
                 </div>
-                <div class="form__btn">
-                  <button class="btn">Submit Review</button>
+                <p class="review__description">
+                  Thank you, very fast shipping from Poland only 3days.
+                </p>
+                <span class="review__date">December 4, 2022</span>
+              </div>
+            </div>
+            <div class="review__single">
+              <div>
+                <img src="/assets/img/avatar-1.jpg" class="review__img" />
+                <h4 class="review__title">Jacky Chan</h4>
+              </div>
+              <div class="review__data">
+                <div class="review__rating">
+                  <i class="fi fi-rs-star active"></i>
+                  <i class="fi fi-rs-star active"></i>
+                  <i class="fi fi-rs-star active"></i>
+                  <i class="fi fi-rs-star active"></i>
+                  <i class="fi fi-rs-star active"></i>
                 </div>
-              </form>
+                <p class="review__description">
+                  Thank you, very fast shipping from Poland only 3days.
+                </p>
+                <span class="review__date">December 4, 2022</span>
+              </div>
+            </div>
+            <div class="review__single">
+              <div>
+                <img src="/assets/img/avatar-1.jpg" class="review__img" />
+                <h4 class="review__title">Jacky Chan</h4>
+              </div>
+              <div class="review__data">
+                <div class="review__rating">
+                  <i class="fi fi-rs-star active"></i>
+                  <i class="fi fi-rs-star active"></i>
+                  <i class="fi fi-rs-star active"></i>
+                  <i class="fi fi-rs-star active"></i>
+                  <i class="fi fi-rs-star active"></i>
+                </div>
+                <p class="review__description">
+                  Thank you, very fast shipping from Poland only 3days.
+                </p>
+                <span class="review__date">December 4, 2022</span>
+              </div>
             </div>
           </div>
+
+          <!-- PAGINATION -->
+          <div class="review__pagination" id="reviewPagination"></div>
         </div>
+
       </section>
+
 
       <!--=============== PRODUCTS ===============-->
       <section class="products container section--lg">
@@ -594,3 +549,4 @@ onMounted(() => {
     </main>
     </MainLayout>
 </template>
+
