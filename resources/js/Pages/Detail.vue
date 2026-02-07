@@ -40,43 +40,6 @@ function showImage(src) {
   activeType.value = 'image'
   activeImage.value = src
 }
-
-onMounted(() => {
-    /* Đảm bảo Swiper đã được tải từ CDN trong app.blade.php */
-    if (typeof Swiper !== 'undefined') {
-        // Khởi tạo Categories Slider
-        new Swiper('.categories__container', {
-            spaceBetween: 24,
-            loop: true,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            breakpoints: {
-                350: { slidesPerView: 2, spaceBetween: 18 },
-                768: { slidesPerView: 3, spaceBetween: 24 },
-                992: { slidesPerView: 5, spaceBetween: 24 },
-                1200: { slidesPerView: 6, spaceBetween: 24 },
-                1400: { slidesPerView: 8, spaceBetween: 24 },
-            },
-        });
-
-        // Khởi tạo New Arrivals Slider
-        new Swiper('.new__container', {
-            spaceBetween: 24,
-            loop: true,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            breakpoints: {
-                768: { slidesPerView: 2, spaceBetween: 24 },
-                992: { slidesPerView: 3, spaceBetween: 24 },
-                1400: { slidesPerView: 4, spaceBetween: 24 },
-            },
-        });
-    }
-});
 </script>
 
 <template>

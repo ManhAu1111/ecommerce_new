@@ -30,6 +30,18 @@ class ProductController extends Controller
             'newProducts'      => $newProducts,
         ]);
     }
+    // SHOP – HIỂN THỊ TẤT CẢ SẢN PHẨM
+    public function shop()
+    {
+        $products = Product::with(['primaryImage', 'secondaryImage'])
+            ->orderByDesc('created_at')
+            ->paginate(12); // nên phân trang luôn
+
+        return Inertia::render('Shop', [
+            'products' => $products
+        ]);
+    }
+
     public function show($id)
     {
         $product = Product::with([

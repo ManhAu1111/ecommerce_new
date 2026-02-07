@@ -3,42 +3,9 @@ import MainLayout from '@/Layouts/MainLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { onMounted } from 'vue';
 
-onMounted(() => {
-    /* Đảm bảo Swiper đã được tải từ CDN trong app.blade.php */
-    if (typeof Swiper !== 'undefined') {
-        // Khởi tạo Categories Slider
-        new Swiper('.categories__container', {
-            spaceBetween: 24,
-            loop: true,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            breakpoints: {
-                350: { slidesPerView: 2, spaceBetween: 18 },
-                768: { slidesPerView: 3, spaceBetween: 24 },
-                992: { slidesPerView: 5, spaceBetween: 24 },
-                1200: { slidesPerView: 6, spaceBetween: 24 },
-                1400: { slidesPerView: 8, spaceBetween: 24 },
-            },
-        });
-
-        // Khởi tạo New Arrivals Slider
-        new Swiper('.new__container', {
-            spaceBetween: 24,
-            loop: true,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            breakpoints: {
-                768: { slidesPerView: 2, spaceBetween: 24 },
-                992: { slidesPerView: 3, spaceBetween: 24 },
-                1400: { slidesPerView: 4, spaceBetween: 24 },
-            },
-        });
-    }
-});
+defineProps({
+  products: Object
+})
 </script>
 
 <template>
@@ -55,691 +22,144 @@ onMounted(() => {
 
       <!--=============== PRODUCTS ===============-->
       <section class="products container section--lg">
-        <p class="total__products">Chúng tôi tìm thấy <span>688</span> sản phẩm cho bạn!</p>
+        <p class="total__products">
+          Chúng tôi tìm thấy
+          <span>{{ products.total }}</span>
+          sản phẩm cho bạn!
+        </p>
+
         <div class="products__container grid">
-          <div class="product__item">
+          <div
+            class="product__item"
+            v-for="product in products.data"
+            :key="product.id"
+          >
             <div class="product__banner">
-              <a href="#" class="product__images">
-                <img
-                  src="assets/img/product-1-1.jpg"
-                  alt=""
-                  class="product__img default"
-                />
-                <img
-                  src="assets/img/product-1-2.jpg"
-                  alt=""
-                  class="product__img hover"
-                />
-              </a>
-              <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Xem nhanh">
-                  <i class="fi fi-rs-eye"></i>
-                </a>
-                <a
-                  href="#"
-                  class="action__btn"
-                  aria-label="Thêm vào yêu thích"
-                >
-                  <i class="fi fi-rs-heart"></i>
-                </a>
-                <a href="#" class="action__btn" aria-label="So sánh">
-                  <i class="fi fi-rs-shuffle"></i>
-                </a>
-              </div>
-              <div class="product__badge light-pink">Hot</div>
-            </div>
-            <div class="product__content">
-              <span class="product__category">Quần áo</span>
-              <a href="#">
-                <h3 class="product__title">Áo sơ mi họa tiết</h3>
-              </a>
-              <div class="product__rating">
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-              </div>
-              <div class="product__price flex">
-                <span class="new__price">$238.85</span>
-                <span class="old__price">$245.8</span>
-              </div>
               <a
-                href="#"
-                class="action__btn cart__btn"
-                aria-label="Add To Cart"
+                v-if="product?.id"
+                :href="route('detail', { id: product.id })"
+                class="product__images"
               >
-                <i class="fi fi-rs-shopping-bag-add"></i>
-              </a>
-            </div>
-          </div>
-          <!-- :href="route('detail')" -->
-          <div class="product__item">
-            <div class="product__banner">
-              <a href="#" class="product__images">
                 <img
-                  src="assets/img/product-2-1.jpg"
-                  alt=""
+                  :src="product.primary_image?.image_url ?? '/assets/img/default.jpg'"
                   class="product__img default"
                 />
+
                 <img
-                  src="assets/img/product-2-2.jpg"
-                  alt=""
+                  :src="
+                    product.secondary_image?.image_url
+                    ?? product.primary_image?.image_url
+                    ?? '/assets/img/default.jpg'
+                  "
                   class="product__img hover"
                 />
               </a>
+
               <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Xem nhanh">
-                  <i class="fi fi-rs-eye"></i>
-                </a>
-                <a
-                  href="#"
-                  class="action__btn"
-                  aria-label="Thêm vào yêu thích"
-                >
+                <a href="#" class="action__btn" aria-label="Yêu thích">
                   <i class="fi fi-rs-heart"></i>
                 </a>
-                <a href="#" class="action__btn" aria-label="So sánh">
-                  <i class="fi fi-rs-shuffle"></i>
-                </a>
               </div>
-              <div class="product__badge light-green">Hot</div>
-            </div>
-            <div class="product__content">
-              <span class="product__category">Quần áo</span>
-              <a href="#">
-                <h3 class="product__title">Áo sơ mi họa tiết</h3>
-              </a>
-              <div class="product__rating">
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-              </div>
-              <div class="product__price flex">
-                <span class="new__price">$238.85</span>
-                <span class="old__price">$245.8</span>
-              </div>
-              <a
-                href="#"
-                class="action__btn cart__btn"
-                aria-label="Add To Cart"
+
+              <div
+                v-if="product.quantity === 0"
+                class="product__badge light-red"
               >
-                <i class="fi fi-rs-shopping-bag-add"></i>
-              </a>
-            </div>
-          </div>
-          <div class="product__item">
-            <div class="product__banner">
-              <a href="#" class="product__images">
-                <img
-                  src="assets/img/product-3-1.jpg"
-                  alt=""
-                  class="product__img default"
-                />
-                <img
-                  src="assets/img/product-3-2.jpg"
-                  alt=""
-                  class="product__img hover"
-                />
-              </a>
-              <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Xem nhanh">
-                  <i class="fi fi-rs-eye"></i>
-                </a>
-                <a
-                  href="#"
-                  class="action__btn"
-                  aria-label="Thêm vào yêu thích"
-                >
-                  <i class="fi fi-rs-heart"></i>
-                </a>
-                <a href="#" class="action__btn" aria-label="So sánh">
-                  <i class="fi fi-rs-shuffle"></i>
-                </a>
+                Hết hàng
               </div>
-              <div class="product__badge light-orange">Hot</div>
-            </div>
-            <div class="product__content">
-              <span class="product__category">Quần áo</span>
-              <a href="#">
-                <h3 class="product__title">Áo sơ mi họa tiết</h3>
-              </a>
-              <div class="product__rating">
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-              </div>
-              <div class="product__price flex">
-                <span class="new__price">$238.85</span>
-                <span class="old__price">$245.8</span>
-              </div>
-              <a
-                href="#"
-                class="action__btn cart__btn"
-                aria-label="Add To Cart"
+              <div
+                v-else
+                class="product__badge light-green"
               >
-                <i class="fi fi-rs-shopping-bag-add"></i>
-              </a>
-            </div>
-          </div>
-          <div class="product__item">
-            <div class="product__banner">
-              <a href="#" class="product__images">
-                <img
-                  src="assets/img/product-4-1.jpg"
-                  alt=""
-                  class="product__img default"
-                />
-                <img
-                  src="assets/img/product-4-2.jpg"
-                  alt=""
-                  class="product__img hover"
-                />
-              </a>
-              <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Xem nhanh">
-                  <i class="fi fi-rs-eye"></i>
-                </a>
-                <a
-                  href="#"
-                  class="action__btn"
-                  aria-label="Thêm vào yêu thích"
-                >
-                  <i class="fi fi-rs-heart"></i>
-                </a>
-                <a href="#" class="action__btn" aria-label="So sánh">
-                  <i class="fi fi-rs-shuffle"></i>
-                </a>
+                Mới
               </div>
-              <div class="product__badge light-blue">Hot</div>
             </div>
+
             <div class="product__content">
-              <span class="product__category">Quần áo</span>
-              <a href="#">
-                <h3 class="product__title">Áo sơ mi họa tiết</h3>
-              </a>
-              <div class="product__rating">
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-              </div>
-              <div class="product__price flex">
-                <span class="new__price">$238.85</span>
-                <span class="old__price">$245.8</span>
-              </div>
+              <span class="product__category">
+                {{ product.categories?.[0]?.name ?? 'Sản phẩm' }}
+              </span>
+
               <a
-                href="#"
-                class="action__btn cart__btn"
-                aria-label="Add To Cart"
+                v-if="product?.id"
+                :href="route('detail', { id: product.id })"
               >
-                <i class="fi fi-rs-shopping-bag-add"></i>
+                <h3 class="product__title">
+                  {{ product.name }}
+                </h3>
               </a>
-            </div>
-          </div>
-          <div class="product__item">
-            <div class="product__banner">
-              <a href="#" class="product__images">
-                <img
-                  src="assets/img/product-5-1.jpg"
-                  alt=""
-                  class="product__img default"
-                />
-                <img
-                  src="assets/img/product-5-2.jpg"
-                  alt=""
-                  class="product__img hover"
-                />
-              </a>
-              <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Xem nhanh">
-                  <i class="fi fi-rs-eye"></i>
-                </a>
-                <a
-                  href="#"
-                  class="action__btn"
-                  aria-label="Thêm vào yêu thích"
-                >
-                  <i class="fi fi-rs-heart"></i>
-                </a>
-                <a href="#" class="action__btn" aria-label="So sánh">
-                  <i class="fi fi-rs-shuffle"></i>
-                </a>
-              </div>
-              <div class="product__badge light-blue">-30%</div>
-            </div>
-            <div class="product__content">
-              <span class="product__category">Quần áo</span>
-              <a href="#">
-                <h3 class="product__title">Áo sơ mi họa tiết</h3>
-              </a>
+
               <div class="product__rating">
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
+                <i
+                  v-for="i in 5"
+                  :key="i"
+                  class="fi"
+                  :class="
+                    i <= Math.round(product.avg_rating)
+                      ? 'fi-rs-star'
+                      : 'fi-rs-star-empty'
+                  "
+                ></i>
               </div>
+
               <div class="product__price flex">
-                <span class="new__price">$238.85</span>
-                <span class="old__price">$245.8</span>
+                <span class="new__price">
+                  {{ Number(product.price).toLocaleString('vi-VN') }}₫
+                </span>
               </div>
+
               <a
                 href="#"
                 class="action__btn cart__btn"
-                aria-label="Add To Cart"
-              >
-                <i class="fi fi-rs-shopping-bag-add"></i>
-              </a>
-            </div>
-          </div>
-          <div class="product__item">
-            <div class="product__banner">
-              <a href="#" class="product__images">
-                <img
-                  src="assets/img/product-6-1.jpg"
-                  alt=""
-                  class="product__img default"
-                />
-                <img
-                  src="assets/img/product-6-2.jpg"
-                  alt=""
-                  class="product__img hover"
-                />
-              </a>
-              <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Xem nhanh">
-                  <i class="fi fi-rs-eye"></i>
-                </a>
-                <a
-                  href="#"
-                  class="action__btn"
-                  aria-label="Thêm vào yêu thích"
-                >
-                  <i class="fi fi-rs-heart"></i>
-                </a>
-                <a href="#" class="action__btn" aria-label="So sánh">
-                  <i class="fi fi-rs-shuffle"></i>
-                </a>
-              </div>
-              <div class="product__badge light-blue">-22%</div>
-            </div>
-            <div class="product__content">
-              <span class="product__category">Quần áo</span>
-              <a href="#">
-                <h3 class="product__title">Áo sơ mi họa tiết</h3>
-              </a>
-              <div class="product__rating">
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-              </div>
-              <div class="product__price flex">
-                <span class="new__price">$238.85</span>
-                <span class="old__price">$245.8</span>
-              </div>
-              <a
-                href="#"
-                class="action__btn cart__btn"
-                aria-label="Add To Cart"
-              >
-                <i class="fi fi-rs-shopping-bag-add"></i>
-              </a>
-            </div>
-          </div>
-          <div class="product__item">
-            <div class="product__banner">
-              <a href="#" class="product__images">
-                <img
-                  src="assets/img/product-7-1.jpg"
-                  alt=""
-                  class="product__img default"
-                />
-                <img
-                  src="assets/img/product-7-2.jpg"
-                  alt=""
-                  class="product__img hover"
-                />
-              </a>
-              <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Xem nhanh">
-                  <i class="fi fi-rs-eye"></i>
-                </a>
-                <a
-                  href="#"
-                  class="action__btn"
-                  aria-label="Thêm vào yêu thích"
-                >
-                  <i class="fi fi-rs-heart"></i>
-                </a>
-                <a href="#" class="action__btn" aria-label="So sánh">
-                  <i class="fi fi-rs-shuffle"></i>
-                </a>
-              </div>
-              <div class="product__badge light-green">-22%</div>
-            </div>
-            <div class="product__content">
-              <span class="product__category">Quần áo</span>
-              <a href="#">
-                <h3 class="product__title">Áo sơ mi họa tiết</h3>
-              </a>
-              <div class="product__rating">
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-              </div>
-              <div class="product__price flex">
-                <span class="new__price">$238.85</span>
-                <span class="old__price">$245.8</span>
-              </div>
-              <a
-                href="#"
-                class="action__btn cart__btn"
-                aria-label="Add To Cart"
-              >
-                <i class="fi fi-rs-shopping-bag-add"></i>
-              </a>
-            </div>
-          </div>
-          <div class="product__item">
-            <div class="product__banner">
-              <a href="#" class="product__images">
-                <img
-                  src="assets/img/product-8-1.jpg"
-                  alt=""
-                  class="product__img default"
-                />
-                <img
-                  src="assets/img/product-8-2.jpg"
-                  alt=""
-                  class="product__img hover"
-                />
-              </a>
-              <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Xem nhanh">
-                  <i class="fi fi-rs-eye"></i>
-                </a>
-                <a
-                  href="#"
-                  class="action__btn"
-                  aria-label="Thêm vào yêu thích"
-                >
-                  <i class="fi fi-rs-heart"></i>
-                </a>
-                <a href="#" class="action__btn" aria-label="So sánh">
-                  <i class="fi fi-rs-shuffle"></i>
-                </a>
-              </div>
-            </div>
-            <div class="product__content">
-              <span class="product__category">Quần áo</span>
-              <a href="#">
-                <h3 class="product__title">Áo sơ mi họa tiết</h3>
-              </a>
-              <div class="product__rating">
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-              </div>
-              <div class="product__price flex">
-                <span class="new__price">$238.85</span>
-                <span class="old__price">$245.8</span>
-              </div>
-              <a
-                href="#"
-                class="action__btn cart__btn"
-                aria-label="Add To Cart"
-              >
-                <i class="fi fi-rs-shopping-bag-add"></i>
-              </a>
-            </div>
-          </div>
-          <div class="product__item">
-            <div class="product__banner">
-              <a href="#" class="product__images">
-                <img
-                  src="assets/img/product-10-1.jpg"
-                  alt=""
-                  class="product__img default"
-                />
-                <img
-                  src="assets/img/product-10-2.jpg"
-                  alt=""
-                  class="product__img hover"
-                />
-              </a>
-              <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Xem nhanh">
-                  <i class="fi fi-rs-eye"></i>
-                </a>
-                <a
-                  href="#"
-                  class="action__btn"
-                  aria-label="Thêm vào yêu thích"
-                >
-                  <i class="fi fi-rs-heart"></i>
-                </a>
-                <a href="#" class="action__btn" aria-label="So sánh">
-                  <i class="fi fi-rs-shuffle"></i>
-                </a>
-              </div>
-              <div class="product__badge light-blue">-30%</div>
-            </div>
-            <div class="product__content">
-              <span class="product__category">Quần áo</span>
-              <a href="#">
-                <h3 class="product__title">Áo sơ mi họa tiết</h3>
-              </a>
-              <div class="product__rating">
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-              </div>
-              <div class="product__price flex">
-                <span class="new__price">$238.85</span>
-                <span class="old__price">$245.8</span>
-              </div>
-              <a
-                href="#"
-                class="action__btn cart__btn"
-                aria-label="Add To Cart"
-              >
-                <i class="fi fi-rs-shopping-bag-add"></i>
-              </a>
-            </div>
-          </div>
-          <div class="product__item">
-            <div class="product__banner">
-              <a href="#" class="product__images">
-                <img
-                  src="assets/img/product-11-1.jpg"
-                  alt=""
-                  class="product__img default"
-                />
-                <img
-                  src="assets/img/product-11-2.jpg"
-                  alt=""
-                  class="product__img hover"
-                />
-              </a>
-              <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Xem nhanh">
-                  <i class="fi fi-rs-eye"></i>
-                </a>
-                <a
-                  href="#"
-                  class="action__btn"
-                  aria-label="Thêm vào yêu thích"
-                >
-                  <i class="fi fi-rs-heart"></i>
-                </a>
-                <a href="#" class="action__btn" aria-label="So sánh">
-                  <i class="fi fi-rs-shuffle"></i>
-                </a>
-              </div>
-              <div class="product__badge light-blue">-22%</div>
-            </div>
-            <div class="product__content">
-              <span class="product__category">Quần áo</span>
-              <a href="#">
-                <h3 class="product__title">Áo sơ mi họa tiết</h3>
-              </a>
-              <div class="product__rating">
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-              </div>
-              <div class="product__price flex">
-                <span class="new__price">$238.85</span>
-                <span class="old__price">$245.8</span>
-              </div>
-              <a
-                href="#"
-                class="action__btn cart__btn"
-                aria-label="Add To Cart"
-              >
-                <i class="fi fi-rs-shopping-bag-add"></i>
-              </a>
-            </div>
-          </div>
-          <div class="product__item">
-            <div class="product__banner">
-              <a href="#" class="product__images">
-                <img
-                  src="assets/img/product-4-1.jpg"
-                  alt=""
-                  class="product__img default"
-                />
-                <img
-                  src="assets/img/product-4-2.jpg"
-                  alt=""
-                  class="product__img hover"
-                />
-              </a>
-              <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Xem nhanh">
-                  <i class="fi fi-rs-eye"></i>
-                </a>
-                <a
-                  href="#"
-                  class="action__btn"
-                  aria-label="Thêm vào yêu thích"
-                >
-                  <i class="fi fi-rs-heart"></i>
-                </a>
-                <a href="#" class="action__btn" aria-label="So sánh">
-                  <i class="fi fi-rs-shuffle"></i>
-                </a>
-              </div>
-              <div class="product__badge light-green">-22%</div>
-            </div>
-            <div class="product__content">
-              <span class="product__category">Quần áo</span>
-              <a href="#">
-                <h3 class="product__title">Áo sơ mi họa tiết</h3>
-              </a>
-              <div class="product__rating">
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-              </div>
-              <div class="product__price flex">
-                <span class="new__price">$238.85</span>
-                <span class="old__price">$245.8</span>
-              </div>
-              <a
-                href="#"
-                class="action__btn cart__btn"
-                aria-label="Add To Cart"
-              >
-                <i class="fi fi-rs-shopping-bag-add"></i>
-              </a>
-            </div>
-          </div>
-          <div class="product__item">
-            <div class="product__banner">
-              <a href="#" class="product__images">
-                <img
-                  src="assets/img/product-12-1.jpg"
-                  alt=""
-                  class="product__img default"
-                />
-                <img
-                  src="assets/img/product-12-2.jpg"
-                  alt=""
-                  class="product__img hover"
-                />
-              </a>
-              <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Xem nhanh">
-                  <i class="fi fi-rs-eye"></i>
-                </a>
-                <a
-                  href="#"
-                  class="action__btn"
-                  aria-label="Thêm vào yêu thích"
-                >
-                  <i class="fi fi-rs-heart"></i>
-                </a>
-                <a href="#" class="action__btn" aria-label="So sánh">
-                  <i class="fi fi-rs-shuffle"></i>
-                </a>
-              </div>
-            </div>
-            <div class="product__content">
-              <span class="product__category">Quần áo</span>
-              <a href="#">
-                <h3 class="product__title">Áo sơ mi họa tiết</h3>
-              </a>
-              <div class="product__rating">
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-              </div>
-              <div class="product__price flex">
-                <span class="new__price">$238.85</span>
-                <span class="old__price">$245.8</span>
-              </div>
-              <a
-                href="#"
-                class="action__btn cart__btn"
-                aria-label="Add To Cart"
+                aria-label="Thêm vào giỏ"
+                :class="{ disabled: product.quantity === 0 }"
               >
                 <i class="fi fi-rs-shopping-bag-add"></i>
               </a>
             </div>
           </div>
         </div>
-        <ul class="pagination">
-          <li><a href="#" class="pagination__link active">01</a></li>
-          <li><a href="#" class="pagination__link">02</a></li>
-          <li><a href="#" class="pagination__link">03</a></li>
-          <li><a href="#" class="pagination__link">...</a></li>
-          <li><a href="#" class="pagination__link">16</a></li>
-          <li><a href="#" class="pagination__link icon">
-            <i class="fi-rs-angle-double-small-right"></i>
-          </a></li>
+
+        <ul
+          v-if="products.last_page > 1"
+          class="pagination"
+        >
+          <li
+            v-for="link in products.links"
+            :key="link.label"
+            :class="[
+              'pagination__item',
+              {
+                active: link.active,
+                disabled: !link.url
+              }
+            ]"
+          >
+            <!-- Link click được -->
+            <a
+              v-if="link.url"
+              href="#"
+              class="pagination__link"
+              @click.prevent="$inertia.visit(link.url)"
+            >
+              <span v-if="link.label.includes('Previous')">«</span>
+              <span v-else-if="link.label.includes('Next')">»</span>
+              <span v-else v-html="link.label"></span>
+            </a>
+
+            <!-- Không click được (disabled / active) -->
+            <span
+              v-else
+              class="pagination__link"
+            >
+              <span v-if="link.label.includes('Previous')">«</span>
+              <span v-else-if="link.label.includes('Next')">»</span>
+              <span v-else v-html="link.label"></span>
+            </span>
+          </li>
         </ul>
       </section>
+
 
       <!--=============== NEWSLETTER ===============-->
       <section class="newsletter section">

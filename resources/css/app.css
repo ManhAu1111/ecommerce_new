@@ -256,4 +256,50 @@
   color: #f5a623; /* vàng */
 }
 
+/* style cho phân trang shop.vue */
+.pagination {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.pagination__item {
+  list-style: none;
+}
+
+.pagination__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  color: #017a7e91;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* hover */
+.pagination__link:hover {
+  background: #f3f3f3;
+}
+
+/* ACTIVE */
+.pagination__item.active .pagination__link {
+  background: #46d2e7;
+  color: #ffffff;
+  border-color: #90cded;
+  font-weight: 600;
+  cursor: default;
+}
+
+/* DISABLED */
+.pagination__item.disabled .pagination__link {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
 
