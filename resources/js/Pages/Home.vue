@@ -147,7 +147,7 @@ defineProps({
                       </a>
                     </div>
 
-                    <div class="product__badge light-pink">Top Rated</div>
+                    <div class="product__badge light-pink">Nổi bật</div>
                   </div>
 
                   <div class="product__content">
@@ -214,12 +214,12 @@ defineProps({
                     </a>
 
                     <div class="product__actions">
-                      <a href="#" class="action__btn">
+                      <a href="#" class="action__btn" aria-label="Thêm vào yêu thích">
                         <i class="fi fi-rs-heart"></i>
                       </a>
                     </div>
 
-                    <div class="product__badge light-pink">Best Seller</div>
+                    <div class="product__badge light-pink">Bán chạy</div>
                   </div>
 
                   <div class="product__content">
@@ -373,7 +373,7 @@ defineProps({
                       </a>
                     </div>
 
-                    <div class="product__badge light-pink">Top Rated</div>
+                    <div class="product__badge light-pink">Mới</div>
                   </div>
 
                   <div class="product__content">
