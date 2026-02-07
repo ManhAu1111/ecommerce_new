@@ -2,6 +2,44 @@
 import MainLayout from '@/Layouts/MainLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { onMounted } from 'vue';
+import { ref, watch, computed } from 'vue'
+
+
+const props = defineProps({
+  product: Object
+})
+
+const qty = ref(1)
+
+// đảm bảo không vượt min / max kể cả khi user gõ tay
+watch(qty, (val) => {
+  if (val < 1) qty.value = 1
+  if (val > props.product.quantity) qty.value = props.product.quantity
+})
+
+/* trạng thái hiển thị: model hay image */
+const activeType = ref('model')
+const activeImage = ref(null)
+
+/* giá VN */
+const formattedPrice = computed(() =>
+  Number(props.product.price).toLocaleString('vi-VN') + '₫'
+)
+
+const categories = computed(() => {
+  return props.product.categories?.map(c => c.name) ?? []
+})
+
+
+/* đổi thumbnail */
+function showModel() {
+  activeType.value = 'model'
+}
+
+function showImage(src) {
+  activeType.value = 'image'
+  activeImage.value = src
+}
 
 onMounted(() => {
     /* Đảm bảo Swiper đã được tải từ CDN trong app.blade.php */
@@ -64,78 +102,69 @@ onMounted(() => {
               <!-- KHUNG HIỂN THỊ CHÍNH -->
               <div class="details__main">
 
-                  <!-- MODEL 3D (mặc định hiển thị) -->
-                  <model-viewer
-                    id="mainViewer"
-                    src="/uploads/model3d/1/kid_toy_low_poly.glb"
-                    camera-controls
-                    auto-rotate
-                    camera-orbit="0deg 75deg 105%"
-                    min-camera-orbit="auto auto 80%"
-                    max-camera-orbit="auto auto 120%"
-                    style="width:100%; height:100%;">
-                  </model-viewer>
+                <!-- MODEL 3D -->
+                <model-viewer
+                  v-show="activeType === 'model'"
+                  id="mainViewer"
+                  :src="product.model_url"
+                  camera-controls
+                  auto-rotate
+                  camera-orbit="0deg 75deg 105%"
+                  min-camera-orbit="auto auto 80%"
+                  max-camera-orbit="auto auto 120%"
+                  style="width:100%; height:100%;">
+                </model-viewer>
 
-
-                  <!-- ẢNH LỚN (ẩn ban đầu) -->
-                  <img
-                      id="mainImage"
-                      src=""
-                      alt=""
-                      class="details__img"
-                      style="display:none;"
-                  />
+                <!-- ẢNH LỚN -->
+                <img
+                  v-show="activeType === 'image'"
+                  :src="activeImage"
+                  class="details__img"
+                />
               </div>
+
 
               <!-- THANH ẢNH NHỎ -->
               <div class="details__small-images grid">
 
-                  <!-- THUMB MODEL -->
-                  <div class="thumb active" data-type="model">
-                      <model-viewer
-                          src="/uploads/model3d/1/kid_toy_low_poly.glb"
-                          interaction-prompt="none"
-                          disable-zoom
-                          disable-pan
-                          disable-tap
-                          style="width:100%; height:100%; background:#eee;">
-                      </model-viewer>
+                <!-- THUMB MODEL -->
+                <!-- MODEL -->
+                  <div
+                    class="thumb"
+                    :class="{ active: activeType === 'model' }"
+                    @click="showModel"
+                  >
+                    <model-viewer
+                      :src="product.model_url"
+                      interaction-prompt="none"
+                      disable-zoom
+                      disable-pan
+                      disable-tap
+                    />
                   </div>
 
-                  <!-- THUMB ẢNH -->
+                  <!-- IMAGES -->
                   <img
-                      src="/uploads/product_images/1/1.jpg"
-                      class="details__small-img thumb"
-                      data-type="image"
-                      data-src="/uploads/product_images/1/1.jpg"
+                    v-for="img in product.images"
+                    :key="img.id"
+                    :src="img.image_url"
+                    class="details__small-img thumb"
+                    :class="{ active: activeImage === img.image_url }"
+                    @click="showImage(img.image_url)"
                   />
 
-                  <img
-                      src="/uploads/product_images/1/2.jpg"
-                      class="details__small-img thumb"
-                      data-type="image"
-                      data-src="/uploads/product_images/1/2.jpg"
-                  />
-
-                  <img
-                      src="/uploads/product_images/1/3.jpg"
-                      class="details__small-img thumb"
-                      data-type="image"
-                      data-src="/uploads/product_images/1/3.jpg"
-                  />
               </div>
+
             </div>
           </div>
 
           <div class="details__group">
-            <h3 class="details__title">Đồ chơi gỗ mê cung hạt – Bead Maze Montessori cho bé</h3>
-            <p class="details__brand">Danh mục: <span>Đồ chơi trí tuệ</span></p>
+            <h3 class="details__title">{{ product.name }}</h3>
+            <p class="details__brand">Danh mục: <span>{{ categories.join(', ') }}</span></p>
             <div class="details__price flex">
-              <span class="new__price">250.000₫</span>
+              <span class="new__price">{{ formattedPrice }}</span>
             </div>
-            <p class="short__description">
-              Đồ chơi mê cung hạt gỗ giúp bé rèn luyện tư duy logic, khả năng phối hợp tay – mắt và nhận biết màu sắc thông qua việc di chuyển các hạt trên khung dây kim loại nhiều hình dạng.
-            </p>
+            <p class="short__description">{{ product.description }}</p>
             <ul class="products__list">
               <li class="list__item flex">
                 <i class="fi-rs-crown"></i> 1 Year Al Jazeera Brand Warranty
@@ -148,7 +177,21 @@ onMounted(() => {
               </li>
             </ul>
             <div class="details__action">
-              <input type="number" class="quantity" value="3" />
+              <template v-if="product.quantity > 0">
+                <input
+                  type="number"
+                  class="quantity"
+                  v-model.number="qty"
+                  :min="1"
+                  :max="product.quantity"
+                />
+              </template>
+
+              <span v-else class="out-stock">
+                Hết hàng
+              </span>
+
+
               <a href="#" class="btn btn--sm">Thêm vào giỏ hàng</a>
               <a href="#" class="details__action-btn">
                 <i class="fi fi-rs-heart"></i>
@@ -297,7 +340,7 @@ onMounted(() => {
         <div class="products__container grid">
           <div class="product__item">
             <div class="product__banner">
-              <a :href="route('detail')" class="product__images">
+              <a href="#" class="product__images">
                 <img
                   src="assets/img/product-1-1.jpg"
                   alt=""
@@ -328,7 +371,7 @@ onMounted(() => {
             </div>
             <div class="product__content">
               <span class="product__category">Clothing</span>
-              <a :href="route('detail')">
+              <a href="#">
                 <h3 class="product__title">Colorful Pattern Shirts</h3>
               </a>
               <div class="product__rating">
@@ -353,7 +396,7 @@ onMounted(() => {
           </div>
           <div class="product__item">
             <div class="product__banner">
-              <a :href="route('detail')" class="product__images">
+              <a href="#" class="product__images">
                 <img
                   src="assets/img/product-2-1.jpg"
                   alt=""
@@ -384,7 +427,7 @@ onMounted(() => {
             </div>
             <div class="product__content">
               <span class="product__category">Clothing</span>
-              <a :href="route('detail')">
+              <a href="#">
                 <h3 class="product__title">Colorful Pattern Shirts</h3>
               </a>
               <div class="product__rating">
@@ -409,7 +452,7 @@ onMounted(() => {
           </div>
           <div class="product__item">
             <div class="product__banner">
-              <a :href="route('detail')" class="product__images">
+              <a href="#" class="product__images">
                 <img
                   src="assets/img/product-3-1.jpg"
                   alt=""
@@ -440,7 +483,7 @@ onMounted(() => {
             </div>
             <div class="product__content">
               <span class="product__category">Clothing</span>
-              <a :href="route('detail')">
+              <a href="#">
                 <h3 class="product__title">Colorful Pattern Shirts</h3>
               </a>
               <div class="product__rating">
@@ -465,7 +508,7 @@ onMounted(() => {
           </div>
           <div class="product__item">
             <div class="product__banner">
-              <a :href="route('detail')" class="product__images">
+                <a href="#" class="product__images">
                 <img
                   src="assets/img/product-4-1.jpg"
                   alt=""
@@ -496,7 +539,7 @@ onMounted(() => {
             </div>
             <div class="product__content">
               <span class="product__category">Clothing</span>
-              <a :href="route('detail')">
+              <a href="#">
                 <h3 class="product__title">Colorful Pattern Shirts</h3>
               </a>
               <div class="product__rating">

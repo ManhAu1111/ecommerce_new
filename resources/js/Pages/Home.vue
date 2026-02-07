@@ -123,7 +123,11 @@ defineProps({
                   :key="product.id"
                 >
                   <div class="product__banner">
-                    <a :href="route('detail', product.id)" class="product__images">
+                    <a
+                      v-if="product?.id"
+                      :href="route('detail', { id: product.id })"
+                      class="product__images"
+                    >
                       <img
                         :src="product.primary_image?.image_url ?? '/assets/img/default.jpg'"
                         class="product__img default"
@@ -149,7 +153,10 @@ defineProps({
                   <div class="product__content">
                     <span class="product__category">Sản phẩm</span>
 
-                    <a :href="route('detail', product.id)">
+                    <a
+                      v-if="product?.id"
+                      :href="route('detail', { id: product.id })"
+                    >
                       <h3 class="product__title">{{ product.name }}</h3>
                     </a>
 
@@ -188,7 +195,11 @@ defineProps({
                   :key="product.id"
                 >
                   <div class="product__banner">
-                    <a :href="route('detail', product.id)" class="product__images">
+                    <a
+                      v-if="product?.id"
+                      :href="route('detail', { id: product.id })"
+                      class="product__images"
+                    >
                       <img
                         :src="product.primary_image?.image_url ?? '/assets/img/default.jpg'"
                         class="product__img default"
@@ -214,10 +225,12 @@ defineProps({
                   <div class="product__content">
                     <span class="product__category">Sản phẩm</span>
 
-                    <a :href="route('detail', product.id)">
+                    <a
+                      v-if="product?.id"
+                      :href="route('detail', { id: product.id })"
+                    >
                       <h3 class="product__title">{{ product.name }}</h3>
                     </a>
-
                     <div class="product__rating">
                       <i
                         v-for="i in 5"
@@ -336,7 +349,11 @@ defineProps({
                   :key="product.id"
                 >
                   <div class="product__banner">
-                    <a :href="route('detail', product.id)" class="product__images">
+                    <a
+                      v-if="product?.id"
+                      :href="route('detail', { id: product.id })"
+                      class="product__images"
+                    >
                       <img
                         :src="product.primary_image?.image_url ?? '/assets/img/default.jpg'"
                         class="product__img default"
@@ -362,9 +379,13 @@ defineProps({
                   <div class="product__content">
                     <span class="product__category">Sản phẩm</span>
 
-                    <a :href="route('detail', product.id)">
+                    <a
+                      v-if="product?.id"
+                      :href="route('detail', { id: product.id })"
+                    >
                       <h3 class="product__title">{{ product.name }}</h3>
                     </a>
+
 
                     <div class="product__rating">
                       <i
@@ -399,11 +420,11 @@ defineProps({
             <div class="showcase__wrapper">
               <h3 class="section__title">Mới phát hành</h3>
               <div class="showcase__item">
-                <a :href="route('detail')" class="showcase__img-box">
+                <a href="#" class="showcase__img-box">
                   <img src="/assets/img/showcase-img-1.jpg" alt="" class="showcase__img" />
                 </a>
                 <div class="showcase__content">
-                  <a :href="route('detail')">
+                  <a href="#">
                     <h4 class="showcase__title">
                       Đầm cotton in hoa
                     </h4>
@@ -415,11 +436,11 @@ defineProps({
                 </div>
               </div>
               <div class="showcase__item">
-                <a :href="route('detail')" class="showcase__img-box">
+                <a href="#" class="showcase__img-box">
                   <img src="/assets/img/showcase-img-2.jpg" alt="" class="showcase__img" />
                 </a>
                 <div class="showcase__content">
-                  <a :href="route('detail')">
+                  <a href="#">
                     <h4 class="showcase__title">
                       Áo kiểu tay dài bèo nhún
                     </h4>
@@ -431,11 +452,11 @@ defineProps({
                 </div>
               </div>
               <div class="showcase__item">
-                <a :href="route('detail')" class="showcase__img-box">
+                <a href="#" class="showcase__img-box">
                   <img src="/assets/img/showcase-img-3.jpg" alt="" class="showcase__img" />
                 </a>
                 <div class="showcase__content">
-                  <a :href="route('detail')">
+                  <a href="#">
                     <h4 class="showcase__title">
                       Áo thun cổ V in nhiều màu
                     </h4>
@@ -450,11 +471,11 @@ defineProps({
             <div class="showcase__wrapper">
               <h3 class="section__title">Ưu đãi & Xả hàng</h3>
               <div class="showcase__item">
-                <a :href="route('detail')" class="showcase__img-box">
+                <a href="#" class="showcase__img-box">
                   <img src="/assets/img/showcase-img-4.jpg" alt="" class="showcase__img" />
                 </a>
                 <div class="showcase__content">
-                  <a :href="route('detail')">
+                  <a href="#">
                     <h4 class="showcase__title">Áo thun in hình cá</h4>
                   </a>
                   <div class="showcase__price flex">
@@ -464,11 +485,11 @@ defineProps({
                 </div>
               </div>
               <div class="showcase__item">
-                <a :href="route('detail')" class="showcase__img-box">
+                <a href="#" class="showcase__img-box">
                   <img src="/assets/img/showcase-img-5.jpg" alt="" class="showcase__img" />
                 </a>
                 <div class="showcase__content">
-                  <a :href="route('detail')">
+                  <a href="#">
                     <h4 class="showcase__title">Đầm in hoa cổ điển</h4>
                   </a>
                   <div class="showcase__price flex">
@@ -478,11 +499,11 @@ defineProps({
                 </div>
               </div>
               <div class="showcase__item">
-                <a :href="route('detail')" class="showcase__img-box">
+                <a href="#" class="showcase__img-box">
                   <img src="/assets/img/showcase-img-6.jpg" alt="" class="showcase__img" />
                 </a>
                 <div class="showcase__content">
-                  <a :href="route('detail')">
+                  <a href="#">
                     <h4 class="showcase__title">
                       Áo thun sọc tròn nhiều màu
                     </h4>
@@ -497,11 +518,11 @@ defineProps({
             <div class="showcase__wrapper">
               <h3 class="section__title">Bán chạy nhất</h3>
               <div class="showcase__item">
-                <a :href="route('detail')" class="showcase__img-box">
+                <a href="#" class="showcase__img-box">
                   <img src="/assets/img/showcase-img-7.jpg" alt="" class="showcase__img" />
                 </a>
                 <div class="showcase__content">
-                  <a :href="route('detail')">
+                  <a href="#">
                     <h4 class="showcase__title">
                       Áo kiểu tay dài in hình học
                     </h4>
@@ -513,11 +534,11 @@ defineProps({
                 </div>
               </div>
               <div class="showcase__item">
-                <a :href="route('detail')" class="showcase__img-box">
+                <a href="#" class="showcase__img-box">
                   <img src="/assets/img/showcase-img-8.jpg" alt="" class="showcase__img" />
                 </a>
                 <div class="showcase__content">
-                  <a :href="route('detail')">
+                  <a href="#">
                     <h4 class="showcase__title">Đầm Maxi in họa tiết</h4>
                   </a>
                   <div class="showcase__price flex">
@@ -527,11 +548,11 @@ defineProps({
                 </div>
               </div>
               <div class="showcase__item">
-                <a :href="route('detail')" class="showcase__img-box">
+                <a href="#" class="showcase__img-box">
                   <img src="/assets/img/showcase-img-9.jpg" alt="" class="showcase__img" />
                 </a>
                 <div class="showcase__content">
-                  <a :href="route('detail')">
+                  <a href="#">
                     <h4 class="showcase__title">
                       Jumpsuit dây in hoa cúc
                     </h4>
@@ -546,11 +567,11 @@ defineProps({
             <div class="showcase__wrapper">
               <h3 class="section__title">Xu hướng</h3>
               <div class="showcase__item">
-                <a :href="route('detail')" class="showcase__img-box">
+                <a href="#" class="showcase__img-box">
                   <img src="/assets/img/showcase-img-7.jpg" alt="" class="showcase__img" />
                 </a>
                 <div class="showcase__content">
-                  <a :href="route('detail')">
+                  <a href="#">
                     <h4 class="showcase__title">Cotton in hoa thường ngày</h4>
                   </a>
                   <div class="showcase__price flex">
@@ -560,11 +581,11 @@ defineProps({
                 </div>
               </div>
               <div class="showcase__item">
-                <a :href="route('detail')" class="showcase__img-box">
+                <a href="#" class="showcase__img-box">
                   <img src="/assets/img/showcase-img-8.jpg" alt="" class="showcase__img" />
                 </a>
                 <div class="showcase__content">
-                  <a :href="route('detail')">
+                  <a href="#">
                     <h4 class="showcase__title">Tay dài bèo nhún trơn</h4>
                   </a>
                   <div class="showcase__price flex">
@@ -574,11 +595,11 @@ defineProps({
                 </div>
               </div>
               <div class="showcase__item">
-                <a :href="route('detail')" class="showcase__img-box">
+                <a href="#" class="showcase__img-box">
                   <img src="/assets/img/showcase-img-9.jpg" alt="" class="showcase__img" />
                 </a>
                 <div class="showcase__content">
-                  <a :href="route('detail')">
+                  <a href="#">
                     <h4 class="showcase__title">In nhiều màu cổ V</h4>
                   </a>
                   <div class="showcase__price flex">

@@ -59,7 +59,7 @@ onMounted(() => {
         <div class="products__container grid">
           <div class="product__item">
             <div class="product__banner">
-              <a :href="route('detail')" class="product__images">
+              <a href="#" class="product__images">
                 <img
                   src="assets/img/product-1-1.jpg"
                   alt=""
@@ -90,7 +90,7 @@ onMounted(() => {
             </div>
             <div class="product__content">
               <span class="product__category">Quần áo</span>
-              <a :href="route('detail')">
+              <a href="#">
                 <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">
@@ -116,7 +116,7 @@ onMounted(() => {
           <!-- :href="route('detail')" -->
           <div class="product__item">
             <div class="product__banner">
-              <a :href="route('detail')" class="product__images">
+              <a href="#" class="product__images">
                 <img
                   src="assets/img/product-2-1.jpg"
                   alt=""
@@ -147,7 +147,7 @@ onMounted(() => {
             </div>
             <div class="product__content">
               <span class="product__category">Quần áo</span>
-              <a :href="route('detail')">
+              <a href="#">
                 <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">
@@ -172,7 +172,7 @@ onMounted(() => {
           </div>
           <div class="product__item">
             <div class="product__banner">
-              <a :href="route('detail')" class="product__images">
+              <a href="#" class="product__images">
                 <img
                   src="assets/img/product-3-1.jpg"
                   alt=""
@@ -203,7 +203,7 @@ onMounted(() => {
             </div>
             <div class="product__content">
               <span class="product__category">Quần áo</span>
-              <a :href="route('detail')">
+              <a href="#">
                 <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">
@@ -228,7 +228,7 @@ onMounted(() => {
           </div>
           <div class="product__item">
             <div class="product__banner">
-              <a :href="route('detail')" class="product__images">
+              <a href="#" class="product__images">
                 <img
                   src="assets/img/product-4-1.jpg"
                   alt=""
@@ -259,7 +259,7 @@ onMounted(() => {
             </div>
             <div class="product__content">
               <span class="product__category">Quần áo</span>
-              <a :href="route('detail')">
+              <a href="#">
                 <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">
@@ -284,7 +284,7 @@ onMounted(() => {
           </div>
           <div class="product__item">
             <div class="product__banner">
-              <a :href="route('detail')" class="product__images">
+              <a href="#" class="product__images">
                 <img
                   src="assets/img/product-5-1.jpg"
                   alt=""
@@ -315,7 +315,7 @@ onMounted(() => {
             </div>
             <div class="product__content">
               <span class="product__category">Quần áo</span>
-              <a :href="route('detail')">
+              <a href="#">
                 <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">
@@ -340,7 +340,7 @@ onMounted(() => {
           </div>
           <div class="product__item">
             <div class="product__banner">
-              <a :href="route('detail')" class="product__images">
+              <a href="#" class="product__images">
                 <img
                   src="assets/img/product-6-1.jpg"
                   alt=""
@@ -371,7 +371,7 @@ onMounted(() => {
             </div>
             <div class="product__content">
               <span class="product__category">Quần áo</span>
-              <a :href="route('detail')">
+              <a href="#">
                 <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">
@@ -396,7 +396,7 @@ onMounted(() => {
           </div>
           <div class="product__item">
             <div class="product__banner">
-              <a :href="route('detail')" class="product__images">
+              <a href="#" class="product__images">
                 <img
                   src="assets/img/product-7-1.jpg"
                   alt=""
@@ -427,7 +427,7 @@ onMounted(() => {
             </div>
             <div class="product__content">
               <span class="product__category">Quần áo</span>
-              <a :href="route('detail')">
+              <a href="#">
                 <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">
@@ -452,7 +452,7 @@ onMounted(() => {
           </div>
           <div class="product__item">
             <div class="product__banner">
-              <a :href="route('detail')" class="product__images">
+              <a href="#" class="product__images">
                 <img
                   src="assets/img/product-8-1.jpg"
                   alt=""
@@ -482,7 +482,7 @@ onMounted(() => {
             </div>
             <div class="product__content">
               <span class="product__category">Quần áo</span>
-              <a :href="route('detail')">
+              <a href="#">
                 <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">
@@ -507,7 +507,7 @@ onMounted(() => {
           </div>
           <div class="product__item">
             <div class="product__banner">
-              <a :href="route('detail')" class="product__images">
+              <a href="#" class="product__images">
                 <img
                   src="assets/img/product-10-1.jpg"
                   alt=""
@@ -538,7 +538,7 @@ onMounted(() => {
             </div>
             <div class="product__content">
               <span class="product__category">Quần áo</span>
-              <a :href="route('detail')">
+              <a href="#">
                 <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">
@@ -563,7 +563,7 @@ onMounted(() => {
           </div>
           <div class="product__item">
             <div class="product__banner">
-              <a :href="route('detail')" class="product__images">
+              <a href="#" class="product__images">
                 <img
                   src="assets/img/product-11-1.jpg"
                   alt=""
@@ -594,7 +594,7 @@ onMounted(() => {
             </div>
             <div class="product__content">
               <span class="product__category">Quần áo</span>
-              <a :href="route('detail')">
+              <a href="#">
                 <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">
@@ -619,7 +619,7 @@ onMounted(() => {
           </div>
           <div class="product__item">
             <div class="product__banner">
-              <a :href="route('detail')" class="product__images">
+              <a href="#" class="product__images">
                 <img
                   src="assets/img/product-4-1.jpg"
                   alt=""
@@ -650,7 +650,7 @@ onMounted(() => {
             </div>
             <div class="product__content">
               <span class="product__category">Quần áo</span>
-              <a :href="route('detail')">
+              <a href="#">
                 <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">
@@ -675,7 +675,7 @@ onMounted(() => {
           </div>
           <div class="product__item">
             <div class="product__banner">
-              <a :href="route('detail')" class="product__images">
+              <a href="#" class="product__images">
                 <img
                   src="assets/img/product-12-1.jpg"
                   alt=""
@@ -705,7 +705,7 @@ onMounted(() => {
             </div>
             <div class="product__content">
               <span class="product__category">Quần áo</span>
-              <a :href="route('detail')">
+              <a href="#">
                 <h3 class="product__title">Áo sơ mi họa tiết</h3>
               </a>
               <div class="product__rating">

@@ -30,5 +30,19 @@ class ProductController extends Controller
             'newProducts'      => $newProducts,
         ]);
     }
+    public function show($id)
+    {
+        $product = Product::with([
+            'primaryImage',
+            'images' => function ($q) {
+                $q->orderBy('display_order');
+            },
+            'reviews',
+            'categories',
+        ])->findOrFail($id);
 
+        return Inertia::render('Detail', [
+            'product' => $product
+        ]);
+    }   
 }
