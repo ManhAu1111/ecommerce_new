@@ -3,6 +3,8 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
+
 use Inertia\Inertia;
 
 /*
@@ -50,6 +52,12 @@ Route::get('/checkout', function () {
 */
 Route::get('/categories', [CategoryController::class, 'index']);
 
+/*
+|--------------------------------------------------------------------------
+| Product Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/home', [ProductController::class, 'index'])->name('home');
 
 /*
 |--------------------------------------------------------------------------

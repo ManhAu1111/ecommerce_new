@@ -509,12 +509,15 @@ table {
 }
 
 .products__container {
+  display: grid;
   grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
 }
 
 .product__item {
   border: 1px solid var(--border-color);
   border-radius: 1.5rem;
+  width: 90%;
   transition: all 0.2s var(--transition);
   -webkit-border-radius: 1.5rem;
   -moz-border-radius: 1.5rem;
@@ -527,32 +530,34 @@ table {
 }
 
 .product__banner {
-  padding: 0.625rem 0.75rem 0.75rem;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;      /* khung vuông */
+  overflow: hidden;
+  border-radius: 14px;
+  background: #f3f3f3;
 }
 
-.product__banner,
+
+
+
 .product__images {
+  width: 100%;
+  height: 100%;
+  display: block;
   position: relative;
 }
 
-.product__images {
-  display: block;
-  overflow: hidden;
-  border-radius: 1.25rem;
-  -webkit-border-radius: 1.25rem;
-  -moz-border-radius: 1.25rem;
-  -ms-border-radius: 1.25rem;
-  -o-border-radius: 1.25rem;
+.product__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;        /* 🔥 QUYẾT ĐỊNH TẤT CẢ */
+  object-position: center;  /* ưu tiên trung tâm */
+  transition: opacity .35s ease, transform .35s ease;
 }
 
-.product__img {
-  vertical-align: middle;
-  transition: all 1.5s var(--transition);
-  -webkit-transition: all 1.5s var(--transition);
-  -moz-transition: all 1.5s var(--transition);
-  -ms-transition: all 1.5s var(--transition);
-  -o-transition: all 1.5s var(--transition);
-}
 
 .product__item:hover .product__img {
   transform: scale(1.1);
