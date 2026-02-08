@@ -33,7 +33,7 @@ const formattedPrice = computed(() =>
 )
 
 const categories = computed(() => {
-  return props.product.categories?.map(c => c.name) ?? []
+  return props.product.categories ?? []
 })
 
 
@@ -137,20 +137,31 @@ const truncate = (text, limit = 50) => {
 
           <div class="details__group">
             <h3 class="details__title">{{ product.name }}</h3>
-            <p class="details__brand">Danh mục: <span>{{ categories.join(', ') }}</span></p>
+            <p class="details__brand">
+              Danh mục:
+              <template v-for="(category, index) in categories" :key="category.id">
+                <a
+                  :href="route('shop', { category: category.id })"
+                  class="details__category-link"
+                >
+                  {{ category.name }}
+                </a>
+                <span v-if="index < categories.length - 1">, </span>
+              </template>
+            </p>
             <div class="details__price flex">
               <span class="new__price">{{ formattedPrice }}</span>
             </div>
             <p class="short__description">{{ product.description }}</p>
             <ul class="products__list">
               <li class="list__item flex">
-                <i class="fi-rs-crown"></i> 1 Year Al Jazeera Brand Warranty
+                <i class="fi-rs-crown"></i> Đồ chơi chính hãng, an toàn cho trẻ em
               </li>
               <li class="list__item flex">
-                <i class="fi-rs-refresh"></i> 30 Days Return Policy
+                <i class="fi-rs-refresh"></i> Hỗ trợ đổi trả trong 30 ngày
               </li>
               <li class="list__item flex">
-                <i class="fi-rs-credit-card"></i> Cash on Delivery available
+                <i class="fi-rs-credit-card"></i> Thanh toán qua ví điện tử MOMO hoặc trực tiếp tiện lợi
               </li>
             </ul>
             <div class="details__action">
@@ -175,12 +186,12 @@ const truncate = (text, limit = 50) => {
               </a>
             </div>
             <ul class="details__meta">
-              <li class="meta__list flex"><span>SKU:</span>FWM15VKT</li>
+              <!-- <li class="meta__list flex"><span>SKU:</span>FWM15VKT</li>
               <li class="meta__list flex">
                 <span>Tags:</span>Clothes, Women, Dress
-              </li>
+              </li> -->
               <li class="meta__list flex">
-                <span>Availability:</span>8 Items in Stock
+                <span>Số lượng:</span>{{ product.quantity }} trong kho
               </li>
             </ul>
           </div>

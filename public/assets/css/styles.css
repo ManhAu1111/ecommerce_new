@@ -1280,7 +1280,7 @@ table {
   display: flex;
   align-items: center;     /* 👈 căn giữa dọc */
   justify-content: center; /* 👈 căn giữa ngang */
-  color: #333;
+  color: #4cabc3;
   background: #fff;
   transition: all 0.25s ease;
 }
@@ -1291,14 +1291,13 @@ table {
   line-height: 1;
 }
 
-/* hover */
+/* hover - mint */
 .details__action-btn:hover {
-  background: #ffeded;
-  border-color: #ff4d4f;
-  color: #ff4d4f;
+  background: #e8f7f4;
+  border-color: #7fd1c5;
+  color: #1aa89f;
   transform: scale(1.05);
 }
-
 
 .details__meta {
   border-top: 1px solid var(--border-color-alt);
@@ -2234,4 +2233,16 @@ table {
 
 .thumb.active {
     border: 2px solid #000;
+}
+
+.details__category-link {
+  color: var(--first-color);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.details__category-link:hover {
+  color: #2fb4d9;
+  text-decoration: none;
 }
