@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Controllers\Controller;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
+
 
 class ProductController extends Controller
 {
@@ -31,14 +33,28 @@ class ProductController extends Controller
         ]);
     }
     // SHOP – HIỂN THỊ TẤT CẢ SẢN PHẨM
-    public function shop()
+    public function shop(Request $request)
     {
-        $products = Product::with(['primaryImage', 'secondaryImage'])
-            ->orderByDesc('created_at')
-            ->paginate(12); // nên phân trang luôn
+        $query = Product::with([
+            'primaryImage',
+            'secondaryImage',
+            'categories'
+        ])->orderByDesc('created_at');
+
+        // 👉 nếu có category trên URL
+        if ($request->filled('category')) {
+            $categoryId = $request->category;
+
+            $query->whereHas('categories', function ($q) use ($categoryId) {
+                $q->where('categories.id', $categoryId);
+            });
+        }
+
+        $products = $query->paginate(12)->withQueryString();
 
         return Inertia::render('Shop', [
-            'products' => $products
+            'products' => $products,
+            'activeCategory' => $request->category, // optional
         ]);
     }
 
