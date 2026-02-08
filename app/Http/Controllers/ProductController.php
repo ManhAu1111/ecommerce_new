@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
 use App\Http\Controllers\Controller;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -35,28 +36,67 @@ class ProductController extends Controller
     // SHOP – HIỂN THỊ TẤT CẢ SẢN PHẨM
     public function shop(Request $request)
     {
+        $categoryIds = $request->category;
+
+        if ($categoryIds && !is_array($categoryIds)) {
+            $categoryIds = [$categoryIds];
+        }
+        
         $query = Product::with([
-            'primaryImage',
-            'secondaryImage',
-            'categories'
+        'primaryImage',
+        'secondaryImage',
+        'categories'
         ])->orderByDesc('created_at');
 
-        // 👉 nếu có category trên URL
-        if ($request->filled('category')) {
-            $categoryId = $request->category;
-
-            $query->whereHas('categories', function ($q) use ($categoryId) {
-                $q->where('categories.id', $categoryId);
+        if (!empty($categoryIds)) {
+            $query->whereHas('categories', function ($q) use ($categoryIds) {
+                $q->whereIn('categories.id', $categoryIds);
             });
+        }
+
+        // 🔍 SEARCH THEO TÊN
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        // Filter category (multi)
+        if ($request->filled('category')) {
+            $categoryIds = $request->category;
+
+            if (!is_array($categoryIds)) {
+                $categoryIds = [$categoryIds];
+            }
+
+            $query->whereHas('categories', function ($q) use ($categoryIds) {
+                $q->whereIn('categories.id', $categoryIds);
+            });
+        }
+
+        // Filter price
+        if ($request->filled('price_min')) {
+            $query->where('price', '>=', (int)$request->price_min);
+        }
+
+        if ($request->filled('price_max')) {
+            $query->where('price', '<=', (int)$request->price_max);
         }
 
         $products = $query->paginate(12)->withQueryString();
 
         return Inertia::render('Shop', [
             'products' => $products,
-            'activeCategory' => $request->category, // optional
+            'categories' => Category::orderBy('name')->get(),
+            'filters' => [
+                'search'    => $request->search ?? '',
+                'category' => $categoryIds ?? [], // ✅ QUAN TRỌNG
+                'price_min' => $request->price_min,
+                'price_max' => $request->price_max,
+            ],
         ]);
     }
+
+
+
 
     public function show($id)
     {

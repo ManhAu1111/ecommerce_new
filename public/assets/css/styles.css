@@ -263,7 +263,14 @@ table {
 
 .header__search .form__input {
   width: 100%;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
+
+.header__search .form__input:focus {
+  border-color: #5cd0d2;
+  box-shadow: 0 0 0 3px rgba(92, 208, 210, 0.2);
+}
+
 
 .search__btn {
   position: absolute;

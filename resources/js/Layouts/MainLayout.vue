@@ -11,6 +11,16 @@ const logout = () => {
     router.post(route('logout'))
 }
 
+const search = ref('')
+
+const submitSearch = () => {
+  router.get('/shop', {
+    search: search.value
+  }, {
+    preserveState: true,
+    preserveScroll: true,
+  })
+}
 </script>
 
 
@@ -77,8 +87,14 @@ const logout = () => {
                         </li>
                     </ul>
                     <div class="header__search">
-                        <input type="text" placeholder="Tìm kiếm sản phẩm..." class="form__input" />
-                        <button class="search__btn">
+                        <input
+                            type="text"
+                            placeholder="Tìm kiếm sản phẩm..."
+                            class="form__input"
+                            v-model="search"
+                            @keyup.enter="submitSearch"
+                        />
+                        <button class="search__btn" @click="submitSearch">
                             <img src="/assets/img/search.png" alt="search icon" />
                         </button>
                     </div>

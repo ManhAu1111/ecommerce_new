@@ -1,30 +1,58 @@
 <script setup>
-import MainLayout from '@/Layouts/MainLayout.vue';
-import { Head } from '@inertiajs/vue3';
-import { onMounted } from 'vue';
+import MainLayout from '@/Layouts/MainLayout.vue'
+import { router } from '@inertiajs/vue3'
+import { reactive, computed } from 'vue'
 
-defineProps({
-  products: Object
+const props = defineProps({
+  products: Object,
+  categories: Array,
+  filters: Object
 })
 
-onMounted(() => {
-  const priceInputs = document.querySelectorAll('.price-input')
+const filter = reactive({
+  category: props.filters?.category ?? [],
+  price_min: props.filters?.price_min ?? '',
+  price_max: props.filters?.price_max ?? '',
+})
 
-  priceInputs.forEach(input => {
-    // Khi rời input → format tiền
-    input.addEventListener('blur', () => {
-      let value = input.value.replace(/\D/g, '')
-      if (!value) return
-      input.value = Number(value).toLocaleString('vi-VN')
-    })
+// format hiển thị tiền
+const formatMoney = (value) => {
+  if (!value) return ''
+  return Number(value).toLocaleString('vi-VN')
+}
 
-    // Khi focus → bỏ dấu chấm để sửa
-    input.addEventListener('focus', () => {
-      input.value = input.value.replace(/\D/g, '')
-    })
+// computed cho input
+const priceMinDisplay = computed({
+  get() {
+    return formatMoney(filter.price_min)
+  },
+  set(value) {
+    filter.price_min = value.replace(/\D/g, '')
+  }
+})
+
+const priceMaxDisplay = computed({
+  get() {
+    return formatMoney(filter.price_max)
+  },
+  set(value) {
+    filter.price_max = value.replace(/\D/g, '')
+  }
+})
+
+const applyFilter = () => {
+  router.get('/shop', {
+    category: filter.category,
+    price_min: filter.price_min,
+    price_max: filter.price_max,
+  }, {
+    preserveState: true,
+    preserveScroll: true,
   })
-})
+}
 </script>
+
+
 
 <template>
     <MainLayout>
@@ -50,42 +78,47 @@ onMounted(() => {
               <h4 class="filter__heading">Khoảng giá</h4>
 
               <div class="filter__price">
-                <input type="text" placeholder="Từ" class="filter__input  price-input" />
+                <input
+                  type="text"
+                  placeholder="Từ"
+                  class="filter__input"
+                  v-model="priceMinDisplay"
+                />
                 <span>-</span>
-                <input type="text" placeholder="Đến" class="filter__input  price-input" />
+                <input
+                  type="text"
+                  placeholder="Đến"
+                  class="filter__input"
+                  v-model="priceMaxDisplay"
+                />
               </div>
 
-              <button class="filter__btn">Áp dụng</button>
+              <button class="filter__btn" @click="applyFilter">
+                Áp dụng
+              </button>
             </div>
+
 
             <!-- Filter Category -->
             <div class="filter__group">
               <h4 class="filter__heading">Danh mục</h4>
 
-              <label class="filter__checkbox">
-                <input type="checkbox" />
+              <label
+                v-for="cate in categories"
+                :key="cate.id"
+                class="filter__checkbox"
+              >
+                <input
+                  type="checkbox"
+                  :value="cate.id"
+                  v-model="filter.category"
+                  @change="applyFilter"
+                />
                 <span class="checkbox__custom"></span>
-                <span class="checkbox__label">Rubik</span>
-              </label>
-
-              <label class="filter__checkbox">
-                <input type="checkbox" />
-                <span class="checkbox__custom"></span>
-                <span class="checkbox__label">Đồ chơi trí tuệ</span>
-              </label>
-
-              <label class="filter__checkbox">
-                <input type="checkbox" />
-                <span class="checkbox__custom"></span>
-                <span class="checkbox__label">Mô hình</span>
-              </label>
-
-              <label class="filter__checkbox">
-                <input type="checkbox" />
-                <span class="checkbox__custom"></span>
-                <span class="checkbox__label">Robot</span>
+                <span class="checkbox__label">{{ cate.name }}</span>
               </label>
             </div>
+
           </aside>
           <!-- PRODUCTS LIST -->
           <div>
