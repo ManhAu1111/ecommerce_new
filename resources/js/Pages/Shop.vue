@@ -175,12 +175,12 @@ const truncate = (text, limit = 50) => {
                   >
                     Hết hàng
                   </div>
-                  <div
+                  <!-- <div
                     v-else
                     class="product__badge light-green"
                   >
                     Mới
-                  </div>
+                  </div> -->
                 </div>
 
                 <div class="product__content">
