@@ -46,6 +46,13 @@ defineProps({
   },
 })
 
+const truncate = (text, limit = 50) => {
+  if (!text) return ''
+  return text.length > limit
+    ? text.slice(0, limit) + '...'
+    : text
+}
+
 </script>
 
 
@@ -157,7 +164,7 @@ defineProps({
                       v-if="product?.id"
                       :href="route('detail', { id: product.id })"
                     >
-                      <h3 class="product__title">{{ product.name }}</h3>
+                      <h3 class="product__title">{{ truncate(product.name, 50) }}</h3>
                     </a>
 
                     <div class="product__rating">
@@ -229,7 +236,7 @@ defineProps({
                       v-if="product?.id"
                       :href="route('detail', { id: product.id })"
                     >
-                      <h3 class="product__title">{{ product.name }}</h3>
+                      <h3 class="product__title">{{ truncate(product.name, 50) }}</h3>
                     </a>
                     <div class="product__rating">
                       <i
@@ -383,7 +390,7 @@ defineProps({
                       v-if="product?.id"
                       :href="route('detail', { id: product.id })"
                     >
-                      <h3 class="product__title">{{ product.name }}</h3>
+                      <h3 class="product__title">{{ truncate(product.name, 50) }}</h3>
                     </a>
 
 

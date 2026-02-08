@@ -50,6 +50,14 @@ const applyFilter = () => {
     preserveScroll: true,
   })
 }
+
+const truncate = (text, limit = 50) => {
+  if (!text) return ''
+  return text.length > limit
+    ? text.slice(0, limit) + '...'
+    : text
+}
+
 </script>
 
 
@@ -185,7 +193,7 @@ const applyFilter = () => {
                     :href="route('detail', { id: product.id })"
                   >
                     <h3 class="product__title">
-                      {{ product.name }}
+                      {{ truncate(product.name, 50) }}
                     </h3>
                   </a>
 

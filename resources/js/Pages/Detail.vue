@@ -46,6 +46,14 @@ function showImage(src) {
   activeType.value = 'image'
   activeImage.value = src
 }
+
+const truncate = (text, limit = 50) => {
+  if (!text) return ''
+  return text.length > limit
+    ? text.slice(0, limit) + '...'
+    : text
+}
+
 </script>
 
 <template>
@@ -365,7 +373,7 @@ function showImage(src) {
                 :href="route('detail', { id: product.id })"
               >
                 <h3 class="product__title">
-                  {{ product.name }}
+                  {{ truncate(product.name, 50) }}
                 </h3>
               </a>
 
