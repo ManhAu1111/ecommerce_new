@@ -59,7 +59,6 @@ Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/home', [ProductController::class, 'index'])->name('home');
 Route::get('/products/{id}/related', [ProductController::class, 'relatedProducts']);
 
-
 /*
 |--------------------------------------------------------------------------
 | Authentication & OTP

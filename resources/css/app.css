@@ -303,3 +303,124 @@
   cursor: not-allowed;
 }
 
+
+/* style bộ lọc sản phẩm Shop */
+.shop__layout {
+  grid-template-columns: 280px 1fr;
+  gap: 2rem;
+}
+
+/* Sidebar */
+.shop__filter {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 16px;
+  padding: 20px;
+  height: fit-content;
+}
+
+.filter__title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.filter__group {
+  margin-bottom: 1.8rem;
+}
+
+.filter__heading {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+/* Price */
+.filter__price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter__input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.filter__btn {
+  margin-top: 10px;
+  width: 100%;
+  padding: 8px 0;
+  border-radius: 10px;
+  background: var(--first-color);
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.15s ease;
+}
+
+.filter__btn:hover {
+  background: #5cd0d2; /* hoặc darken var(--first-color) */
+  transform: translateY(-1px);
+}
+
+
+/* Checkbox */
+.filter__checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Ẩn checkbox gốc */
+.filter__checkbox input {
+  display: none;
+}
+
+/* Ô checkbox */
+.checkbox__custom {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #ccc;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+/* Tick */
+.checkbox__custom::after {
+  content: "✓";
+  font-size: 12px;
+  color: #fff;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.2s ease;
+}
+
+/* Khi checked */
+.filter__checkbox input:checked + .checkbox__custom {
+  background: var(--first-color);
+  border-color: var(--first-color);
+}
+
+.filter__checkbox input:checked + .checkbox__custom::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Hover */
+.filter__checkbox:hover .checkbox__custom {
+  border-color: var(--first-color);
+}
+
+/* Label */
+.checkbox__label {
+  user-select: none;
+}
