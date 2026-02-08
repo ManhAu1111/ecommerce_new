@@ -54,11 +54,11 @@ function showImage(src) {
       <!--=============== BREADCRUMB ===============-->
       <section class="breadcrumb">
         <ul class="breadcrumb__list flex container">
-          <li><a :href="route('home')" class="breadcrumb__link">Home</a></li>
+          <li><a :href="route('home')" class="breadcrumb__link">Trang chủ</a></li>
           <li><span class="breadcrumb__link"></span>></li>
-          <li><span class="breadcrumb__link">Fashion</span></li>
+          <li><a :href="route('shop')" class="breadcrumb__link">Cửa hàng</a></li>
           <li><span class="breadcrumb__link"></span>></li>
-          <li><span class="breadcrumb__link">Henley Shirt</span></li>
+          <li><span class="breadcrumb__link">{{ product.name }}</span></li>
         </ul>
       </section>
 

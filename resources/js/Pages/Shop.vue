@@ -6,6 +6,24 @@ import { onMounted } from 'vue';
 defineProps({
   products: Object
 })
+
+onMounted(() => {
+  const priceInputs = document.querySelectorAll('.price-input')
+
+  priceInputs.forEach(input => {
+    // Khi rời input → format tiền
+    input.addEventListener('blur', () => {
+      let value = input.value.replace(/\D/g, '')
+      if (!value) return
+      input.value = Number(value).toLocaleString('vi-VN')
+    })
+
+    // Khi focus → bỏ dấu chấm để sửa
+    input.addEventListener('focus', () => {
+      input.value = input.value.replace(/\D/g, '')
+    })
+  })
+})
 </script>
 
 <template>
@@ -32,9 +50,9 @@ defineProps({
               <h4 class="filter__heading">Khoảng giá</h4>
 
               <div class="filter__price">
-                <input type="number" placeholder="Từ" class="filter__input" />
+                <input type="text" placeholder="Từ" class="filter__input  price-input" />
                 <span>-</span>
-                <input type="number" placeholder="Đến" class="filter__input" />
+                <input type="text" placeholder="Đến" class="filter__input  price-input" />
               </div>
 
               <button class="filter__btn">Áp dụng</button>

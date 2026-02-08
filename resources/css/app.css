@@ -350,6 +350,11 @@
   font-size: 14px;
 }
 
+.filter__input:focus {
+  border-color: var(--first-color);
+  box-shadow: 0 0 0 2px rgba(92, 208, 210, 0.25);
+}
+
 .filter__btn {
   margin-top: 10px;
   width: 100%;
