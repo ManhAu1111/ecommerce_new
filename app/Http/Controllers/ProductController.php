@@ -57,4 +57,27 @@ class ProductController extends Controller
             'product' => $product
         ]);
     }   
+
+    public function relatedProducts($id)
+    {
+        // 1. Lấy product hiện tại (chỉ cần category)
+        $product = Product::with('categories:id')->findOrFail($id);
+
+        $categoryIds = $product->categories->pluck('id');
+
+        // 2. Lấy 4 sản phẩm cùng category, loại trừ chính nó
+        $relatedProducts = Product::with(['primaryImage', 'secondaryImage'])
+            ->where('id', '!=', $id)
+            ->whereHas('categories', function ($q) use ($categoryIds) {
+                $q->whereIn('categories.id', $categoryIds);
+            })
+            ->inRandomOrder() // cho đỡ nhàm
+            ->limit(4)
+            ->get();
+
+        return response()->json($relatedProducts);
+    }
+
+  
+
 }

@@ -1,15 +1,21 @@
 <script setup>
 import MainLayout from '@/Layouts/MainLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import { onMounted } from 'vue';
-import { ref, watch, computed } from 'vue'
+import { ref, watch, computed, onMounted } from 'vue'
+import axios from 'axios'
 
+const relatedProducts = ref([])
 
 const props = defineProps({
   product: Object
 })
 
 const qty = ref(1)
+
+onMounted(async () => {
+  const res = await axios.get(`/products/${props.product.id}/related`)
+  relatedProducts.value = res.data
+})
 
 // đảm bảo không vượt min / max kể cả khi user gõ tay
 watch(qty, (val) => {
@@ -298,228 +304,94 @@ function showImage(src) {
 
 
       <!--=============== PRODUCTS ===============-->
-      <section class="products container section--lg">
-        <h3 class="section__title"><span>Related</span> Products</h3>
+      <!--=============== RELATED PRODUCTS ===============-->
+      <section
+        v-if="relatedProducts.length"
+        class="products container section--lg"
+      >
+        <h3 class="section__title">
+          <span>Sản phẩm</span> liên quan
+        </h3>
+
         <div class="products__container grid">
-          <div class="product__item">
+          <div
+            class="product__item"
+            v-for="product in relatedProducts"
+            :key="product.id"
+          >
             <div class="product__banner">
-              <a href="#" class="product__images">
-                <img
-                  src="assets/img/product-1-1.jpg"
-                  alt=""
-                  class="product__img default"
-                />
-                <img
-                  src="assets/img/product-1-2.jpg"
-                  alt=""
-                  class="product__img hover"
-                />
-              </a>
-              <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Quick View">
-                  <i class="fi fi-rs-eye"></i>
-                </a>
-                <a
-                  href="#"
-                  class="action__btn"
-                  aria-label="Add to Wishlist"
-                >
-                  <i class="fi fi-rs-heart"></i>
-                </a>
-                <a href="#" class="action__btn" aria-label="Compare">
-                  <i class="fi fi-rs-shuffle"></i>
-                </a>
-              </div>
-              <div class="product__badge light-pink">Hot</div>
-            </div>
-            <div class="product__content">
-              <span class="product__category">Clothing</span>
-              <a href="#">
-                <h3 class="product__title">Colorful Pattern Shirts</h3>
-              </a>
-              <div class="product__rating">
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-              </div>
-              <div class="product__price flex">
-                <span class="new__price">$238.85</span>
-                <span class="old__price">$245.8</span>
-              </div>
               <a
-                href="#"
-                class="action__btn cart__btn"
-                aria-label="Add To Cart"
+                v-if="product?.id"
+                :href="route('detail', { id: product.id })"
+                class="product__images"
               >
-                <i class="fi fi-rs-shopping-bag-add"></i>
-              </a>
-            </div>
-          </div>
-          <div class="product__item">
-            <div class="product__banner">
-              <a href="#" class="product__images">
                 <img
-                  src="assets/img/product-2-1.jpg"
-                  alt=""
+                  :src="product.primary_image?.image_url ?? '/assets/img/default.jpg'"
                   class="product__img default"
                 />
+
                 <img
-                  src="assets/img/product-2-2.jpg"
-                  alt=""
+                  :src="
+                    product.secondary_image?.image_url
+                    ?? product.primary_image?.image_url
+                    ?? '/assets/img/default.jpg'
+                  "
                   class="product__img hover"
                 />
               </a>
+
               <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Quick View">
-                  <i class="fi fi-rs-eye"></i>
-                </a>
                 <a
                   href="#"
                   class="action__btn"
-                  aria-label="Add to Wishlist"
+                  aria-label="Thêm vào yêu thích"
                 >
                   <i class="fi fi-rs-heart"></i>
                 </a>
-                <a href="#" class="action__btn" aria-label="Compare">
-                  <i class="fi fi-rs-shuffle"></i>
-                </a>
               </div>
-              <div class="product__badge light-green">Hot</div>
+
+              <div class="product__badge light-blue">
+                Liên quan
+              </div>
             </div>
+
             <div class="product__content">
-              <span class="product__category">Clothing</span>
-              <a href="#">
-                <h3 class="product__title">Colorful Pattern Shirts</h3>
-              </a>
-              <div class="product__rating">
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-              </div>
-              <div class="product__price flex">
-                <span class="new__price">$238.85</span>
-                <span class="old__price">$245.8</span>
-              </div>
+              <span class="product__category">
+                {{ product.categories?.[0]?.name ?? 'Sản phẩm' }}
+              </span>
+
               <a
-                href="#"
-                class="action__btn cart__btn"
-                aria-label="Add To Cart"
+                v-if="product?.id"
+                :href="route('detail', { id: product.id })"
               >
-                <i class="fi fi-rs-shopping-bag-add"></i>
+                <h3 class="product__title">
+                  {{ product.name }}
+                </h3>
               </a>
-            </div>
-          </div>
-          <div class="product__item">
-            <div class="product__banner">
-              <a href="#" class="product__images">
-                <img
-                  src="assets/img/product-3-1.jpg"
-                  alt=""
-                  class="product__img default"
-                />
-                <img
-                  src="assets/img/product-3-2.jpg"
-                  alt=""
-                  class="product__img hover"
-                />
-              </a>
-              <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Quick View">
-                  <i class="fi fi-rs-eye"></i>
-                </a>
-                <a
-                  href="#"
-                  class="action__btn"
-                  aria-label="Add to Wishlist"
-                >
-                  <i class="fi fi-rs-heart"></i>
-                </a>
-                <a href="#" class="action__btn" aria-label="Compare">
-                  <i class="fi fi-rs-shuffle"></i>
-                </a>
-              </div>
-              <div class="product__badge light-orange">Hot</div>
-            </div>
-            <div class="product__content">
-              <span class="product__category">Clothing</span>
-              <a href="#">
-                <h3 class="product__title">Colorful Pattern Shirts</h3>
-              </a>
+
               <div class="product__rating">
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
+                <i
+                  v-for="i in 5"
+                  :key="i"
+                  class="fi"
+                  :class="
+                    i <= Math.round(product.avg_rating ?? 0)
+                      ? 'fi-rs-star'
+                      : 'fi-rs-star-empty'
+                  "
+                ></i>
               </div>
+
               <div class="product__price flex">
-                <span class="new__price">$238.85</span>
-                <span class="old__price">$245.8</span>
+                <span class="new__price">
+                  {{ Number(product.price).toLocaleString('vi-VN') }}₫
+                </span>
               </div>
+
               <a
                 href="#"
                 class="action__btn cart__btn"
-                aria-label="Add To Cart"
-              >
-                <i class="fi fi-rs-shopping-bag-add"></i>
-              </a>
-            </div>
-          </div>
-          <div class="product__item">
-            <div class="product__banner">
-                <a href="#" class="product__images">
-                <img
-                  src="assets/img/product-4-1.jpg"
-                  alt=""
-                  class="product__img default"
-                />
-                <img
-                  src="assets/img/product-4-2.jpg"
-                  alt=""
-                  class="product__img hover"
-                />
-              </a>
-              <div class="product__actions">
-                <a href="#" class="action__btn" aria-label="Quick View">
-                  <i class="fi fi-rs-eye"></i>
-                </a>
-                <a
-                  href="#"
-                  class="action__btn"
-                  aria-label="Add to Wishlist"
-                >
-                  <i class="fi fi-rs-heart"></i>
-                </a>
-                <a href="#" class="action__btn" aria-label="Compare">
-                  <i class="fi fi-rs-shuffle"></i>
-                </a>
-              </div>
-              <div class="product__badge light-blue">Hot</div>
-            </div>
-            <div class="product__content">
-              <span class="product__category">Clothing</span>
-              <a href="#">
-                <h3 class="product__title">Colorful Pattern Shirts</h3>
-              </a>
-              <div class="product__rating">
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-                <i class="fi fi-rs-star"></i>
-              </div>
-              <div class="product__price flex">
-                <span class="new__price">$238.85</span>
-                <span class="old__price">$245.8</span>
-              </div>
-              <a
-                href="#"
-                class="action__btn cart__btn"
-                aria-label="Add To Cart"
+                aria-label="Thêm vào giỏ hàng"
               >
                 <i class="fi fi-rs-shopping-bag-add"></i>
               </a>
@@ -527,6 +399,7 @@ function showImage(src) {
           </div>
         </div>
       </section>
+
 
       <!--=============== NEWSLETTER ===============-->
       <section class="newsletter section">
