@@ -2235,14 +2235,18 @@ table {
     border: 2px solid #000;
 }
 
+
+/* style đường dẫn cate trong detail */
 .details__category-link {
+  display: inline-block; /* ⭐ QUAN TRỌNG */
   color: var(--first-color);
   font-weight: 500;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .details__category-link:hover {
   color: #2fb4d9;
-  text-decoration: none;
+  transform: scale(1.05);
 }
+
