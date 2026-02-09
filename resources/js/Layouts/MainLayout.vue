@@ -2,6 +2,9 @@
 import { Link, usePage, router } from '@inertiajs/vue3'
 import { ref } from 'vue'
 
+const showMenu = ref(false)
+
+
 const page = usePage()
 const user = page.props.auth.user
 
@@ -48,12 +51,12 @@ const submitSearch = () => {
                 <a :href="route('home')" class="nav__logo">
                     <img class="nav__logo-img" src="/assets/img/logo_toyMark.png" alt="website logo" />
                 </a>
-                <div class="nav__menu" id="nav-menu">
+                <div class="nav__menu" :class="{ 'show-menu': showMenu }">
                     <div class="nav__menu-top">
                         <Link :href="route('home')" class="nav__menu-logo">
-                            <img src="/assets/img/logo.svg" alt="">
+                            <img src="/assets/img/logo_toyMark.png" alt="">
                         </Link>
-                        <div class="nav__close" id="nav-close">
+                        <div class="nav__close" @click="showMenu = false">
                             <i class="fi fi-rs-cross-small"></i>
                         </div>
                     </div>
@@ -112,7 +115,7 @@ const submitSearch = () => {
                         type="button">
                         <img src="/assets/img/logout.svg" alt="logout" />
                     </button>
-                    <div class="header__action-btn nav__toggle" id="nav-toggle">
+                    <div class="header__action-btn nav__toggle" @click="showMenu = true">
                         <img src="/assets/img/menu-burger.svg" alt="">
                     </div>
                 </div>

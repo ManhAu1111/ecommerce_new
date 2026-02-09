@@ -1,13 +1,15 @@
 <script setup>
 import MainLayout from '@/Layouts/MainLayout.vue'
 import { router } from '@inertiajs/vue3'
-import { reactive, computed } from 'vue'
+import { ref, reactive, computed } from 'vue'
 
 const props = defineProps({
   products: Object,
   categories: Array,
   filters: Object
 })
+
+const showFilter = ref(false)
 
 const filter = reactive({
   category: props.filters?.category ?? [],
@@ -78,7 +80,14 @@ const truncate = (text, limit = 50) => {
       <section class="products container section--lg">
         <div class="shop__layout grid">
           <!-- FILTER SIDEBAR -->
-          <aside class="shop__filter">
+          <aside class="shop__filter" :class="{ 'show-filter': showFilter }">
+            <!-- nút đóng (chỉ mobile) -->
+            <button
+              class="filter__close"
+              @click="showFilter = false"
+            >
+              ✕
+            </button>
             <h3 class="filter__title">Bộ lọc</h3>
 
             <!-- Filter Giá -->
@@ -128,6 +137,17 @@ const truncate = (text, limit = 50) => {
             </div>
 
           </aside>
+          <div
+            v-if="showFilter"
+            class="filter__overlay"
+            @click="showFilter = false"
+          ></div>
+          <button
+            class="filter__toggle"
+            @click="showFilter = true"
+          >
+            Bộ lọc
+          </button>
           <!-- PRODUCTS LIST -->
           <div>
             <p class="total__products">
