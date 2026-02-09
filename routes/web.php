@@ -31,8 +31,6 @@ Route::get('/shop', [ProductController::class, 'shop'])
 
 Route::get('/detail/{id}', [ProductController::class, 'show'])->name('detail');
 
-
-
 Route::get('/cart', function () {
     return Inertia::render('Cart');
 })->name('cart');
