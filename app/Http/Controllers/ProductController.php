@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Http\Controllers\Controller;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class ProductController extends Controller
@@ -14,19 +15,31 @@ class ProductController extends Controller
     public function index()
     {
         $featuredProducts = Product::with(['primaryImage', 'secondaryImage'])
-            ->orderByDesc('avg_rating')
-            ->limit(8)
-            ->get();
+        ->withExists([
+            'wishlistedBy as is_wishlisted' => fn ($q) =>
+                $q->where('user_id', Auth::id())
+        ])
+        ->orderByDesc('avg_rating')
+        ->limit(8)
+        ->get();
 
-        $popularProducts = Product::with(['primaryImage', 'secondaryImage'])
-            ->orderByDesc('total_reviews')
-            ->limit(8)
-            ->get();
+    $popularProducts = Product::with(['primaryImage', 'secondaryImage'])
+        ->withExists([
+            'wishlistedBy as is_wishlisted' => fn ($q) =>
+                $q->where('user_id', Auth::id())
+        ])
+        ->orderByDesc('total_reviews')
+        ->limit(8)
+        ->get();
 
-        $newProducts = Product::with(['primaryImage', 'secondaryImage'])
-            ->orderByDesc('created_at')
-            ->limit(8)
-            ->get();
+    $newProducts = Product::with(['primaryImage', 'secondaryImage'])
+        ->withExists([
+            'wishlistedBy as is_wishlisted' => fn ($q) =>
+                $q->where('user_id', Auth::id())
+        ])
+        ->orderByDesc('created_at')
+        ->limit(8)
+        ->get();
         return Inertia::render('Home', [
             'featuredProducts' => $featuredProducts,
             'popularProducts'  => $popularProducts,
@@ -46,7 +59,12 @@ class ProductController extends Controller
         'primaryImage',
         'secondaryImage',
         'categories'
-        ])->orderByDesc('created_at');
+        ])->withExists([
+            'wishlistedBy as is_wishlisted' => function ($q) {
+                $q->where('user_id', Auth::id());
+            }
+        ])
+        ->orderByDesc('created_at');
 
         if (!empty($categoryIds)) {
             $query->whereHas('categories', function ($q) use ($categoryIds) {
@@ -95,9 +113,6 @@ class ProductController extends Controller
         ]);
     }
 
-
-
-
     public function show($id)
     {
         $product = Product::with([
@@ -107,7 +122,13 @@ class ProductController extends Controller
             },
             'reviews',
             'categories',
-        ])->findOrFail($id);
+        ])
+        ->withExists([
+            'wishlistedBy as is_wishlisted' => function ($q) {
+                $q->where('user_id', Auth::id());
+            }
+        ])
+        ->findOrFail($id);
 
         return Inertia::render('Detail', [
             'product' => $product
@@ -116,24 +137,31 @@ class ProductController extends Controller
 
     public function relatedProducts($id)
     {
-        // 1. Lấy product hiện tại (chỉ cần category)
-        $product = Product::with('categories:id')->findOrFail($id);
+        $userId = Auth::id();
 
+        $product = Product::with('categories:id')->findOrFail($id);
         $categoryIds = $product->categories->pluck('id');
 
-        // 2. Lấy 4 sản phẩm cùng category, loại trừ chính nó
-        $relatedProducts = Product::with(['primaryImage', 'secondaryImage'])
-            ->where('id', '!=', $id)
-            ->whereHas('categories', function ($q) use ($categoryIds) {
-                $q->whereIn('categories.id', $categoryIds);
-            })
-            ->inRandomOrder() // cho đỡ nhàm
-            ->limit(4)
-            ->get();
+        $relatedProducts = Product::with([
+            'primaryImage',
+            'secondaryImage',
+            'categories'
+        ])
+        ->where('id', '!=', $id)
+        ->whereHas('categories', fn ($q) =>
+            $q->whereIn('categories.id', $categoryIds)
+        )
+        ->inRandomOrder()
+        ->limit(4)
+        ->get()
+        ->map(function ($p) use ($userId) {
+            $p->is_wishlisted = $userId
+                ? $p->wishlistedBy()->where('user_id', $userId)->exists()
+                : false;
+            return $p;
+        });
 
         return response()->json($relatedProducts);
     }
-
-  
 
 }

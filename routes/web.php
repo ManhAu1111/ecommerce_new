@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\WishlistController;
 
 use Inertia\Inertia;
 
@@ -56,6 +57,17 @@ Route::get('/categories', [CategoryController::class, 'index']);
 */
 Route::get('/home', [ProductController::class, 'index'])->name('home');
 Route::get('/products/{id}/related', [ProductController::class, 'relatedProducts']);
+
+/*
+|--------------------------------------------------------------------------
+| Wisshlist Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::post('/wishlist/toggle', [WishlistController::class, 'toggle'])
+    ->middleware('auth')
+    ->name('wishlist.toggle');
+
 
 /*
 |--------------------------------------------------------------------------

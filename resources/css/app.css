@@ -548,3 +548,14 @@
     right: 0;
   }
 }
+
+/* style trạng thái active nút wishlish */
+.action__btn.active {
+  background-color: rgba(195, 221, 229, 0.9); /* nền xanh nhạt */
+}
+
+.action__btn.active i,
+.action__btn.active i::before {
+  color: #2fb4d9;               /* xanh chủ đạo web */
+  -webkit-text-fill-color: #2fb4d9;
+}

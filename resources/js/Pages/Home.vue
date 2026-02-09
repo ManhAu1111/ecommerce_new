@@ -53,6 +53,19 @@ const truncate = (text, limit = 50) => {
     : text
 }
 
+const toggleRelatedWishlist = async (product) => {
+  try {
+    const res = await axios.post('/wishlist/toggle', {
+      product_id: product.id
+    })
+
+    product.is_wishlisted = res.data.wishlisted
+  } catch (err) {
+    if (err.response?.status === 401) {
+      window.location.href = '/login'
+    }
+  }
+}
 </script>
 
 
@@ -111,7 +124,6 @@ const truncate = (text, limit = 50) => {
             </div>
         </section>
 
-
         <!--=============== PRODUCTS ===============-->
         <section class="products container section">
           <!-- TAB BUTTON -->
@@ -149,9 +161,19 @@ const truncate = (text, limit = 50) => {
                     </a>
 
                     <div class="product__actions">
-                      <a href="#" class="action__btn" aria-label="Thêm vào yêu thích">
-                        <i class="fi fi-rs-heart"></i>
-                      </a>
+                      <button
+                        type="button"
+                        class="action__btn"
+                        :class="{ active: product.is_wishlisted }"
+                        @click.stop="toggleRelatedWishlist(product)"
+                        aria-label="Thêm vào yêu thích"
+                        title="Thêm vào yêu thích"
+                      >
+                        <i
+                          class="fi"
+                          :class="product.is_wishlisted ? 'fi-sr-heart' : 'fi-rs-heart'"
+                        ></i>
+                      </button>
                     </div>
 
                     <div class="product__badge light-pink">Nổi bật</div>
@@ -221,9 +243,19 @@ const truncate = (text, limit = 50) => {
                     </a>
 
                     <div class="product__actions">
-                      <a href="#" class="action__btn" aria-label="Thêm vào yêu thích">
-                        <i class="fi fi-rs-heart"></i>
-                      </a>
+                      <button
+                        type="button"
+                        class="action__btn"
+                        :class="{ active: product.is_wishlisted }"
+                        @click.stop="toggleRelatedWishlist(product)"
+                        aria-label="Thêm vào yêu thích"
+                        title="Thêm vào yêu thích"
+                      >
+                        <i
+                          class="fi"
+                          :class="product.is_wishlisted ? 'fi-sr-heart' : 'fi-rs-heart'"
+                        ></i>
+                      </button>
                     </div>
 
                     <div class="product__badge light-pink">Bán chạy</div>
@@ -254,10 +286,6 @@ const truncate = (text, limit = 50) => {
                         {{ Number(product.price).toLocaleString('vi-VN') }}₫
                       </span>
                     </div>
-
-
-
-
                     <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
                       <i class="fi fi-rs-shopping-bag-add"></i>
                     </a>
@@ -375,9 +403,19 @@ const truncate = (text, limit = 50) => {
                     </a>
 
                     <div class="product__actions">
-                      <a href="#" class="action__btn" aria-label="Thêm vào yêu thích">
-                        <i class="fi fi-rs-heart"></i>
-                      </a>
+                      <button
+                        type="button"
+                        class="action__btn"
+                        :class="{ active: product.is_wishlisted }"
+                        @click.stop="toggleRelatedWishlist(product)"
+                        aria-label="Thêm vào yêu thích"
+                        title="Thêm vào yêu thích"
+                      >
+                        <i
+                          class="fi"
+                          :class="product.is_wishlisted ? 'fi-sr-heart' : 'fi-rs-heart'"
+                        ></i>
+                      </button>
                     </div>
 
                     <div class="product__badge light-pink">Mới</div>

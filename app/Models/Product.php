@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Product extends Model
 {
     protected $table = 'products';
-
+    
     protected $fillable = [
         'name',
         'description',
@@ -46,4 +47,16 @@ class Product extends Model
             ->orderBy('display_order');
     }
 
+    public function wishlistedBy()
+    {
+        return $this->belongsToMany(User::class, 'wishlists');
+    }
+    public function isWishlistedByUser()
+        {
+            if (!Auth::check()) return false;
+
+            return $this->wishlistedBy()
+                ->where('user_id', Auth::id())
+                ->exists();
+        }
 }

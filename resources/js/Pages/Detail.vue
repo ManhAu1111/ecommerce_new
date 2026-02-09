@@ -53,6 +53,44 @@ const truncate = (text, limit = 50) => {
     ? text.slice(0, limit) + '...'
     : text
 }
+const wishlisted = ref(props.product.is_wishlisted ?? false)
+
+watch(
+  () => props.product.is_wishlisted,
+  (val) => {
+    wishlisted.value = val ?? false
+  }
+)
+
+const toggleWishlist = async () => {
+  try {
+    const res = await axios.post('/wishlist/toggle', {
+      product_id: props.product.id
+    })
+
+    wishlisted.value = res.data.wishlisted
+  } catch (err) {
+    if (err.response?.status === 401) {
+      window.location.href = '/login'
+    } else {
+      console.error(err)
+    }
+  }
+}
+
+const toggleRelatedWishlist = async (product) => {
+  try {
+    const res = await axios.post('/wishlist/toggle', {
+      product_id: product.id
+    })
+
+    product.is_wishlisted = res.data.wishlisted
+  } catch (err) {
+    if (err.response?.status === 401) {
+      window.location.href = '/login'
+    }
+  }
+}
 
 </script>
 
@@ -181,9 +219,19 @@ const truncate = (text, limit = 50) => {
 
 
               <a href="#" class="btn btn--sm">Thêm vào giỏ hàng</a>
-              <a href="#" class="details__action-btn">
-                <i class="fi fi-rs-heart"></i>
-              </a>
+             <button
+              type="button"
+              class="details__action-btn"
+              :class="{ active: wishlisted }"
+              @click="toggleWishlist"
+            >
+              <i
+                class="fi"
+                :class="wishlisted ? 'fi-sr-heart' : 'fi-rs-heart'"
+              ></i>
+            </button>
+
+
             </div>
             <ul class="details__meta">
               <!-- <li class="meta__list flex"><span>SKU:</span>FWM15VKT</li>
@@ -360,13 +408,19 @@ const truncate = (text, limit = 50) => {
               </a>
 
               <div class="product__actions">
-                <a
-                  href="#"
+                <button
+                  type="button"
                   class="action__btn"
+                  :class="{ active: product.is_wishlisted }"
+                  @click.stop="toggleRelatedWishlist(product)"
                   aria-label="Thêm vào yêu thích"
+                  title="Thêm vào yêu thích"
                 >
-                  <i class="fi fi-rs-heart"></i>
-                </a>
+                  <i
+                    class="fi"
+                    :class="product.is_wishlisted ? 'fi-sr-heart' : 'fi-rs-heart'"
+                  ></i>
+                </button>
               </div>
 
               <div class="product__badge light-blue">

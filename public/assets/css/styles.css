@@ -1275,29 +1275,49 @@ table {
 .details__action-btn {
   width: 40px;
   height: 40px;
-  border: 1px solid #ddd;
+  border: 1px solid #bfe8e3;
   border-radius: 50%;
+
   display: flex;
-  align-items: center;     /* 👈 căn giữa dọc */
-  justify-content: center; /* 👈 căn giữa ngang */
-  color: #4cabc3;
-  background: #fff;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #fff;
+  color: #0ea5a4; /* xanh chủ đạo */
+  cursor: pointer;
+
   transition: all 0.25s ease;
 }
 
-/* icon bên trong */
+/* icon */
 .details__action-btn i {
   font-size: 18px;
   line-height: 1;
+  display: inline-block;
+  color: inherit; /* 👈 QUAN TRỌNG */
 }
 
-/* hover - mint */
+
+/* hover */
 .details__action-btn:hover {
-  background: #e8f7f4;
-  border-color: #7fd1c5;
-  color: #1aa89f;
-  transform: scale(1.05);
+  background-color: #e6f7f5;
+  border-color: #5ecac0;
+  color: #0f766e;
+  transform: scale(1.06);
 }
+
+/* ACTIVE (ĐÃ WISHLIST) */
+.details__action-btn.active {
+  background: #0ea5a4;
+  border-color: #0ea5a4;
+  color: #fff; /* 🔥 QUAN TRỌNG */
+}
+
+/* active + hover */
+.details__action-btn.active:hover {
+  background-color: #0d9488;
+}
+
 
 .details__meta {
   border-top: 1px solid var(--border-color-alt);
