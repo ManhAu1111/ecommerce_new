@@ -66,6 +66,29 @@ const submit = () => {
                                 Gửi liên kết đặt lại mật khẩu
                             </PrimaryButton>
                         </div>
+                        <div class="mt-4 text-center">
+                            <Link
+                                :href="route('login')"
+                                class="
+                                    inline-flex items-center gap-1
+                                    text-sm font-medium text-teal-600 no-underline
+                                    transition-all duration-200 ease-out
+                                    hover:text-teal-700
+                                    hover:gap-2
+                                "
+                            >
+                                <span class="transition-transform duration-200 hover:-translate-x-1">
+                                    ←
+                                </span>
+                                <span class="relative after:absolute after:left-0 after:-bottom-0.5
+                                            after:h-[1.5px] after:w-0 after:bg-teal-600
+                                            after:transition-all after:duration-200
+                                            hover:after:w-full">
+                                    Quay lại đăng nhập
+                                </span>
+                            </Link>
+                        </div>
+
                     </form>
                 </div>
 

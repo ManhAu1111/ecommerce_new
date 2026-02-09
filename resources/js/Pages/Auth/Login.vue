@@ -51,17 +51,22 @@ const submit = () => {
                         </div>
 
                         <div class="mt-4 flex justify-end">
-                            <!-- <label class="flex items-center">
-                                <Checkbox name="remember" v-model:checked="form.remember" />
-                                <span class="ms-2 text-sm text-gray-600">Ghi nhớ đăng nhập</span>
-                            </label> -->
-
-                            <Link v-if="canResetPassword" :href="route('password.request')"
-                                class="text-sm text-gray-600 underline hover:text-gray-900">
+                            <Link
+                                v-if="canResetPassword"
+                                :href="route('password.request')"
+                                class="
+                                    relative text-sm font-medium text-gray-600 no-underline
+                                    transition-all duration-200
+                                    hover:text-teal-600
+                                    after:absolute after:left-0 after:-bottom-0.5
+                                    after:h-[1.5px] after:w-0 after:bg-teal-600
+                                    after:transition-all after:duration-200
+                                    hover:after:w-full
+                                "
+                            >
                                 Quên mật khẩu?
                             </Link>
                         </div>
-
                         <div class="form__btn mt-4" style="display: flex; justify-content: flex-end;">
                             <button class="btn" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                                 Đăng nhập
