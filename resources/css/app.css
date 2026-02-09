@@ -315,7 +315,7 @@
   background: #fff;
   border: 1px solid #eee;
   border-radius: 16px;
-  padding: 20px;
+  padding: 20px 20px 0px 20px;
   height: fit-content;
 }
 
@@ -424,6 +424,32 @@
 .filter__checkbox:hover .checkbox__custom {
   border-color: var(--first-color);
 }
+.filter__btn--reset {
+  margin-top: 5px;
+  width: 100%;
+  padding: 8px 0;
+
+  background: #f6f7f9;
+  color: #555;
+
+  border: 1px solid #ddd;
+  border-radius: 10px;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.filter__btn--reset:hover {
+  background: #eef1f6;
+  color: var(--first-color);
+  border-color: var(--first-color);
+}
+.filter__btn--reset:active {
+  transform: scale(0.97);
+}
+
 
 /* Label */
 .checkbox__label {

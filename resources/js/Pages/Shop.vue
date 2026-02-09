@@ -60,6 +60,17 @@ const truncate = (text, limit = 50) => {
     : text
 }
 
+const resetFilter = () => {
+  filter.category = []
+  filter.price_min = ''
+  filter.price_max = ''
+
+  router.get('/shop', {}, {
+    preserveState: true,
+    preserveScroll: true,
+  })
+}
+
 </script>
 
 
@@ -134,8 +145,13 @@ const truncate = (text, limit = 50) => {
                 <span class="checkbox__custom"></span>
                 <span class="checkbox__label">{{ cate.name }}</span>
               </label>
-            </div>
-
+              <button
+              class="filter__btn filter__btn--reset"
+              @click="resetFilter"
+            >
+              Đặt lại
+            </button>
+            </div>  
           </aside>
           <div
             v-if="showFilter"
