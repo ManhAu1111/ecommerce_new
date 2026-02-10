@@ -60,12 +60,17 @@ const toggleRelatedWishlist = async (product) => {
     })
 
     product.is_wishlisted = res.data.wishlisted
+
+    // 🔔 báo header cập nhật số lượng wishlist
+    window.dispatchEvent(new Event('wishlist-updated'))
+
   } catch (err) {
     if (err.response?.status === 401) {
       window.location.href = '/login'
     }
   }
 }
+
 
 // thêm giỏ hàng
 const handleAddToCart = async (product) => {

@@ -643,3 +643,122 @@
   border-radius: 6px;
   min-height: auto;
 }
+
+/* style cho trang wishlist */
+/* ================= ACTION CELL ================= */
+.table__action-cell {
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* ================= ACTION GROUP ================= */
+.table__actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* ================= BASE BUTTON ================= */
+.action-btn {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+
+  background: #f4f6f8;
+  color: #222;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+/* Icon căn chuẩn */
+.action-btn i {
+  line-height: 1;
+}
+
+/* ================= HOVER EFFECT ================= */
+.action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+/* ================= VARIANTS ================= */
+.action-btn--view:hover {
+  background: #e6f0ff;
+  color: #2563eb;
+}
+
+.action-btn--cart:hover {
+  background: #e6fff4;
+  color: #059669;
+}
+
+/* ================= TOOLTIP ================= */
+/* Ưu tiên aria-label, fallback sang data-tooltip */
+.action-btn::after {
+  content: attr(aria-label);
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+
+  background: rgba(17, 24, 39, 0.95);
+  color: #fff;
+  font-size: 11px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 10;
+}
+
+/* Mũi tên tooltip */
+.action-btn::before {
+  content: '';
+  position: absolute;
+  bottom: 112%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(17, 24, 39, 0.95);
+
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Hover hiện tooltip */
+.action-btn:hover::after,
+.action-btn:hover::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 576px) {
+  .action-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    border-radius: 8px;
+  }
+
+  /* Mobile không cần tooltip */
+  .action-btn::after,
+  .action-btn::before {
+    display: none;
+  }
+}

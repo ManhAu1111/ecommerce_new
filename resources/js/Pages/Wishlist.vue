@@ -1,6 +1,7 @@
 <script setup>
 import MainLayout from '@/Layouts/MainLayout.vue'
 import { ref } from 'vue'
+import { router } from '@inertiajs/vue3'
 
 const props = defineProps({
   wishlists: Array
@@ -27,12 +28,17 @@ const toggleWishlistAjax = async (product) => {
         item => item.product.id !== product.id
       )
     }
+
+    // 🔔 báo cho header cập nhật lại wishlist count
+    window.dispatchEvent(new Event('wishlist-updated'))
+
   } catch (err) {
     if (err.response?.status === 401) {
       window.location.href = '/login'
     }
   }
 }
+
 
 </script>
 
@@ -65,10 +71,10 @@ const toggleWishlistAjax = async (product) => {
                         </thead>
                         <tbody>
                             <tr v-for="item in wishlistItems" :key="item.id">
-                                <td>
+                                <td class="table__img-cell">
                                 <img
                                     :src="item.product.primary_image?.image_url ?? '/assets/img/default.jpg'"
-                                    alt=""
+                                    @click="router.visit(route('detail', item.product.id))"
                                     class="table__img"
                                 />
                                 </td>
@@ -94,20 +100,26 @@ const toggleWishlistAjax = async (product) => {
                                 </span>
                                 </td>
 
-                                <td>
+                                <td class="table__action-cell">
                                     <div class="table__actions">
+                                        <!-- Xem sản phẩm -->
                                         <a
-                                        :href="route('detail', item.product.id)"
-                                        class="btn btn--sm"
+                                            :href="route('detail', item.product.id)"
+                                            class="action-btn action-btn--view"
+                                            aria-label="Xem chi tiết sản phẩm"
+                                            data-tooltip="Xem sản phẩm"
                                         >
-                                        Xem sản phẩm
+                                            <i class="fi fi-rs-eye"></i>
                                         </a>
 
+                                        <!-- Thêm vào giỏ -->
                                         <a
-                                        href="#"
-                                        class="btn btn--sm btn--outline"
+                                            href="#"
+                                            class="action-btn action-btn--cart"
+                                            aria-label="Thêm sản phẩm vào giỏ hàng"
+                                            data-tooltip="Thêm vào giỏ"
                                         >
-                                        Thêm vào giỏ
+                                            <i class="fi fi-rs-shopping-bag-add"></i>
                                         </a>
                                     </div>
                                 </td>
