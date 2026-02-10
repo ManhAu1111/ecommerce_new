@@ -2,42 +2,61 @@
 import MainLayout from '@/Layouts/MainLayout.vue'
 import { ref } from 'vue'
 import { router } from '@inertiajs/vue3'
+import { addToCart } from '@/Services/cartService'
+import axios from 'axios'
 
 const props = defineProps({
-  wishlists: Array
+    wishlists: Array
 })
 
 // ❗ QUAN TRỌNG: tạo state local
 const wishlistItems = ref([...props.wishlists])
 
 const formatPrice = (value) => {
-  if (!value) return '0'
-  return Number(value).toLocaleString('vi-VN')
+    if (!value) return '0'
+    return Number(value).toLocaleString('vi-VN')
 }
 
 
 const toggleWishlistAjax = async (product) => {
-  try {
-    const res = await axios.post('/wishlist/toggle', {
-      product_id: product.id
-    })
+    try {
+        const res = await axios.post('/wishlist/toggle', {
+            product_id: product.id
+        })
 
-    // nếu bỏ wishlist → remove khỏi list ngay
-    if (!res.data.wishlisted) {
-      wishlistItems.value = wishlistItems.value.filter(
-        item => item.product.id !== product.id
-      )
+        // nếu bỏ wishlist → remove khỏi list ngay
+        if (!res.data.wishlisted) {
+            wishlistItems.value = wishlistItems.value.filter(
+                item => item.product.id !== product.id
+            )
+        }
+
+        // 🔔 báo cho header cập nhật lại wishlist count
+        window.dispatchEvent(new Event('wishlist-updated'))
+
+    } catch (err) {
+        if (err.response?.status === 401) {
+            window.location.href = '/login'
+        }
     }
-
-    // 🔔 báo cho header cập nhật lại wishlist count
-    window.dispatchEvent(new Event('wishlist-updated'))
-
-  } catch (err) {
-    if (err.response?.status === 401) {
-      window.location.href = '/login'
-    }
-  }
 }
+
+// thêm giỏ hàng
+const handleAddToCart = async (product) => {
+    console.log('PRODUCT:', product)
+
+    if (!product?.id) {
+        console.error('Product has no id')
+        return
+    }
+
+    try {
+        await addToCart(product.id, 1)
+    } catch (e) {
+        console.error('Add to cart failed', e)
+    }
+}
+
 
 
 </script>
@@ -72,63 +91,55 @@ const toggleWishlistAjax = async (product) => {
                         <tbody>
                             <tr v-for="item in wishlistItems" :key="item.id">
                                 <td class="table__img-cell">
-                                <img
-                                    :src="item.product.primary_image?.image_url ?? '/assets/img/default.jpg'"
-                                    @click="router.visit(route('detail', item.product.id))"
-                                    class="table__img"
-                                />
+                                    <img :src="item.product.primary_image?.image_url ?? '/assets/img/default.jpg'"
+                                        @click="router.visit(route('detail', item.product.id))" class="table__img" />
                                 </td>
 
                                 <td>
-                                <h3 class="table__title">
-                                    {{ item.product.name }}
-                                </h3>
-                                <p class="table__description">
-                                    {{ item.product.short_description }}
-                                </p>
+                                    <h3 class="table__title">
+                                        {{ item.product.name }}
+                                    </h3>
+                                    <p class="table__description">
+                                        {{ item.product.short_description }}
+                                    </p>
                                 </td>
 
                                 <td>
-                                <span class="table__price">
-                                    {{ formatPrice(item.product.price) }}đ
-                                </span>
+                                    <span class="table__price">
+                                        {{ formatPrice(item.product.price) }}đ
+                                    </span>
                                 </td>
 
                                 <td>
-                                <span class="table__stock">
-                                    {{ item.product.quantity > 0 ? 'Còn hàng' : 'Hết hàng' }}
-                                </span>
+                                    <span class="table__stock">
+                                        {{ item.product.quantity > 0 ? 'Còn hàng' : 'Hết hàng' }}
+                                    </span>
                                 </td>
 
                                 <td class="table__action-cell">
                                     <div class="table__actions">
                                         <!-- Xem sản phẩm -->
-                                        <a
-                                            :href="route('detail', item.product.id)"
-                                            class="action-btn action-btn--view"
-                                            aria-label="Xem chi tiết sản phẩm"
-                                            data-tooltip="Xem sản phẩm"
-                                        >
+                                        <a :href="route('detail', item.product.id)" class="action-btn action-btn--view"
+                                            aria-label="Xem chi tiết sản phẩm" data-tooltip="Xem sản phẩm">
                                             <i class="fi fi-rs-eye"></i>
                                         </a>
 
                                         <!-- Thêm vào giỏ -->
-                                        <a
-                                            href="#"
-                                            class="action-btn action-btn--cart"
-                                            aria-label="Thêm sản phẩm vào giỏ hàng"
-                                            data-tooltip="Thêm vào giỏ"
-                                        >
+                                        <!-- <a href="#" class="action-btn action-btn--cart"
+                                            aria-label="Thêm sản phẩm vào giỏ hàng" data-tooltip="Thêm vào giỏ hàng">
                                             <i class="fi fi-rs-shopping-bag-add"></i>
-                                        </a>
+                                        </a> -->
+                                        <button type="button" class="action-btn action-btn--cart"
+                                            aria-label="Thêm sản phẩm vào giỏ hàng" data-tooltip="Thêm vào giỏ hàng"
+                                            @click="handleAddToCart({ id: item.product_id })">
+                                            <i class="fi fi-rs-shopping-bag-add"></i>
+                                        </button>
                                     </div>
                                 </td>
 
                                 <td>
-                                <i
-                                    class="fi fi-rs-trash table__trash"
-                                    @click="toggleWishlistAjax(item.product)"
-                                ></i>
+                                    <i class="fi fi-rs-trash table__trash"
+                                        @click="toggleWishlistAjax(item.product)"></i>
                                 </td>
                             </tr>
                         </tbody>
