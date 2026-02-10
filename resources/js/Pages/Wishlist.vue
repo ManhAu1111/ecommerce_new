@@ -1,6 +1,7 @@
 <script setup>
 import MainLayout from '@/Layouts/MainLayout.vue'
 import { ref } from 'vue'
+import { router } from '@inertiajs/vue3'
 
 const props = defineProps({
   wishlists: Array
@@ -70,10 +71,10 @@ const toggleWishlistAjax = async (product) => {
                         </thead>
                         <tbody>
                             <tr v-for="item in wishlistItems" :key="item.id">
-                                <td>
+                                <td class="table__img-cell">
                                 <img
                                     :src="item.product.primary_image?.image_url ?? '/assets/img/default.jpg'"
-                                    alt=""
+                                    @click="router.visit(route('detail', item.product.id))"
                                     class="table__img"
                                 />
                                 </td>

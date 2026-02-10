@@ -2270,3 +2270,42 @@ table {
   transform: scale(1.05);
 }
 
+/* style cho ảnh wishlist */
+/* Ô chứa ảnh */
+.table__img-cell {
+  width: 90px;                 /* cố định chiều rộng cột */
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Ảnh sản phẩm */
+.table__img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;           /* không méo ảnh */
+  border-radius: 10px;
+  border: 1px solid #eee;
+  background: #f9f9f9;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+/* Hover đẹp nhẹ */
+.table__img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* ========== MOBILE ========== */
+@media (max-width: 576px) {
+  .table__img-cell {
+    width: 70px;
+  }
+
+  .table__img {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+  }
+}
+
