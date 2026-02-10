@@ -27,12 +27,17 @@ const toggleWishlistAjax = async (product) => {
         item => item.product.id !== product.id
       )
     }
+
+    // 🔔 báo cho header cập nhật lại wishlist count
+    window.dispatchEvent(new Event('wishlist-updated'))
+
   } catch (err) {
     if (err.response?.status === 401) {
       window.location.href = '/login'
     }
   }
 }
+
 
 </script>
 

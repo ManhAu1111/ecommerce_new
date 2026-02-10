@@ -89,6 +89,10 @@ Route::post('/wishlist/toggle', [WishlistController::class, 'toggle'])
 Route::get('/wishlist', [WishlistController::class, 'index'])
     ->middleware('auth')
     ->name('wishlist');
+    
+Route::get('/wishlist/count', [WishlistController::class, 'count'])
+    ->middleware('auth')
+    ->name('wishlist.count');
 
 /*
 |--------------------------------------------------------------------------

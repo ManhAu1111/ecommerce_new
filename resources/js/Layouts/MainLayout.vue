@@ -12,6 +12,14 @@ const user = computed(() => page.props.auth.user)
 
 // cart count LOCAL
 const cartCount = ref(0)
+// wishlist count LOCAL
+const wishlistCount = ref(0)
+
+const loadWishlistCount = async () => {
+    if (!user.value) return
+    const res = await axios.get(route('wishlist.count'))
+    wishlistCount.value = res.data.count
+}
 
 const loadCartCount = async () => {
     if (!user.value) return
@@ -32,12 +40,17 @@ const submitSearch = () => {
 
 onMounted(() => {
     loadCartCount()
+    loadWishlistCount()
+
     window.addEventListener('cart-updated', loadCartCount)
+    window.addEventListener('wishlist-updated', loadWishlistCount)
 })
 
 onUnmounted(() => {
     window.removeEventListener('cart-updated', loadCartCount)
+    window.removeEventListener('wishlist-updated', loadWishlistCount)
 })
+
 </script>
 
 <template>
@@ -94,10 +107,13 @@ onUnmounted(() => {
                     </div>
                 </div>
                 <div class="header__user-actions">
-                    <a v-if="user" :href="route('wishlist')" class="header__action-btn" title="Danh sách yêu thích">
+                    <a v-if="user"  :href="route('wishlist')" class="header__action-btn" title="Danh sách yêu thích">
                         <img src="/assets/img/icon-heart.svg" alt="" />
-                        <span class="count">3</span>
+                        <span class="count" v-if="wishlistCount > 0">
+                            {{ wishlistCount }}
+                        </span>
                     </a>
+
                     <a v-if="user" :href="route('cart')" class="header__action-btn" title="Giỏ hàng">
                         <img src="/assets/img/icon-cart.svg" alt="" />
                         <span class="count" v-if="cartCount > 0">
