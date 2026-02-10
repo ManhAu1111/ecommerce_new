@@ -1,44 +1,39 @@
 <script setup>
-import MainLayout from '@/Layouts/MainLayout.vue';
-import { Head } from '@inertiajs/vue3';
-import { onMounted } from 'vue';
+import MainLayout from '@/Layouts/MainLayout.vue'
+import { ref } from 'vue'
 
-onMounted(() => {
-    /* Đảm bảo Swiper đã được tải từ CDN trong app.blade.php */
-    if (typeof Swiper !== 'undefined') {
-        // Khởi tạo Categories Slider
-        new Swiper('.categories__container', {
-            spaceBetween: 24,
-            loop: true,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            breakpoints: {
-                350: { slidesPerView: 2, spaceBetween: 18 },
-                768: { slidesPerView: 3, spaceBetween: 24 },
-                992: { slidesPerView: 5, spaceBetween: 24 },
-                1200: { slidesPerView: 6, spaceBetween: 24 },
-                1400: { slidesPerView: 8, spaceBetween: 24 },
-            },
-        });
+const props = defineProps({
+  wishlists: Array
+})
 
-        // Khởi tạo New Arrivals Slider
-        new Swiper('.new__container', {
-            spaceBetween: 24,
-            loop: true,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            breakpoints: {
-                768: { slidesPerView: 2, spaceBetween: 24 },
-                992: { slidesPerView: 3, spaceBetween: 24 },
-                1400: { slidesPerView: 4, spaceBetween: 24 },
-            },
-        });
+// ❗ QUAN TRỌNG: tạo state local
+const wishlistItems = ref([...props.wishlists])
+
+const formatPrice = (value) => {
+  if (!value) return '0'
+  return Number(value).toLocaleString('vi-VN')
+}
+
+
+const toggleWishlistAjax = async (product) => {
+  try {
+    const res = await axios.post('/wishlist/toggle', {
+      product_id: product.id
+    })
+
+    // nếu bỏ wishlist → remove khỏi list ngay
+    if (!res.data.wishlisted) {
+      wishlistItems.value = wishlistItems.value.filter(
+        item => item.product.id !== product.id
+      )
     }
-});
+  } catch (err) {
+    if (err.response?.status === 401) {
+      window.location.href = '/login'
+    }
+  }
+}
+
 </script>
 
 <template>
@@ -69,24 +64,60 @@ onMounted(() => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr v-for="item in wishlistItems" :key="item.id">
                                 <td>
-                                    <img src="assets//img/product-1-2.jpg" alt="" class="table__img" />
+                                <img
+                                    :src="item.product.primary_image?.image_url ?? '/assets/img/default.jpg'"
+                                    alt=""
+                                    class="table__img"
+                                />
                                 </td>
+
                                 <td>
-                                    <h3 class="table__title">
-                                        J.Crew Mercantile Women's Short-Sleeve
-                                    </h3>
-                                    <p class="table__description">
-                                        Lorem ipsum dolor sit amet consectetur.
-                                    </p>
+                                <h3 class="table__title">
+                                    {{ item.product.name }}
+                                </h3>
+                                <p class="table__description">
+                                    {{ item.product.short_description }}
+                                </p>
                                 </td>
+
                                 <td>
-                                    <span class="table__price">$110</span>
+                                <span class="table__price">
+                                    {{ formatPrice(item.product.price) }}đ
+                                </span>
                                 </td>
-                                <td><span class="table__stock">In Stock</span></td>
-                                <td><a href="#" class="btn btn--sm">Thêm vào giỏ hàng</a></td>
-                                <td><i class="fi fi-rs-trash table__trash"></i></td>
+
+                                <td>
+                                <span class="table__stock">
+                                    {{ item.product.quantity > 0 ? 'Còn hàng' : 'Hết hàng' }}
+                                </span>
+                                </td>
+
+                                <td>
+                                    <div class="table__actions">
+                                        <a
+                                        :href="route('detail', item.product.id)"
+                                        class="btn btn--sm"
+                                        >
+                                        Xem sản phẩm
+                                        </a>
+
+                                        <a
+                                        href="#"
+                                        class="btn btn--sm btn--outline"
+                                        >
+                                        Thêm vào giỏ
+                                        </a>
+                                    </div>
+                                </td>
+
+                                <td>
+                                <i
+                                    class="fi fi-rs-trash table__trash"
+                                    @click="toggleWishlistAjax(item.product)"
+                                ></i>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
