@@ -2278,6 +2278,12 @@ table {
   vertical-align: middle;
 }
 
+.table__img-wrapper {
+  display: flex;
+  align-items: center;      /* giữa dọc */
+  justify-content: center;  /* giữa ngang */
+}
+
 /* Ảnh sản phẩm */
 .table__img {
   width: 72px;

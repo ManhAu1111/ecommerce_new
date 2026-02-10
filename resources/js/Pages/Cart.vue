@@ -71,8 +71,10 @@ onMounted(() => {
             </thead>
             <tbody>
               <tr>
-                <td>
-                  <img src="/assets//img/product-1-2.jpg" alt="" class="table__img" />
+                <td class="table__img-cell">
+                  <div class="table__img-wrapper">
+                    <img src="/assets//img/product-1-2.jpg" alt="" class="table__img" />
+                  </div>
                 </td>
                 <td>
                   <h3 class="table__title">
@@ -90,8 +92,10 @@ onMounted(() => {
                 <td><i class="fi fi-rs-trash table__trash"></i></td>
               </tr>
               <tr>
-                <td>
-                  <img src="/assets//img/product-7-1.jpg" alt="" class="table__img" />
+                <td class="table__img-cell">
+                  <div class="table__img-wrapper">
+                    <img src="/assets//img/product-7-1.jpg" alt="" class="table__img" />
+                  </div>
                 </td>
                 <td>
                   <h3 class="table__title">Amazon Essentials Women's Tank</h3>
@@ -107,8 +111,10 @@ onMounted(() => {
                 <td><i class="fi fi-rs-trash table__trash"></i></td>
               </tr>
               <tr>
-                <td>
-                  <img src="/assets//img/product-2-1.jpg" alt="" class="table__img" />
+                <td class="table__img-cell">
+                  <div class="table__img-wrapper">
+                    <img src="/assets//img/product-2-1.jpg" alt="" class="table__img" />
+                  </div>
                 </td>
                 <td>
                   <h3 class="table__title">
