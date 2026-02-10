@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\WishlistController;
 
 use Inertia\Inertia;
@@ -23,10 +24,11 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/home', function () {
-    return Inertia::render('Home');
-})->name('home');
-
+/*
+|--------------------------------------------------------------------------
+| Pages
+|--------------------------------------------------------------------------
+*/
 Route::get('/shop', [ProductController::class, 'shop'])
     ->name('shop');
 
@@ -60,6 +62,26 @@ Route::get('/products/{id}/related', [ProductController::class, 'relatedProducts
 
 /*
 |--------------------------------------------------------------------------
+| Cart Routes (AUTH REQUIRED)
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('auth')->group(function () {
+
+    Route::post('/cart/add', [CartController::class, 'add'])
+        ->name('cart.add');
+
+    Route::post('/cart/update', [CartController::class, 'update'])
+        ->name('cart.update');
+
+    Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])
+        ->name('cart.remove');
+    Route::get('/cart/count', [CartController::class, 'count'])
+        ->name('cart.count');
+});
+
+/*
+|--------------------------------------------------------------------------
 | Wisshlist Routes
 |--------------------------------------------------------------------------
 */
@@ -67,7 +89,6 @@ Route::get('/products/{id}/related', [ProductController::class, 'relatedProducts
 Route::post('/wishlist/toggle', [WishlistController::class, 'toggle'])
     ->middleware('auth')
     ->name('wishlist.toggle');
-
 
 /*
 |--------------------------------------------------------------------------
@@ -84,8 +105,6 @@ Route::post('/otp-verify', [RegisteredUserController::class, 'verify'])
     ->name('verification.verify_otp');
 
 require __DIR__ . '/auth.php';
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -123,8 +142,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     })->name('admin.dashboard');
 });
 
-
-
 /*
 |--------------------------------------------------------------------------
 | Logout
@@ -136,4 +153,3 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
-
