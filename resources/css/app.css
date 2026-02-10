@@ -626,3 +626,20 @@
 .cart__note-text strong {
   color: #111827;
 }
+
+/* style btn trang wishlist */
+.table__actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.table__actions .btn {
+  padding: 12px 12px;
+  /* ↓ nhỏ lại */
+  font-size: 13px;
+  line-height: 1.2;
+  border-radius: 6px;
+  min-height: auto;
+}

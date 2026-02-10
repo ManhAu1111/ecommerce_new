@@ -38,6 +38,7 @@ Route::get('/wishlist', function () {
     return Inertia::render('Wishlist');
 })->name('wishlist');
 
+
 Route::get('/checkout', function () {
     return Inertia::render('Checkout');
 })->name('checkout');
@@ -87,6 +88,10 @@ Route::middleware('auth')->group(function () {
 Route::post('/wishlist/toggle', [WishlistController::class, 'toggle'])
     ->middleware('auth')
     ->name('wishlist.toggle');
+
+Route::get('/wishlist', [WishlistController::class, 'index'])
+    ->middleware('auth')
+    ->name('wishlist');
 
 /*
 |--------------------------------------------------------------------------

@@ -43,23 +43,6 @@ onUnmounted(() => {
 <template>
     <div class="main-layout">
         <header class="header">
-            <!-- <div class="header__top">
-            <div class="header__container container">
-            <div class="header__contact">
-                <span>(+01) - 2345 - 6789</span>
-                <span>Our location</span>
-            </div>
-            <p class="header__alert-news">
-                Super Values Deals - Save more coupons
-            </p>
-            <div class="header__top-action">
-                <Link :href="route('login')" class="header__top-action">Đăng nhập</Link>
-                <span style="margin: 0 8px; color: var(--text-color-light);">|</span>
-                <Link :href="route('register')" class="header__top-action">Đăng ký</Link>
-            </div>
-            </div>
-        </div> -->
-
             <nav class="nav container">
                 <a :href="route('home')" class="nav__logo">
                     <img class="nav__logo-img" src="/assets/img/logo_toyMark.png" alt="website logo" />

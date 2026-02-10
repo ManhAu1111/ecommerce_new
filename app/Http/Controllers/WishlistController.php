@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Wishlist;
+use Inertia\Inertia;
 
 class WishlistController extends Controller
 {
@@ -36,19 +37,40 @@ class WishlistController extends Controller
                 ->where('product_id', $productId)
                 ->delete();
 
-            return response()->json([
-                'wishlisted' => false
+            $wishlisted = false;
+        } else {
+            // 4️⃣ Thêm wishlist
+            Wishlist::create([
+                'user_id' => $user->id,
+                'product_id' => $productId
+            ]);
+
+            $wishlisted = true;
+        }
+
+        // 🧠 CHỈ THÊM ĐOẠN NÀY – KHÔNG PHÁ LOGIC CŨ
+        if ($request->inertia()) {
+            return back()->with([
+                'wishlisted' => $wishlisted
             ]);
         }
 
-        // 4️⃣ Thêm wishlist
-        Wishlist::create([
-            'user_id' => $user->id,
-            'product_id' => $productId
-        ]);
-
         return response()->json([
-            'wishlisted' => true
+            'wishlisted' => $wishlisted
+        ]);
+    }
+
+
+    public function index()
+    {
+        $wishlists = Wishlist::with([
+            'product.primaryImage'
+        ])
+        ->where('user_id', Auth::id())
+        ->get();
+
+        return Inertia::render('Wishlist', [
+            'wishlists' => $wishlists
         ]);
     }
 }
