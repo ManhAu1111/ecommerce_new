@@ -1,7 +1,25 @@
 <script setup>
 import MainLayout from '@/Layouts/MainLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import { onMounted } from 'vue';
+import { onMounted, computed } from 'vue';
+
+const props = defineProps({
+    cartItems: Array,
+    total: Number,
+})
+
+const SHIPPING_FEE = 30000
+
+const subTotal = computed(() =>
+    props.cartItems.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+    )
+)
+
+const grandTotal = computed(() =>
+    subTotal.value + SHIPPING_FEE
+)
 
 onMounted(() => {
     /* Đảm bảo Swiper đã được tải từ CDN trong app.blade.php */
@@ -82,54 +100,42 @@ onMounted(() => {
                                 </tr>
                             </thead>
 
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <img src="/assets/img/product-1-2.jpg" alt="" class="order__img" />
-                                    </td>
-                                    <td>
-                                        <h3 class="table__title">Yidarton Women Summer Blue</h3>
-                                        <p class="table__quantity">x 2</p>
-                                    </td>
-                                    <td><span class="table__price">$180.00</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="/assets/img/product-2-1.jpg" alt="" class="order__img" />
-                                    </td>
-                                    <td>
-                                        <h3 class="table__title">LDB Moon Summer</h3>
-                                        <p class="table__quantity">x 1</p>
-                                    </td>
-                                    <td><span class="table__price">$65.00</span></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src="/assets/img/product-7-1.jpg" alt="" class="order__img" />
-                                    </td>
-                                    <td>
-                                        <h3 class="table__title">Women Short Sleeve Loose</h3>
-                                        <p class="table__quantity">x 2</p>
-                                    </td>
-                                    <td><span class="table__price">$35.00</span></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="order__subtitle">Tạm tính</span></td>
-                                    <td colspan="2"><span class="table__price">$280.00</span></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="order__subtitle">Phí vận chuyển</span></td>
-                                    <td colspan="2">
-                                        <span class="table__price">Miễn phí vận chuyển</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="order__subtitle">Tổng cộng</span></td>
-                                    <td colspan="2">
-                                        <span class="order__grand-total">$280.00</span>
-                                    </td>
-                                </tr>
-                            </tbody>
+                            <tr v-for="item in cartItems" :key="item.id">
+                                <td>
+                                    <img :src="item.product.primary_image?.image_url ?? '/assets/img/default.jpg'"
+                                        class="order__img" />
+                                </td>
+
+                                <td>
+                                    <h3 class="table__title">{{ item.product.name }}</h3>
+                                    <p class="table__quantity">x {{ item.quantity }}</p>
+                                </td>
+
+                                <td>
+                                    <span class="table__price">
+                                        {{ (item.price * item.quantity).toLocaleString('vi-VN') }}₫
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Tạm tính</td>
+                                <td colspan="2">{{ subTotal.toLocaleString('vi-VN') }}₫</td>
+                            </tr>
+
+                            <tr>
+                                <td>Phí vận chuyển</td>
+                                <td colspan="2">30.000₫</td>
+                            </tr>
+
+                            <tr>
+                                <td><b>Tổng cộng</b></td>
+                                <td colspan="2">
+                                    <b>{{ grandTotal.toLocaleString('vi-VN') }}₫</b>
+                                </td>
+                            </tr>
+
+
                         </table>
                         <div class="payment__methods">
                             <h3 class="checkout__title payment__title">Phương thức thanh toán</h3>

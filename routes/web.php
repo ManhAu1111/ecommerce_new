@@ -38,10 +38,6 @@ Route::get('/wishlist', function () {
     return Inertia::render('Wishlist');
 })->name('wishlist');
 
-
-Route::get('/checkout', function () {
-    return Inertia::render('Checkout');
-})->name('checkout');
 /*
 |--------------------------------------------------------------------------
 | Category Routes
@@ -92,11 +88,26 @@ Route::post('/wishlist/toggle', [WishlistController::class, 'toggle'])
 Route::get('/wishlist', [WishlistController::class, 'index'])
     ->middleware('auth')
     ->name('wishlist');
-    
+
 Route::get('/wishlist/count', [WishlistController::class, 'count'])
     ->middleware('auth')
     ->name('wishlist.count');
+/*
+|--------------------------------------------------------------------------
+| Checkout Routes
+|--------------------------------------------------------------------------
+*/
 
+use App\Http\Controllers\CheckoutController;
+
+// Route::middleware('auth')->group(function () {
+//     Route::get('/checkout', [CheckoutController::class, 'index'])
+//         ->name('checkout');
+// });
+
+Route::get('/checkout', [CartController::class, 'checkout'])
+    ->middleware('auth')
+    ->name('checkout');
 /*
 |--------------------------------------------------------------------------
 | Authentication & OTP

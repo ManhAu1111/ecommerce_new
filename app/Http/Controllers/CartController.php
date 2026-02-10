@@ -106,4 +106,15 @@ class CartController extends Controller
             'count' => $count
         ]);
     }
+
+    public function checkout()
+    {
+        $cartItems = CartItem::with('product.primaryImage')
+            ->where('user_id', auth()->id())
+            ->get();
+
+        return Inertia::render('Checkout', [
+            'cartItems' => $cartItems
+        ]);
+    }
 }
