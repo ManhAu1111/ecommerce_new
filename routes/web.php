@@ -34,10 +34,6 @@ Route::get('/shop', [ProductController::class, 'shop'])
 
 Route::get('/detail/{id}', [ProductController::class, 'show'])->name('detail');
 
-Route::get('/cart', function () {
-    return Inertia::render('Cart');
-})->name('cart');
-
 Route::get('/wishlist', function () {
     return Inertia::render('Wishlist');
 })->name('wishlist');
@@ -67,6 +63,8 @@ Route::get('/products/{id}/related', [ProductController::class, 'relatedProducts
 */
 
 Route::middleware('auth')->group(function () {
+    Route::get('/cart', [CartController::class, 'index'])
+        ->name('cart.index');
 
     Route::post('/cart/add', [CartController::class, 'add'])
         ->name('cart.add');

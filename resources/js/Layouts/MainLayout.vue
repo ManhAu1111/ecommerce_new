@@ -115,7 +115,7 @@ onUnmounted(() => {
                         <img src="/assets/img/icon-heart.svg" alt="" />
                         <span class="count">3</span>
                     </a>
-                    <a v-if="user" :href="route('cart')" class="header__action-btn" title="Giỏ hàng">
+                    <a v-if="user" :href="route('cart.index')" class="header__action-btn" title="Giỏ hàng">
                         <img src="/assets/img/icon-cart.svg" alt="" />
                         <span class="count" v-if="cartCount > 0">
                             {{ cartCount }}
@@ -201,7 +201,7 @@ onUnmounted(() => {
                                 Tài khoản
                             </Link>
                         </li>
-                        <li><a :href="route('cart')" class="footer__link">Xem giỏ hàng</a></li>
+                        <li><a :href="route('cart.index')" class="footer__link">Xem giỏ hàng</a></li>
                         <li><a href="#" class="footer__link">Danh sách yêu thích</a></li>
                         <li><a href="#" class="footer__link">Theo dõi đơn hàng</a></li>
                         <li><a href="#" class="footer__link">Trợ giúp</a></li>

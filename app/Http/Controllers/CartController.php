@@ -6,9 +6,20 @@ use Illuminate\Http\Request;
 use App\Models\CartItem;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class CartController extends Controller
 {
+    public function index()
+    {
+        $cartItems = CartItem::with('product.primaryImage')
+            ->where('user_id', auth()->id())
+            ->get();
+
+        return Inertia::render('Cart', [
+            'cartItems' => $cartItems
+        ]);
+    }
     /**
      * Thêm sản phẩm vào giỏ hàng
      * Dùng chung cho Home / Shop / Detail

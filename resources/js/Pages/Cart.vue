@@ -1,7 +1,56 @@
 <script setup>
 import MainLayout from '@/Layouts/MainLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import axios from 'axios'
+import { computed } from 'vue'
 import { onMounted } from 'vue';
+
+const props = defineProps({
+  cartItems: Array
+})
+
+const totalPrice = computed(() =>
+  props.cartItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  )
+)
+
+// xóa SP
+const removeItem = async (itemId) => {
+  if (!confirm('Xóa sản phẩm này khỏi giỏ hàng?')) return
+
+  await axios.delete(route('cart.remove', itemId))
+
+  // reload lại page Inertia
+  window.dispatchEvent(new Event('cart-updated'))
+  location.reload()
+}
+
+// cập nhật SP
+const updateCart = async () => {
+  for (const item of props.cartItems) {
+    await axios.post(route('cart.update'), {
+      cart_item_id: item.id,
+      quantity: item.quantity
+    })
+  }
+
+  window.dispatchEvent(new Event('cart-updated'))
+  alert('Đã cập nhật giỏ hàng')
+}
+
+// phí ship
+const SHIPPING_FEE = 30000
+
+const subTotal = computed(() =>
+  props.cartItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  )
+)
+
+const total = computed(() => subTotal.value + SHIPPING_FEE)
 
 onMounted(() => {
   /* Đảm bảo Swiper đã được tải từ CDN trong app.blade.php */
@@ -65,75 +114,59 @@ onMounted(() => {
                 <th>Tên sản phẩm</th>
                 <th>Giá</th>
                 <th>Số lượng</th>
-                <th>Tổng phụ</th>
+                <th>Tạm tính</th>
                 <th>Xóa</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr v-for="item in cartItems" :key="item.id">
                 <td>
-                  <img src="/assets//img/product-1-2.jpg" alt="" class="table__img" />
+                  <img :src="item.product.primary_image?.image_url ?? '/assets/img/default.jpg'" class="table__img" />
                 </td>
-                <td>
-                  <h3 class="table__title">
-                    J.Crew Mercantile Women's Short-Sleeve
-                  </h3>
-                  <p class="table__description">
-                    Lorem ipsum dolor sit amet consectetur.
-                  </p>
-                </td>
-                <td>
-                  <span class="table__price">$110</span>
-                </td>
-                <td><input type="number" value="3" class="quantity" /></td>
-                <td><span class="subtotal">$220</span></td>
-                <td><i class="fi fi-rs-trash table__trash"></i></td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="/assets//img/product-7-1.jpg" alt="" class="table__img" />
-                </td>
-                <td>
-                  <h3 class="table__title">Amazon Essentials Women's Tank</h3>
-                  <p class="table__description">
-                    Lorem ipsum dolor sit amet consectetur.
-                  </p>
-                </td>
-                <td>
-                  <span class="table__price">$110</span>
-                </td>
-                <td><input type="number" value="3" class="quantity" /></td>
-                <td><span class="subtotal">$220</span></td>
-                <td><i class="fi fi-rs-trash table__trash"></i></td>
-              </tr>
-              <tr>
-                <td>
-                  <img src="/assets//img/product-2-1.jpg" alt="" class="table__img" />
-                </td>
+
                 <td>
                   <h3 class="table__title">
-                    Amazon Brand - Daily Ritual Women's Jersey
+                    {{ item.product_name }}
                   </h3>
-                  <p class="table__description">
-                    Lorem ipsum dolor sit amet consectetur.
-                  </p>
                 </td>
+
                 <td>
-                  <span class="table__price">$110</span>
+                  <span class="table__price">
+                    {{ Number(item.price).toLocaleString('vi-VN') }}₫
+                  </span>
                 </td>
-                <td><input type="number" value="3" class="quantity" /></td>
-                <td><span class="subtotal">$220</span></td>
-                <td><i class="fi fi-rs-trash table__trash"></i></td>
+
+                <td>
+                  <input type="number" class="quantity" v-model.number="item.quantity" min="1" />
+                </td>
+
+                <td>
+                  <span class="subtotal">
+                    {{ (item.price * item.quantity).toLocaleString('vi-VN') }}₫
+                  </span>
+                </td>
+
+                <td>
+                  <i class="fi fi-rs-trash table__trash" @click="removeItem(item.id)"></i>
+                </td>
+              </tr>
+
+              <tr v-if="!cartItems.length">
+                <td colspan="6" class="text-center">
+                  Giỏ hàng trống
+                </td>
               </tr>
             </tbody>
+
           </table>
         </div>
 
         <div class="cart__actions">
-          <a href="#" class="btn flex btn__md">
+          <a href="#" class="btn flex btn__md" @click.prevent="updateCart">
             <i class="fi-rs-shuffle"></i> Cập nhật giỏ hàng
           </a>
-          <a href="#" class="btn flex btn__md">
+
+          <a :href="route('shop')" class="btn flex btn__md">
             <i class="fi-rs-shopping-bag"></i> Tiếp tục mua sắm
           </a>
         </div>
@@ -143,58 +176,69 @@ onMounted(() => {
         </div>
 
         <div class="cart__group grid">
-          <div>
-            <div class="cart__shippinp">
-              <h3 class="section__title">Tính phí vận chuyển</h3>
-              <form action="" class="form grid">
-                <input type="text" class="form__input" placeholder="Tỉnh / Quốc gia" />
-                <div class="form__group grid">
-                  <input type="text" class="form__input" placeholder="Thành phố" />
-                  <input type="text" class="form__input" placeholder="Mã bưu điện" />
-                </div>
-                <div class="form__btn">
-                  <button class="btn flex btn--sm">
-                    <i class="fi-rs-shuffle"></i> Cập nhật
-                  </button>
-                </div>
-              </form>
-            </div>
-            <div class="cart__coupon">
-              <h3 class="section__title">Mã giảm giá</h3>
-              <form action="" class="coupon__form form grid">
-                <div class="form__group grid">
-                  <input type="text" class="form__input" placeholder="Nhập mã giảm giá" />
-                  <div class="form__btn">
-                    <button class="btn flex btn--sm">
-                      <i class="fi-rs-label"></i> Áp dụng
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
+          <!-- LEFT -->
+          <div class="cart__note">
+            <h3 class="section__title">Thông tin đơn hàng</h3>
+
+            <ul class="cart__info-list">
+              <li>
+                <i class="fi fi-rs-check"></i>
+                Kiểm tra lại số lượng và giá sản phẩm
+              </li>
+              <li>
+                <i class="fi fi-rs-check"></i>
+                Phí vận chuyển sẽ được tính ở bước thanh toán
+              </li>
+              <li>
+                <i class="fi fi-rs-check"></i>
+                Thông tin giao hàng (địa chỉ, SĐT) nhập tại trang thanh toán
+              </li>
+            </ul>
+
+            <p class="cart__note-text">
+              Nhấn <strong>“Tiến hành thanh toán”</strong> để tiếp tục.
+            </p>
           </div>
 
+          <!-- RIGHT -->
           <div class="cart__total">
             <h3 class="section__title">Tổng giỏ hàng</h3>
+
             <table class="cart__total-table">
               <tr>
-                <td><span class="cart__total-title">Tổng phụ</span></td>
-                <td><span class="cart__total-price">$240.00</span></td>
+                <td><span class="cart__total-title">Tạm tính</span></td>
+                <td>
+                  <span class="cart__total-price">
+                    {{ subTotal.toLocaleString('vi-VN') }}₫
+                  </span>
+                </td>
               </tr>
+
               <tr>
                 <td><span class="cart__total-title">Vận chuyển</span></td>
-                <td><span class="cart__total-price">$10.00</span></td>
+                <td>
+                  <span class="cart__total-price">
+                    {{ SHIPPING_FEE.toLocaleString('vi-VN') }}₫
+                  </span>
+                </td>
               </tr>
-              <tr>
+
+              <tr class="cart__total-final">
                 <td><span class="cart__total-title">Tổng cộng</span></td>
-                <td><span class="cart__total-price">$250.00</span></td>
+                <td>
+                  <span class="cart__total-price">
+                    {{ total.toLocaleString('vi-VN') }}₫
+                  </span>
+                </td>
               </tr>
             </table>
-            <a :href="route('checkout')" class="btn flex btn--md">
+
+            <a :href="route('checkout')" class="btn flex btn--md cart__checkout-btn">
               <i class="fi fi-rs-box-alt"></i> Tiến hành thanh toán
             </a>
           </div>
         </div>
+
       </section>
 
       <!--=============== NEWSLETTER ===============-->
