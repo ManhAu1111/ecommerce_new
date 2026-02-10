@@ -3,7 +3,7 @@ import MainLayout from '@/Layouts/MainLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import axios from 'axios'
 import { computed } from 'vue'
-import { onMounted } from 'vue';
+import { router } from '@inertiajs/vue3'
 
 const props = defineProps({
   cartItems: Array
@@ -52,42 +52,6 @@ const subTotal = computed(() =>
 
 const total = computed(() => subTotal.value + SHIPPING_FEE)
 
-onMounted(() => {
-  /* Đảm bảo Swiper đã được tải từ CDN trong app.blade.php */
-  if (typeof Swiper !== 'undefined') {
-    // Khởi tạo Categories Slider
-    new Swiper('.categories__container', {
-      spaceBetween: 24,
-      loop: true,
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      breakpoints: {
-        350: { slidesPerView: 2, spaceBetween: 18 },
-        768: { slidesPerView: 3, spaceBetween: 24 },
-        992: { slidesPerView: 5, spaceBetween: 24 },
-        1200: { slidesPerView: 6, spaceBetween: 24 },
-        1400: { slidesPerView: 8, spaceBetween: 24 },
-      },
-    });
-
-    // Khởi tạo New Arrivals Slider
-    new Swiper('.new__container', {
-      spaceBetween: 24,
-      loop: true,
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      breakpoints: {
-        768: { slidesPerView: 2, spaceBetween: 24 },
-        992: { slidesPerView: 3, spaceBetween: 24 },
-        1400: { slidesPerView: 4, spaceBetween: 24 },
-      },
-    });
-  }
-});
 </script>
 
 <template>
@@ -120,8 +84,11 @@ onMounted(() => {
             </thead>
             <tbody>
               <tr v-for="item in cartItems" :key="item.id">
-                <td>
-                  <img :src="item.product.primary_image?.image_url ?? '/assets/img/default.jpg'" class="table__img" />
+                <td class="table__img-cell">
+                  <div class="table__img-wrapper">
+                    <img :src="item.product.primary_image?.image_url ?? '/assets/img/default.jpg'" class="table__img" 
+                    @click="router.visit(route('detail', item.product.id))"/>
+                  </div>
                 </td>
 
                 <td>
