@@ -559,3 +559,19 @@
   color: #2fb4d9;               /* xanh chủ đạo web */
   -webkit-text-fill-color: #2fb4d9;
 }
+
+/* style btn trang wishlist */
+.table__actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.table__actions .btn {
+  padding: 12px 12px;      /* ↓ nhỏ lại */
+  font-size: 13px;
+  line-height: 1.2;
+  border-radius: 6px;
+  min-height: auto;
+}
+
