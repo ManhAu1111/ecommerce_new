@@ -94,20 +94,26 @@ const toggleWishlistAjax = async (product) => {
                                 </span>
                                 </td>
 
-                                <td>
+                                <td class="table__action-cell">
                                     <div class="table__actions">
+                                        <!-- Xem sản phẩm -->
                                         <a
-                                        :href="route('detail', item.product.id)"
-                                        class="btn btn--sm"
+                                            :href="route('detail', item.product.id)"
+                                            class="action-btn action-btn--view"
+                                            aria-label="Xem chi tiết sản phẩm"
+                                            data-tooltip="Xem sản phẩm"
                                         >
-                                        Xem sản phẩm
+                                            <i class="fi fi-rs-eye"></i>
                                         </a>
 
+                                        <!-- Thêm vào giỏ -->
                                         <a
-                                        href="#"
-                                        class="btn btn--sm btn--outline"
+                                            href="#"
+                                            class="action-btn action-btn--cart"
+                                            aria-label="Thêm sản phẩm vào giỏ hàng"
+                                            data-tooltip="Thêm vào giỏ"
                                         >
-                                        Thêm vào giỏ
+                                            <i class="fi fi-rs-shopping-bag-add"></i>
                                         </a>
                                     </div>
                                 </td>
