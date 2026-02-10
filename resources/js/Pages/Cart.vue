@@ -119,6 +119,7 @@ onMounted(() => {
               </tr>
             </thead>
             <tbody>
+
               <tr v-for="item in cartItems" :key="item.id">
                 <td>
                   <img :src="item.product.primary_image?.image_url ?? '/assets/img/default.jpg'" class="table__img" />
@@ -150,6 +151,7 @@ onMounted(() => {
                   <i class="fi fi-rs-trash table__trash" @click="removeItem(item.id)"></i>
                 </td>
               </tr>
+
 
               <tr v-if="!cartItems.length">
                 <td colspan="6" class="text-center">

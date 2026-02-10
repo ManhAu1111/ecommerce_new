@@ -91,9 +91,14 @@ const handleAddToCart = async (product) => {
                         <tbody>
                             <tr v-for="item in wishlistItems" :key="item.id">
                                 <td class="table__img-cell">
-                                    <img :src="item.product.primary_image?.image_url ?? '/assets/img/default.jpg'"
-                                        @click="router.visit(route('detail', item.product.id))" class="table__img" />
+
+                                    <div class="table__img-wrapper">
+                                        <img :src="item.product.primary_image?.image_url ?? '/assets/img/default.jpg'"
+                                            @click="router.visit(route('detail', item.product.id))"
+                                            class="table__img" />
+                                    </div>
                                 </td>
+
 
                                 <td>
                                     <h3 class="table__title">
