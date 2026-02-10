@@ -1,31 +1,44 @@
 <script setup>
 import { Link, usePage, router } from '@inertiajs/vue3'
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
+import axios from 'axios'
 
 const showMenu = ref(false)
-
+const showLogoutModal = ref(false)
+const search = ref('')
 
 const page = usePage()
-const user = page.props.auth.user
+const user = computed(() => page.props.auth.user)
 
-const showLogoutModal = ref(false)
+// cart count LOCAL
+const cartCount = ref(0)
+
+const loadCartCount = async () => {
+    if (!user.value) return
+    const res = await axios.get(route('cart.count'))
+    cartCount.value = res.data.count
+}
 
 const logout = () => {
     router.post(route('logout'))
 }
 
-const search = ref('')
-
 const submitSearch = () => {
-  router.get('/shop', {
-    search: search.value
-  }, {
-    preserveState: true,
-    preserveScroll: true,
-  })
+    router.get('/shop', { search: search.value }, {
+        preserveState: true,
+        preserveScroll: true,
+    })
 }
-</script>
 
+onMounted(() => {
+    loadCartCount()
+    window.addEventListener('cart-updated', loadCartCount)
+})
+
+onUnmounted(() => {
+    window.removeEventListener('cart-updated', loadCartCount)
+})
+</script>
 
 <template>
     <div class="main-layout">
@@ -73,13 +86,8 @@ const submitSearch = () => {
                         </li>
                     </ul>
                     <div class="header__search">
-                        <input
-                            type="text"
-                            placeholder="Tìm kiếm sản phẩm..."
-                            class="form__input"
-                            v-model="search"
-                            @keyup.enter="submitSearch"
-                        />
+                        <input type="text" placeholder="Tìm kiếm sản phẩm..." class="form__input" v-model="search"
+                            @keyup.enter="submitSearch" />
                         <button class="search__btn" @click="submitSearch">
                             <img src="/assets/img/search.png" alt="search icon" />
                         </button>
@@ -92,7 +100,9 @@ const submitSearch = () => {
                     </a>
                     <a v-if="user" :href="route('cart')" class="header__action-btn" title="Giỏ hàng">
                         <img src="/assets/img/icon-cart.svg" alt="" />
-                        <span class="count">3</span>
+                        <span class="count" v-if="cartCount > 0">
+                            {{ cartCount }}
+                        </span>
                     </a>
                     <button v-if="user" @click="showLogoutModal = true" class="header__action-btn" title="Đăng xuất"
                         type="button">

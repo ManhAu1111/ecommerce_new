@@ -1,7 +1,7 @@
 <script setup>
 import MainLayout from '@/Layouts/MainLayout.vue'
-import { Head } from '@inertiajs/vue3'
 import { ref, onMounted, nextTick } from 'vue'
+import { addToCart } from '@/Services/cartService'
 import axios from 'axios'
 
 const categories = ref([])
@@ -66,6 +66,17 @@ const toggleRelatedWishlist = async (product) => {
     }
   }
 }
+
+// thêm giỏ hàng
+const handleAddToCart = async (product) => {
+  if (!product?.id) return
+
+  try {
+    await addToCart(product.id, 1)
+  } catch (e) {
+    console.error('Add to cart failed', e)
+  }
+}
 </script>
 
 
@@ -98,30 +109,22 @@ const toggleRelatedWishlist = async (product) => {
 
           <div class="categories__container swiper">
             <div class="swiper-wrapper">
-              <a
-                v-for="category in categories"
-                :key="category.id"
-                :href="route('shop', { category: category.id })"
-                class="category__item swiper-slide"
-              >
-              <img
-                :src="category.image_url"
-                :alt="category.name"
-                class="category__img"
-              />
+              <a v-for="category in categories" :key="category.id" :href="route('shop', { category: category.id })"
+                class="category__item swiper-slide">
+                <img :src="category.image_url" :alt="category.name" class="category__img" />
 
 
-              <h3 class="category__title">{{ category.name }}</h3>
+                <h3 class="category__title">{{ category.name }}</h3>
               </a>
             </div>
 
-              <div class="swiper-button-prev categories-nav">
-                <i class="fa-solid fa-chevron-left"></i>
-              </div>
-              <div class="swiper-button-next categories-nav">
-                <i class="fa-solid fa-chevron-right"></i>
-              </div>
+            <div class="swiper-button-prev categories-nav">
+              <i class="fa-solid fa-chevron-left"></i>
             </div>
+            <div class="swiper-button-next categories-nav">
+              <i class="fa-solid fa-chevron-right"></i>
+            </div>
+          </div>
         </section>
 
         <!--=============== PRODUCTS ===============-->
@@ -136,43 +139,22 @@ const toggleRelatedWishlist = async (product) => {
             <!-- 🔥 NỔI BẬT -->
             <div class="tab__item active-tab" id="featured">
               <div class="products__container grid">
-                <div
-                  class="product__item"
-                  v-for="product in featuredProducts"
-                  :key="product.id"
-                >
+                <div class="product__item" v-for="product in featuredProducts" :key="product.id">
                   <div class="product__banner">
-                    <a
-                      v-if="product?.id"
-                      :href="route('detail', { id: product.id })"
-                      class="product__images"
-                    >
-                      <img
-                        :src="product.primary_image?.image_url ?? '/assets/img/default.jpg'"
-                        class="product__img default"
-                      />
+                    <a v-if="product?.id" :href="route('detail', { id: product.id })" class="product__images">
+                      <img :src="product.primary_image?.image_url ?? '/assets/img/default.jpg'"
+                        class="product__img default" />
 
-                      <img
-                        :src="product.secondary_image?.image_url 
-                              ?? product.primary_image?.image_url 
-                              ?? '/assets/img/default.jpg'"
-                        class="product__img hover"
-                      />
+                      <img :src="product.secondary_image?.image_url
+                        ?? product.primary_image?.image_url
+                        ?? '/assets/img/default.jpg'" class="product__img hover" />
                     </a>
 
                     <div class="product__actions">
-                      <button
-                        type="button"
-                        class="action__btn"
-                        :class="{ active: product.is_wishlisted }"
-                        @click.stop="toggleRelatedWishlist(product)"
-                        aria-label="Thêm vào yêu thích"
-                        title="Thêm vào yêu thích"
-                      >
-                        <i
-                          class="fi"
-                          :class="product.is_wishlisted ? 'fi-sr-heart' : 'fi-rs-heart'"
-                        ></i>
+                      <button type="button" class="action__btn" :class="{ active: product.is_wishlisted }"
+                        @click.stop="toggleRelatedWishlist(product)" aria-label="Thêm vào yêu thích"
+                        title="Thêm vào yêu thích">
+                        <i class="fi" :class="product.is_wishlisted ? 'fi-sr-heart' : 'fi-rs-heart'"></i>
                       </button>
                     </div>
 
@@ -182,34 +164,26 @@ const toggleRelatedWishlist = async (product) => {
                   <div class="product__content">
                     <span class="product__category">Sản phẩm</span>
 
-                    <a
-                      v-if="product?.id"
-                      :href="route('detail', { id: product.id })"
-                    >
+                    <a v-if="product?.id" :href="route('detail', { id: product.id })">
                       <h3 class="product__title">{{ truncate(product.name, 50) }}</h3>
                     </a>
 
                     <div class="product__rating">
-                      <i
-                        v-for="i in 5"
-                        :key="i"
-                        class="fi"
-                        :class="i <= Math.round(product.avg_rating)
-                          ? 'fi-rs-star'
-                          : 'fi-rs-star-empty'"
-                      ></i>
+                      <i v-for="i in 5" :key="i" class="fi" :class="i <= Math.round(product.avg_rating)
+                        ? 'fi-rs-star'
+                        : 'fi-rs-star-empty'"></i>
                     </div>
 
                     <div class="product__price flex">
-                        <span class="new__price">
-                          {{ Number(product.price).toLocaleString('vi-VN') }}₫
-                        </span>
-                      </div>
+                      <span class="new__price">
+                        {{ Number(product.price).toLocaleString('vi-VN') }}₫
+                      </span>
+                    </div>
 
-
-                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
+                    <button type="button" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng"
+                      @click.stop="handleAddToCart(product)">
                       <i class="fi fi-rs-shopping-bag-add"></i>
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -218,43 +192,22 @@ const toggleRelatedWishlist = async (product) => {
             <!-- 🚀 PHỔ BIẾN -->
             <div class="tab__item" id="popular">
               <div class="products__container grid">
-                <div
-                  class="product__item"
-                  v-for="product in popularProducts"
-                  :key="product.id"
-                >
+                <div class="product__item" v-for="product in popularProducts" :key="product.id">
                   <div class="product__banner">
-                    <a
-                      v-if="product?.id"
-                      :href="route('detail', { id: product.id })"
-                      class="product__images"
-                    >
-                      <img
-                        :src="product.primary_image?.image_url ?? '/assets/img/default.jpg'"
-                        class="product__img default"
-                      />
+                    <a v-if="product?.id" :href="route('detail', { id: product.id })" class="product__images">
+                      <img :src="product.primary_image?.image_url ?? '/assets/img/default.jpg'"
+                        class="product__img default" />
 
-                      <img
-                        :src="product.secondary_image?.image_url 
-                              ?? product.primary_image?.image_url 
-                              ?? '/assets/img/default.jpg'"
-                        class="product__img hover"
-                      />
+                      <img :src="product.secondary_image?.image_url
+                        ?? product.primary_image?.image_url
+                        ?? '/assets/img/default.jpg'" class="product__img hover" />
                     </a>
 
                     <div class="product__actions">
-                      <button
-                        type="button"
-                        class="action__btn"
-                        :class="{ active: product.is_wishlisted }"
-                        @click.stop="toggleRelatedWishlist(product)"
-                        aria-label="Thêm vào yêu thích"
-                        title="Thêm vào yêu thích"
-                      >
-                        <i
-                          class="fi"
-                          :class="product.is_wishlisted ? 'fi-sr-heart' : 'fi-rs-heart'"
-                        ></i>
+                      <button type="button" class="action__btn" :class="{ active: product.is_wishlisted }"
+                        @click.stop="toggleRelatedWishlist(product)" aria-label="Thêm vào yêu thích"
+                        title="Thêm vào yêu thích">
+                        <i class="fi" :class="product.is_wishlisted ? 'fi-sr-heart' : 'fi-rs-heart'"></i>
                       </button>
                     </div>
 
@@ -264,21 +217,13 @@ const toggleRelatedWishlist = async (product) => {
                   <div class="product__content">
                     <span class="product__category">Sản phẩm</span>
 
-                    <a
-                      v-if="product?.id"
-                      :href="route('detail', { id: product.id })"
-                    >
+                    <a v-if="product?.id" :href="route('detail', { id: product.id })">
                       <h3 class="product__title">{{ truncate(product.name, 50) }}</h3>
                     </a>
                     <div class="product__rating">
-                      <i
-                        v-for="i in 5"
-                        :key="i"
-                        class="fi"
-                        :class="i <= Math.round(product.avg_rating)
-                          ? 'fi-rs-star'
-                          : 'fi-rs-star-empty'"
-                      ></i>
+                      <i v-for="i in 5" :key="i" class="fi" :class="i <= Math.round(product.avg_rating)
+                        ? 'fi-rs-star'
+                        : 'fi-rs-star-empty'"></i>
                     </div>
 
                     <div class="product__price flex">
@@ -286,9 +231,10 @@ const toggleRelatedWishlist = async (product) => {
                         {{ Number(product.price).toLocaleString('vi-VN') }}₫
                       </span>
                     </div>
-                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
+                    <button type="button" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng"
+                      @click.stop="handleAddToCart(product)">
                       <i class="fi fi-rs-shopping-bag-add"></i>
-                    </a>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -378,83 +324,55 @@ const toggleRelatedWishlist = async (product) => {
           <h3 class="section__title"><span>Sản phẩm</span> Mới</h3>
           <div class="new__container">
             <div class="products__container grid">
-                <div
-                  class="product__item"
-                  v-for="product in newProducts"
-                  :key="product.id"
-                >
-                  <div class="product__banner">
-                    <a
-                      v-if="product?.id"
-                      :href="route('detail', { id: product.id })"
-                      class="product__images"
-                    >
-                      <img
-                        :src="product.primary_image?.image_url ?? '/assets/img/default.jpg'"
-                        class="product__img default"
-                      />
+              <div class="product__item" v-for="product in newProducts" :key="product.id">
+                <div class="product__banner">
+                  <a v-if="product?.id" :href="route('detail', { id: product.id })" class="product__images">
+                    <img :src="product.primary_image?.image_url ?? '/assets/img/default.jpg'"
+                      class="product__img default" />
 
-                      <img
-                        :src="product.secondary_image?.image_url 
-                              ?? product.primary_image?.image_url 
-                              ?? '/assets/img/default.jpg'"
-                        class="product__img hover"
-                      />
-                    </a>
+                    <img :src="product.secondary_image?.image_url
+                      ?? product.primary_image?.image_url
+                      ?? '/assets/img/default.jpg'" class="product__img hover" />
+                  </a>
 
-                    <div class="product__actions">
-                      <button
-                        type="button"
-                        class="action__btn"
-                        :class="{ active: product.is_wishlisted }"
-                        @click.stop="toggleRelatedWishlist(product)"
-                        aria-label="Thêm vào yêu thích"
-                        title="Thêm vào yêu thích"
-                      >
-                        <i
-                          class="fi"
-                          :class="product.is_wishlisted ? 'fi-sr-heart' : 'fi-rs-heart'"
-                        ></i>
-                      </button>
-                    </div>
-
-                    <div class="product__badge light-pink">Mới</div>
+                  <div class="product__actions">
+                    <button type="button" class="action__btn" :class="{ active: product.is_wishlisted }"
+                      @click.stop="toggleRelatedWishlist(product)" aria-label="Thêm vào yêu thích"
+                      title="Thêm vào yêu thích">
+                      <i class="fi" :class="product.is_wishlisted ? 'fi-sr-heart' : 'fi-rs-heart'"></i>
+                    </button>
                   </div>
 
-                  <div class="product__content">
-                    <span class="product__category">Sản phẩm</span>
-
-                    <a
-                      v-if="product?.id"
-                      :href="route('detail', { id: product.id })"
-                    >
-                      <h3 class="product__title">{{ truncate(product.name, 50) }}</h3>
-                    </a>
-
-
-                    <div class="product__rating">
-                      <i
-                        v-for="i in 5"
-                        :key="i"
-                        class="fi"
-                        :class="i <= Math.round(product.avg_rating)
-                          ? 'fi-rs-star'
-                          : 'fi-rs-star-empty'"
-                      ></i>
-                    </div>
-
-                    <div class="product__price flex">
-                        <span class="new__price">
-                          {{ Number(product.price).toLocaleString('vi-VN') }}₫
-                        </span>
-                      </div>
-
-
-                    <a href="#" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng">
-                      <i class="fi fi-rs-shopping-bag-add"></i>
-                    </a>
-                  </div>
+                  <div class="product__badge light-pink">Mới</div>
                 </div>
+
+                <div class="product__content">
+                  <span class="product__category">Sản phẩm</span>
+
+                  <a v-if="product?.id" :href="route('detail', { id: product.id })">
+                    <h3 class="product__title">{{ truncate(product.name, 50) }}</h3>
+                  </a>
+
+
+                  <div class="product__rating">
+                    <i v-for="i in 5" :key="i" class="fi" :class="i <= Math.round(product.avg_rating)
+                      ? 'fi-rs-star'
+                      : 'fi-rs-star-empty'"></i>
+                  </div>
+
+                  <div class="product__price flex">
+                    <span class="new__price">
+                      {{ Number(product.price).toLocaleString('vi-VN') }}₫
+                    </span>
+                  </div>
+
+
+                  <button type="button" class="action__btn cart__btn" aria-label="Thêm vào giỏ hàng"
+                    @click.stop="handleAddToCart(product)">
+                    <i class="fi fi-rs-shopping-bag-add"></i>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -677,4 +595,3 @@ const toggleRelatedWishlist = async (product) => {
     </section>
   </MainLayout>
 </template>
-
