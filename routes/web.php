@@ -153,12 +153,33 @@ Route::middleware('auth')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'admin'])
+    ->prefix('admin')
+    ->as('admin.') // 👈 QUAN TRỌNG
+    ->group(function () {
 
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('admin.dashboard');
+        Route::get('/dashboard', fn () =>
+            Inertia::render('Admin/Dashboard')
+        )->name('dashboard');
+
+        Route::get('/products', fn () =>
+            Inertia::render('Admin/Products/Index')
+        )->name('products');
+
+        Route::get('/categories', fn () =>
+            Inertia::render('Admin/Categories/Index')
+        )->name('categories');
+
+        Route::get('/orders', fn () =>
+            Inertia::render('Admin/Orders/Index')
+        )->name('orders');
+
+        Route::get('/users', fn () =>
+            Inertia::render('Admin/Users/Index')
+        )->name('users');
 });
+
+
 
 /*
 |--------------------------------------------------------------------------

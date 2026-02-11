@@ -1,52 +1,180 @@
 <script setup>
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3'
+import { ref } from 'vue'
+
+const showLogoutModal = ref(false)
+
+const logout = () => {
+    router.post(route('logout'))
+}
 </script>
 
 <template>
-    <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
-        <div class="dash__pad-1">
-            <ul class="dash__f-list">
-                <li>
-                    <Link :class="{ 'dash-active': $page.url === '/admin/dashboard' }" href="/admin/dashboard">
-                        <i class="fas fa-chart-line u-s-m-r-6"></i> Tổng Quan
-                    </Link>
-                </li>
-                <li class="u-s-m-t-10">
-                    <span class="dash__text u-s-m-b-8">QUẢN LÝ CỬA HÀNG</span>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-box-open u-s-m-r-6"></i> Sản Phẩm
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-list-alt u-s-m-r-6"></i> Danh Mục Sản Phẩm
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-shopping-bag u-s-m-r-6"></i> Đơn Hàng
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-users u-s-m-r-6"></i> Người Dùng
-                    </a>
-                </li>
-            </ul>
+<div class="sidebar">
+
+     <div class="sidebar-top">
+        <div class="sidebar-logo">
+            <img src="/assets/img/logo-removebg-toymark.png" />
+            <span>ADMIN PANEL</span>
         </div>
+
+    <!-- MENU -->
+        <nav class="sidebar-menu">
+
+            <Link :href="route('admin.dashboard')" 
+                :class="['menu-item', { active: route().current('admin.dashboard') }]">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Tổng Quan</span>
+            </Link>
+
+            <Link :href="route('admin.products')" 
+                :class="['menu-item', { active: route().current('admin.products') }]">
+                <i class="fa-solid fa-box"></i>
+                <span>Sản Phẩm</span>
+            </Link>
+
+            <Link :href="route('admin.categories')" 
+                :class="['menu-item', { active: route().current('admin.categories') }]">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>Danh Mục</span>
+            </Link>
+
+            <Link :href="route('admin.orders')" 
+                :class="['menu-item', { active: route().current('admin.orders') }]">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span>Đơn Hàng</span>
+            </Link>
+
+            <Link :href="route('admin.users')" 
+                :class="['menu-item', { active: route().current('admin.users') }]">
+                <i class="fa-solid fa-users"></i>
+                <span>Người Dùng</span>
+            </Link>
+
+        </nav>
     </div>
+
+    <!-- LOGOUT -->
+    <div class="sidebar-footer">
+        <button class="logout-btn" @click="logout">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Đăng xuất
+        </button>
+    </div>
+</div>
 </template>
 
 <style scoped>
-.dash-active {
-    background-color: hsl(176, 88%, 27%) !important; /* Teal */
-    color: #fff !important;
-    border-radius: 0.5rem;
+/* ================= SIDEBAR ================= */
+
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background: linear-gradient(
+        to bottom,
+        #0a0e14 0%,   /* trên sáng hơn */
+        #121c33 100%  /* dưới đậm */
+    );
+
+    display: flex;
+    flex-direction: column;
+    padding: 0;                 /* bỏ padding để logo full */
+}
+
+/* ================= TOP AREA ================= */
+
+.sidebar-top {
+    padding: 2rem 1.5rem 1rem 1.5rem;
+}
+
+/* ================= LOGO ================= */
+
+.sidebar-logo {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.sidebar-logo img {
+    width: 100%;        /* FULL WIDTH */
+    max-width: 190px;   /* không quá to */
+    object-fit: contain;
+    display: block;
+    margin: 0 auto; 
+}
+
+.sidebar-logo span {
+    display: block;
+    margin-top: 10px;
+    color: white;
     font-weight: 600;
+    letter-spacing: 2px;
+    font-size: 0.95rem;
 }
-.dash__f-list li a:hover {
-    color: hsl(176, 88%, 27%);
+
+/* ================= MENU ================= */
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    color: #cbd5e1;
+    transition: 0.25s;
+    font-size: 0.95rem;
+}
+
+.menu-item i {
+    width: 20px;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.menu-item:hover {
+    background: #1e293b;
+    color: white;
+}
+
+.menu-item.active {
+    background: #0f766e;
+    color: white;
+}
+
+/* ================= PUSH FOOTER DOWN ================= */
+
+.sidebar-footer {
+    margin-top: auto;       /* 👈 cái này đẩy logout xuống đáy */
+    padding: 1.5rem;
+}
+
+/* ================= LOGOUT ================= */
+
+.logout-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    background: #1e293b;
+    color: #f87171;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: 0.25s;
+}
+
+.logout-btn:hover {
+    background: #dc2626;
+    color: white;
+}
+
 </style>
