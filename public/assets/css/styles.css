@@ -371,28 +371,25 @@ table {
 
 /*=============== BUTTONS ===============*/
 .btn {
-  display: inline-block;
+  display: inline-flex;              /* đổi từ inline-block */
+  align-items: center;               /* căn giữa dọc */
+  justify-content: center;           /* căn giữa ngang */
+
   background-color: var(--first-color);
   border: 2px solid var(--first-color);
   color: var(--body-color);
-  padding-inline: 1.75rem;
-  /* padding: 0.75rem 1.75rem; */
+
+  padding: 0 1.75rem;                /* dùng padding thay vì line-height */
   height: 49px;
-  line-height: 43px;
+
   font-family: var(--second-font);
   font-size: var(--small-font-size);
   font-weight: var(--weight-700);
+
   border-radius: 0.25rem;
-  -webkit-border-radius: 0.25rem;
-  -moz-border-radius: 0.25rem;
-  -ms-border-radius: 0.25rem;
-  -o-border-radius: 0.25rem;
   transition: all 0.4s var(--transition);
-  -webkit-transition: all 0.4s var(--transition);
-  -moz-transition: all 0.4s var(--transition);
-  -ms-transition: all 0.4s var(--transition);
-  -o-transition: all 0.4s var(--transition);
 }
+
 
 .btn:hover {
   background-color: transparent;
@@ -406,7 +403,6 @@ table {
 
 .btn--md {
   height: 45px;
-  line-height: 40px;
 }
 
 /* .btn--sm {
