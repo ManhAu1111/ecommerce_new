@@ -72,8 +72,8 @@ const logout = () => {
     height: 100vh;
     background: linear-gradient(
         to bottom,
-        #0a0e14 0%,   /* trên sáng hơn */
-        #121c33 100%  /* dưới đậm */
+        #0a0e14 0%,   
+        #121c33 100%  
     );
 
     display: flex;

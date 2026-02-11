@@ -113,7 +113,76 @@ const handleAddRelatedToCart = async (product) => {
   }
 }
 
+// script demo cho review
+const reviews = ref([
+  // sau này thay bằng API
+  {
+    id: 1,
+    user: 'Jacky Chan',
+    avatar: '/assets/img/avatar-1.jpg',
+    rating: 5,
+    comment: 'Thank you, very fast shipping from Poland only 3days.',
+    date: 'December 4, 2022'
+  },
+  {
+    id: 1,
+    user: 'Jacky Chan',
+    avatar: '/assets/img/avatar-1.jpg',
+    rating: 5,
+    comment: 'Thank you, very fast shipping from Poland only 3days.',
+    date: 'December 4, 2022'
+  },
+  {
+    id: 1,
+    user: 'Jacky Chan',
+    avatar: '/assets/img/avatar-1.jpg',
+    rating: 5,
+    comment: 'Thank you, very fast shipping from Poland only 3days.',
+    date: 'December 4, 2022'
+  },
+  {
+    id: 2,
+    user: 'Anna Lee',
+    avatar: '/assets/img/avatar-1.jpg',
+    rating: 4,
+    comment: 'Good product, will buy again.',
+    date: 'December 10, 2022'
+  },
+  // thêm nhiều review để test
+])
+const activeTab = ref('form') 
+const currentPage = ref(1)
+const perPage = 3
 
+const totalPages = computed(() =>
+  Math.ceil(reviews.value.length / perPage)
+)
+
+const paginatedReviews = computed(() => {
+  const start = (currentPage.value - 1) * perPage
+  return reviews.value.slice(start, start + perPage)
+})
+
+const changePage = (page) => {
+  if (page < 1 || page > totalPages.value) return
+  currentPage.value = page
+}
+
+//demo ratting
+const selectedRating = ref(0)
+const hoverRating = ref(0)
+
+const setRating = (rating) => {
+  selectedRating.value = rating
+}
+
+const setHover = (rating) => {
+  hoverRating.value = rating
+}
+
+const resetHover = () => {
+  hoverRating.value = 0
+}
 </script>
 
 <template>
@@ -231,128 +300,131 @@ const handleAddRelatedToCart = async (product) => {
       <!--=============== REVIEWS ONLY ===============-->
       <section class="details__review container">
 
-        <!-- ADD REVIEW -->
-        <div class="review__form">
-          <h4 class="review__form-title">Add a review</h4>
+        <!-- TAB NAV -->
+        <div class="review__tabs">
+          <button
+            class="review__tab"
+            :class="{ active: activeTab === 'form' }"
+            @click="activeTab = 'form'"
+          >
+            Đánh giá sản phẩm
+          </button>
 
-          <!-- STAR RATING -->
-          <div class="rate__product" id="starRating">
-            <i class="fi fi-rs-star" data-value="1"></i>
-            <i class="fi fi-rs-star" data-value="2"></i>
-            <i class="fi fi-rs-star" data-value="3"></i>
-            <i class="fi fi-rs-star" data-value="4"></i>
-            <i class="fi fi-rs-star" data-value="5"></i>
+          <button
+            class="review__tab"
+            :class="{ active: activeTab === 'list' }"
+            @click="activeTab = 'list'"
+          >
+            Xem đánh giá
+          </button>
+        </div>
+
+
+        <!-- ================= FORM ================= -->
+        <div v-show="activeTab === 'form'" class="review__form">
+          <h4 class="review__form-title">Đánh giá sản phẩm</h4>
+
+          <div class="rate__product">
+            <i
+              v-for="i in 5"
+              :key="i"
+              class="fi fi-rs-star"
+              :class="{
+                active: i <= selectedRating,
+                hovered: i <= hoverRating
+              }"
+              @click="setRating(i)"
+              @mouseover="setHover(i)"
+              @mouseleave="resetHover"
+            ></i>
           </div>
-          <input type="hidden" id="ratingValue" value="0">
-
           <form class="form grid">
-            <textarea class="form__input textarea" placeholder="Write Comment"></textarea>
-            <div class="form__group grid">
-              <input type="text" placeholder="Name" class="form__input">
-              <input type="email" placeholder="Email" class="form__input">
-            </div>
+            <textarea
+              class="form__input textarea"
+              placeholder="Viết nhận xét"
+            ></textarea>
+
             <div class="form__btn">
-              <button class="btn">Submit Review</button>
+              <button class="review-submit-btn">
+                Gửi đánh giá
+              </button>
             </div>
           </form>
         </div>
 
-        <!-- TOGGLE BUTTON -->
-        <button class="btn btn--outline review__toggle" id="toggleReviews">
-          Show reviews
-        </button>
 
-        <!-- REVIEW LIST -->
-        <div class="reviews__wrapper hidden" id="reviewsWrapper">
+        <!-- ================= REVIEW LIST ================= -->
+        <div v-show="activeTab === 'list'" class="reviews__wrapper">
 
-          <div class="reviews__container grid" id="reviewsList">
-            <!-- REVIEW ITEM -->
-            <div class="review__single">
+          <div class="reviews__container grid">
+            <div 
+              class="review__single"
+              v-for="review in paginatedReviews"
+              :key="review.id"
+            >
               <div>
-                <img src="/assets/img/avatar-1.jpg" class="review__img" />
-                <h4 class="review__title">Jacky Chan</h4>
+                <img :src="review.avatar" class="review__img" />
+                <h4 class="review__title">{{ review.user }}</h4>
               </div>
+
               <div class="review__data">
                 <div class="review__rating">
-                  <i class="fi fi-rs-star active"></i>
-                  <i class="fi fi-rs-star active"></i>
-                  <i class="fi fi-rs-star active"></i>
-                  <i class="fi fi-rs-star active"></i>
-                  <i class="fi fi-rs-star active"></i>
+                  <i 
+                    v-for="i in 5" 
+                    :key="i"
+                    class="fi"
+                    :class="i <= review.rating 
+                      ? 'fi-rs-star active' 
+                      : 'fi-rs-star-empty'"
+                  ></i>
                 </div>
+
                 <p class="review__description">
-                  Thank you, very fast shipping from Poland only 3days.
+                  {{ review.comment }}
                 </p>
-                <span class="review__date">December 4, 2022</span>
-              </div>
-            </div>
-            <div class="review__single">
-              <div>
-                <img src="/assets/img/avatar-1.jpg" class="review__img" />
-                <h4 class="review__title">Jacky Chan</h4>
-              </div>
-              <div class="review__data">
-                <div class="review__rating">
-                  <i class="fi fi-rs-star active"></i>
-                  <i class="fi fi-rs-star active"></i>
-                  <i class="fi fi-rs-star active"></i>
-                  <i class="fi fi-rs-star active"></i>
-                  <i class="fi fi-rs-star active"></i>
-                </div>
-                <p class="review__description">
-                  Thank you, very fast shipping from Poland only 3days.
-                </p>
-                <span class="review__date">December 4, 2022</span>
-              </div>
-            </div>
-            <div class="review__single">
-              <div>
-                <img src="/assets/img/avatar-1.jpg" class="review__img" />
-                <h4 class="review__title">Jacky Chan</h4>
-              </div>
-              <div class="review__data">
-                <div class="review__rating">
-                  <i class="fi fi-rs-star active"></i>
-                  <i class="fi fi-rs-star active"></i>
-                  <i class="fi fi-rs-star active"></i>
-                  <i class="fi fi-rs-star active"></i>
-                  <i class="fi fi-rs-star active"></i>
-                </div>
-                <p class="review__description">
-                  Thank you, very fast shipping from Poland only 3days.
-                </p>
-                <span class="review__date">December 4, 2022</span>
-              </div>
-            </div>
-            <div class="review__single">
-              <div>
-                <img src="/assets/img/avatar-1.jpg" class="review__img" />
-                <h4 class="review__title">Jacky Chan</h4>
-              </div>
-              <div class="review__data">
-                <div class="review__rating">
-                  <i class="fi fi-rs-star active"></i>
-                  <i class="fi fi-rs-star active"></i>
-                  <i class="fi fi-rs-star active"></i>
-                  <i class="fi fi-rs-star active"></i>
-                  <i class="fi fi-rs-star active"></i>
-                </div>
-                <p class="review__description">
-                  Thank you, very fast shipping from Poland only 3days.
-                </p>
-                <span class="review__date">December 4, 2022</span>
+
+                <span class="review__date">
+                  {{ review.date }}
+                </span>
               </div>
             </div>
           </div>
 
           <!-- PAGINATION -->
-          <div class="review__pagination" id="reviewPagination"></div>
+          <div class="review__pagination">
+
+            <button 
+              class="review-page-btn"
+              @click="changePage(currentPage - 1)"
+              :disabled="currentPage === 1"
+            >
+              ←
+            </button>
+
+            <button
+              v-for="page in totalPages"
+              :key="page"
+              class="review-page-btn"
+              :class="{ active: currentPage === page }"
+              @click="changePage(page)"
+            >
+              {{ page }}
+            </button>
+
+            <button 
+              class="review-page-btn"
+              @click="changePage(currentPage + 1)"
+              :disabled="currentPage === totalPages"
+            >
+              →
+            </button>
+
+          </div>
         </div>
 
       </section>
 
 
-      <!--=============== PRODUCTS ===============-->
       <!--=============== RELATED PRODUCTS ===============-->
       <section v-if="relatedProducts.length" class="products container section--lg">
         <h3 class="section__title">
