@@ -368,12 +368,13 @@ const resetHover = () => {
               v-for="review in paginatedReviews"
               :key="review.id"
             >
-              <div>
+              <!-- <div>
                 <img :src="review.avatar" class="review__img" />
                 <h4 class="review__title">{{ review.user }}</h4>
-              </div>
+              </div> -->
 
               <div class="review__data">
+                <h4 class="review__title">{{ review.user }}</h4>
                 <div class="review__rating">
                   <i 
                     v-for="i in 5" 
@@ -494,24 +495,6 @@ const resetHover = () => {
 
             </div>
           </div>
-        </div>
-      </section>
-
-
-      <!--=============== NEWSLETTER ===============-->
-      <section class="newsletter section">
-        <div class="newsletter__container container grid">
-          <h3 class="newsletter__title flex">
-            <img src="/assets/img/icon-email.svg" alt="" class="newsletter__icon" />
-            Sign in to Newsletter
-          </h3>
-          <p class="newsletter__description">
-            ...and receive $25 coupon for first shopping.
-          </p>
-          <form action="" class="newsletter__form">
-            <input type="text" placeholder="Enter Your Email" class="newsletter__input" />
-            <button type="submit" class="newsletter__btn">Subscribe</button>
-          </form>
         </div>
       </section>
     </main>
