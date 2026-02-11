@@ -762,3 +762,142 @@
     display: none;
   }
 }
+
+
+/* ===============================
+   ADDRESS FORM - 2 COLUMN LAYOUT
+================================= */
+
+.address__form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem 1.5rem;
+  margin-top: 1.5rem;
+  max-width: 800px;
+}
+
+/* Form group */
+.form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form__group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Full width element (cho ô preview + button) */
+.form__group.full-width {
+  grid-column: span 2;
+}
+
+/* ===============================
+   Input + Select
+================================= */
+
+.form__group select,
+.form__group input {
+  padding: 11px 14px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+  background-color: #fff;
+  transition: all 0.25s ease;
+}
+
+/* Hover */
+.form__group select:hover,
+.form__group input:hover {
+  border-color: #088179;
+}
+
+/* Focus */
+.form__group select:focus,
+.form__group input:focus {
+  border-color: #088179;
+  box-shadow: 0 0 0 3px rgba(8, 129, 121, 0.15);
+}
+
+/* Disabled select */
+.form__group select:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* ===============================
+   ADDRESS PREVIEW DESIGN
+================================= */
+
+.address__preview {
+  background-color: #f3f7f7 !important;
+  border: 1px dashed #088179 !important;
+  color: #088179;
+  font-weight: 500;
+  cursor: not-allowed;
+  opacity: 1 !important;
+}
+
+/* Làm nó nhìn giống kiểu auto generated */
+.address__preview::placeholder {
+  color: #088179;
+}
+
+/* ===============================
+   Button
+================================= */
+
+.form__action {
+  grid-column: span 2;
+  margin-top: 0.5rem;
+}
+
+.address__btn {
+  padding: 12px 22px;
+  background-color: #088179;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.address__btn:hover {
+  background-color: #fff;
+  color: #088179;
+  border: 2px solid #088179;
+  transform: translateY(-2px);
+}
+
+.address__btn:active {
+  transform: scale(0.97);
+}
+
+/* ===============================
+   RESPONSIVE
+================================= */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .address__form {
+    grid-template-columns: 1fr;
+  }
+
+  .form__group.full-width {
+    grid-column: span 1;
+  }
+
+  .form__action {
+    grid-column: span 1;
+  }
+
+  .address__btn {
+    width: 100%;
+  }
+}

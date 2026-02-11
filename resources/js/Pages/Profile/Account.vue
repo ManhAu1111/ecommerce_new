@@ -3,21 +3,27 @@ import MainLayout from '@/Layouts/MainLayout.vue';
 import { Head, router, usePage, useForm } from '@inertiajs/vue3'
 import { onMounted, ref, computed } from 'vue';
 
+/* =========================
+   TAB CONTROL
+========================= */
 const activeTab = ref('dashboard');
-
-const page = usePage()
-
-const user = computed(() => page.props.auth?.user)
 
 const changeTab = (tabName) => {
   activeTab.value = tabName;
 };
 
-// đổi tên
+/* =========================
+   USER INFO
+========================= */
+const page = usePage()
+const user = computed(() => page.props.auth?.user)
+
+/* =========================
+   UPDATE PROFILE
+========================= */
 const form = useForm({
   name: user.value?.name || '',
   email: user.value?.email || '',
-
 })
 
 const updateProfile = () => {
@@ -29,7 +35,9 @@ const updateProfile = () => {
   })
 }
 
-// đổi mẩt khẩu
+/* =========================
+   CHANGE PASSWORD
+========================= */
 const passwordForm = useForm({
   current_password: '',
   password: '',
@@ -52,7 +60,9 @@ const showPassword = ref({
   confirm: false,
 })
 
-// đăng xuất
+/* =========================
+   LOGOUT
+========================= */
 const showLogoutModal = ref(false)
 
 const logout = () => {
@@ -63,43 +73,93 @@ const logout = () => {
   })
 }
 
-onMounted(() => {
-  /* Đảm bảo Swiper đã được tải từ CDN trong app.blade.php */
-  if (typeof Swiper !== 'undefined') {
-    // Khởi tạo Categories Slider
-    new Swiper('.categories__container', {
-      spaceBetween: 24,
-      loop: true,
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      breakpoints: {
-        350: { slidesPerView: 2, spaceBetween: 18 },
-        768: { slidesPerView: 3, spaceBetween: 24 },
-        992: { slidesPerView: 5, spaceBetween: 24 },
-        1200: { slidesPerView: 6, spaceBetween: 24 },
-        1400: { slidesPerView: 8, spaceBetween: 24 },
-      },
-    });
+/* =========================
+   ADDRESS (VIETNAM API)
+========================= */
 
-    // Khởi tạo New Arrivals Slider
-    new Swiper('.new__container', {
-      spaceBetween: 24,
-      loop: true,
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      breakpoints: {
-        768: { slidesPerView: 2, spaceBetween: 24 },
-        992: { slidesPerView: 3, spaceBetween: 24 },
-        1400: { slidesPerView: 4, spaceBetween: 24 },
-      },
-    });
+const address = ref({
+  province: '',
+  district: '',
+  ward: ''
+})
+
+const provinces = ref([])
+const districts = ref([])
+const wards = ref([])
+
+const fetchProvinces = async () => {
+  try {
+    const res = await fetch('https://provinces.open-api.vn/api/p/')
+    provinces.value = await res.json()
+  } catch (error) {
+    console.error('Lỗi load tỉnh:', error)
   }
-});
+}
+
+const handleProvinceChange = async () => {
+  address.value.district = ''
+  address.value.ward = ''
+  districts.value = []
+  wards.value = []
+
+  if (!address.value.province) return
+
+  try {
+    const res = await fetch(
+      `https://provinces.open-api.vn/api/p/${address.value.province}?depth=2`
+    )
+    const data = await res.json()
+    districts.value = data.districts
+  } catch (error) {
+    console.error('Lỗi load quận:', error)
+  }
+}
+
+const handleDistrictChange = async () => {
+  address.value.ward = ''
+  wards.value = []
+
+  if (!address.value.district) return
+
+  try {
+    const res = await fetch(
+      `https://provinces.open-api.vn/api/d/${address.value.district}?depth=2`
+    )
+    const data = await res.json()
+    wards.value = data.wards
+  } catch (error) {
+    console.error('Lỗi load phường:', error)
+  }
+}
+const fullAddress = computed(() => {
+  const province = provinces.value.find(
+    p => p.code === address.value.province
+  )
+
+  const district = districts.value.find(
+    d => d.code === address.value.district
+  )
+
+  const ward = wards.value.find(
+    w => w.code === address.value.ward
+  )
+
+  return [
+    address.value.detail,
+    ward?.name,
+    district?.name,
+    province?.name
+  ]
+    .filter(Boolean)
+    .join(', ')
+})
+
+onMounted(() => {
+  fetchProvinces()
+})
+
 </script>
+
 
 <template>
   <!-- Logout Confirm Modal -->
@@ -240,14 +300,88 @@ onMounted(() => {
             <div class="tab__content" :class="{ 'active-tab': activeTab === 'address' }" v-if="activeTab === 'address'">
               <h3 class="tab__header">Địa chỉ giao hàng</h3>
               <div class="tab__body">
-                <address class="address">
-                  3522 Interstate <br />
-                  75 Business Spur, <br />
-                  Sault Ste. <br />
-                  Marie, Mi 49783
-                </address>
-                <p class="city">New York</p>
-                <a href="#" class="edit">Chỉnh sửa</a>
+                <div class="tab__body address__form">
+
+                  <!-- Tỉnh -->
+                  <div class="form__group">
+                    <label>Tỉnh / Thành phố</label>
+                    <select 
+                      v-model="address.province" 
+                      @change="handleProvinceChange"
+                    >
+                      <option disabled value="">Chọn tỉnh/thành</option>
+                      <option 
+                        v-for="province in provinces" 
+                        :key="province.code" 
+                        :value="province.code"
+                      >
+                        {{ province.name }}
+                      </option>
+                    </select>
+                  </div>
+
+                  <!-- Quận -->
+                  <div class="form__group">
+                    <label>Quận / Huyện</label>
+                    <select 
+                      v-model="address.district" 
+                      @change="handleDistrictChange"
+                      :disabled="!districts.length"
+                    >
+                      <option disabled value="">Chọn quận/huyện</option>
+                      <option 
+                        v-for="district in districts" 
+                        :key="district.code" 
+                        :value="district.code"
+                      >
+                        {{ district.name }}
+                      </option>
+                    </select>
+                  </div>
+
+                  <!-- Phường -->
+                  <div class="form__group">
+                    <label>Phường / Xã</label>
+                    <select 
+                      v-model="address.ward"
+                      :disabled="!wards.length"
+                    >
+                      <option disabled value="">Chọn phường/xã</option>
+                      <option 
+                        v-for="ward in wards" 
+                        :key="ward.code" 
+                        :value="ward.code"
+                      >
+                        {{ ward.name }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="form__group">
+                    <label>Địa chỉ chi tiết</label>
+                    <input 
+                      type="text" 
+                      v-model="address.detail"
+                      placeholder="Nhập số nhà, tên đường..."
+                    />
+                  </div>
+                  <!-- Địa chỉ đầy đủ (auto) -->
+                  <div class="form__group full-width">
+                    <label>Địa chỉ đầy đủ</label>
+                    <input 
+                      type="text"
+                      :value="fullAddress"
+                      disabled
+                      class="address__preview"
+                    />
+                  </div>
+
+                  <div class="form__action full-width">
+                    <button class="address__btn" @click="saveAddress">
+                      Lưu địa chỉ
+                    </button>
+                  </div>
+
+                </div>
               </div>
             </div>
 
