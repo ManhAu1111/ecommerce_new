@@ -247,7 +247,6 @@ const handleAddToCart = async (product) => {
           </div>
         </section>
 
-
         <!--=============== DEALS ===============-->
         <!-- <section class="deals section">
           <div class="deals__container container grid">

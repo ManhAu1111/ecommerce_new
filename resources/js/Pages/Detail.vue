@@ -69,6 +69,9 @@ const toggleWishlist = async () => {
     })
 
     wishlisted.value = res.data.wishlisted
+    
+    window.dispatchEvent(new Event('wishlist-updated'))
+
   } catch (err) {
     if (err.response?.status === 401) {
       window.location.href = '/login'
@@ -85,6 +88,9 @@ const toggleRelatedWishlist = async (product) => {
     })
 
     product.is_wishlisted = res.data.wishlisted
+
+    window.dispatchEvent(new Event('wishlist-updated'))
+
   } catch (err) {
     if (err.response?.status === 401) {
       window.location.href = '/login'
