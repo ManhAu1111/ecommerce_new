@@ -99,15 +99,22 @@ const sidebarOpen = ref(false)
 /* ================= SIDEBAR ================= */
 
 .admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 260px;
+    height: 100vh;
     background: #0f172a;
     color: white;
     transition: 0.3s ease;
+    overflow-y: auto; /* nếu menu dài sẽ scroll riêng */
 }
+
 
 /* ================= MAIN ================= */
 
 .admin-main {
+    margin-left: 260px;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -116,10 +123,17 @@ const sidebarOpen = ref(false)
 /* ================= HEADER ================= */
 
 .admin-header {
+    position: fixed;
+    top: 0;
+    left: 260px;  /* đúng bằng width sidebar */
+    right: 0;
+    height: 90px; /* cố định chiều cao */
     background: #ffffff;
     padding: 1.5rem 2rem;
     border-bottom: 1px solid #e5e7eb;
+    z-index: 500;
 }
+
 
 .admin-header__left {
     display: flex;
@@ -177,9 +191,12 @@ const sidebarOpen = ref(false)
 /* ================= CONTENT ================= */
 
 .admin-content {
-    flex: 1;
+    margin-top: 90px; /* đúng bằng header height */
     padding: 2rem;
+    height: calc(100vh - 90px);
+    overflow-y: auto;  /* 👈 content scroll riêng */
 }
+
 
 .admin-content__card {
     background: white;
@@ -219,9 +236,13 @@ const sidebarOpen = ref(false)
 /* ================= TABLET ================= */
 
 @media (max-width: 1024px) {
-
+    .admin-main {
+        margin-left: 0;
+    }
+    
     .admin-header {
         padding: 1rem 1.5rem;
+        left: 0;
     }
 
     .admin-content {
