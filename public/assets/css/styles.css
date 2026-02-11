@@ -932,10 +932,6 @@ table {
   background-color: hsl(166, 23%, 74%);
 }
 
-.home__newsletter {
-  margin-top: 2rem;
-}
-
 .newsletter__container {
   grid-template-columns: repeat(2, 3.5fr) 5fr;
   align-items: center;
