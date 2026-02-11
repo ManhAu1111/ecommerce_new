@@ -1,68 +1,61 @@
 /*=============== GOOGLE FONTS ===============*/
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Spartan:wght@400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&family=League+Spartan:wght@600;700&display=swap');
 
 /*=============== VARIABLES CSS ===============*/
 :root {
   --header-height: 4rem;
 
   /*========== Colors ==========*/
-  --first-color: hsl(176, 88%, 27%);
-  --first-color-alt: hsl(129, 44%, 94%);
-  --second-color: hsl(34, 94%, 87%);
-  --title-color: hsl(0, 0%, 13%);
-  --text-color: hsl(154, 13%, 32%);
-  --text-color-light: hsl(60, 1%, 56%);
+  --first-color: hsl(176, 65%, 32%);        /* bớt gắt, đậm hơn */
+  --first-color-alt: hsl(176, 45%, 95%);    /* mint rất nhẹ */
+  --second-color: hsl(34, 80%, 90%);        /* beige nhẹ */
+
+  --title-color: hsl(0, 0%, 12%);
+  --text-color: hsl(0, 0%, 28%);            /* bỏ xanh để đọc dễ hơn */
+  --text-color-light: hsl(0, 0%, 55%);
+
   --body-color: hsl(0, 0%, 100%);
-  --container-color: hsl(0, 0%, 93%);
-  --border-color: hsl(129, 36%, 85%);
-  --border-color-alt: hsl(113, 15%, 90%);
+  --container-color: hsl(0, 0%, 96%);
+
+  --border-color: hsl(176, 25%, 85%);
+  --border-color-alt: hsl(176, 15%, 92%);
 
   /*========== Font and typography ==========*/
-  --body-font: "Spartan", sans-serif;
+  --body-font: "Be Vietnam Pro", sans-serif;
   --second-font: "League Spartan", sans-serif;
-  --big-font-size: 3.5rem;
-  --h1-font-size: 2.75rem;
-  --h2-font-size: 2rem;
-  --h3-font-size: 1.75rem;
-  --h4-font-size: 1.375rem;
-  --large-font-size: 1.125rem;
-  --normal-font-size: 1rem;
-  --small-font-size: 0.875rem;
-  --smaller-font-size: 0.75rem;
-  --tiny-font-size: 0.6875rem;
 
-  /*========== Font weight ==========*/
+  /* 🔥 Tăng size cho tiếng Việt */
+  --big-font-size: 3.75rem;
+  --h1-font-size: 3rem;
+  --h2-font-size: 2.25rem;
+  --h3-font-size: 1.875rem;
+  --h4-font-size: 1.5rem;
+  --large-font-size: 1.1875rem;
+  --normal-font-size: 1.0625rem;   /* tăng từ 1rem */
+  --small-font-size: 0.9375rem;
+  --smaller-font-size: 0.8125rem;
+  --tiny-font-size: 0.75rem;
+
   --weight-400: 400;
   --weight-500: 500;
   --weight-600: 600;
   --weight-700: 700;
 
-  /*========== Transition ==========*/
-  --transition: cubic-bezier(0, 0, 0.05, 1);
+  --transition: cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-/* Responsive typography */
 @media screen and (max-width: 1200px) {
   :root {
-    --big-font-size: 2.25rem;
-    --h1-font-size: 2rem;
-    --h2-font-size: 1.375rem;
-    --h3-font-size: 1.25rem;
-    --h4-font-size: 1.125rem;
-    --large-font-size: 1rem;
-    --normal-font-size: 0.9375rem;
-    --small-font-size: 0.8125rem;
-    --smaller-font-size: 0.6875rem;
-    --tiny-font-size: 0.625rem;
+    --big-font-size: 2.75rem;
+    --h1-font-size: 2.25rem;
+    --h2-font-size: 1.75rem;
+    --h3-font-size: 1.5rem;
+    --h4-font-size: 1.25rem;
+    --large-font-size: 1.0625rem;
+    --normal-font-size: 1rem;
+    --small-font-size: 0.875rem;
   }
 }
 
-/*=============== BASE ===============*/
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
 html {
   scroll-behavior: smooth;

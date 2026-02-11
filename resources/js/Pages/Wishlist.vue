@@ -86,6 +86,7 @@ const handleAddToCart = async (product) => {
                                 <th>Giá</th>
                                 <th>Tình trạng tồn kho</th>
                                 <th>Hành động</th>
+                                <th>xóa</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -97,7 +98,6 @@ const handleAddToCart = async (product) => {
                                             class="table__img" />
                                     </div>
                                 </td>
-
 
                                 <td>
                                     <h3 class="table__title">
@@ -144,6 +144,11 @@ const handleAddToCart = async (product) => {
                                 <td>
                                     <i class="fi fi-rs-trash table__trash"
                                         @click="toggleWishlistAjax(item.product)"></i>
+                                </td>
+                            </tr>
+                            <tr v-if="!wishlistItems.length">
+                                <td colspan="6" class="text-center">
+                                    Danh sách yêu thích trống
                                 </td>
                             </tr>
                         </tbody>
