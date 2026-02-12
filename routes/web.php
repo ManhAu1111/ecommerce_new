@@ -158,28 +158,56 @@ Route::middleware(['auth', 'admin'])
     ->as('admin.') // 👈 QUAN TRỌNG
     ->group(function () {
 
-        Route::get('/dashboard', fn () =>
+        Route::get(
+            '/dashboard',
+            fn() =>
             Inertia::render('Admin/Dashboard')
         )->name('dashboard');
 
-        Route::get('/products', fn () =>
+        Route::get(
+            '/products',
+            fn() =>
             Inertia::render('Admin/Products/Index')
         )->name('products');
 
-        Route::get('/categories', fn () =>
+        Route::get(
+            '/categories',
+            fn() =>
             Inertia::render('Admin/Categories/Index')
         )->name('categories');
 
-        Route::get('/orders', fn () =>
+        Route::get(
+            '/orders',
+            fn() =>
             Inertia::render('Admin/Orders/Index')
         )->name('orders');
 
-        Route::get('/users', fn () =>
+        Route::get(
+            '/users',
+            fn() =>
             Inertia::render('Admin/Users/Index')
         )->name('users');
-});
+    });
 
+/*
+|--------------------------------------------------------------------------
+| User Address Routes
+|--------------------------------------------------------------------------
+*/
 
+use App\Http\Controllers\UserAddressController;
+
+Route::get('/account/addresses', [UserAddressController::class, 'index'])
+    ->name('addresses.index');
+
+Route::post('/account/addresses', [UserAddressController::class, 'store'])
+    ->name('addresses.store');
+
+Route::put('/account/addresses/{id}', [UserAddressController::class, 'update'])
+    ->name('addresses.update');
+
+Route::delete('/account/addresses/{id}', [UserAddressController::class, 'destroy'])
+    ->name('addresses.destroy');
 
 /*
 |--------------------------------------------------------------------------

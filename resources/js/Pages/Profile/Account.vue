@@ -301,20 +301,24 @@ onMounted(() => {
               <h3 class="tab__header">Địa chỉ giao hàng</h3>
               <div class="tab__body">
                 <div class="tab__body address__form">
+                  <!-- Tên người nhận -->
+                  <div class="form__group">
+                    <label>Họ và tên người nhận</label>
+                    <input type="text" v-model="address.receiver_name" placeholder="Nhập họ tên" />
+                  </div>
+
+                  <!-- SĐT -->
+                  <div class="form__group">
+                    <label>Số điện thoại</label>
+                    <input type="text" v-model="address.receiver_phone" placeholder="Nhập số điện thoại" />
+                  </div>
 
                   <!-- Tỉnh -->
                   <div class="form__group">
                     <label>Tỉnh / Thành phố</label>
-                    <select 
-                      v-model="address.province" 
-                      @change="handleProvinceChange"
-                    >
+                    <select v-model="address.province" @change="handleProvinceChange">
                       <option disabled value="">Chọn tỉnh/thành</option>
-                      <option 
-                        v-for="province in provinces" 
-                        :key="province.code" 
-                        :value="province.code"
-                      >
+                      <option v-for="province in provinces" :key="province.code" :value="province.code">
                         {{ province.name }}
                       </option>
                     </select>
@@ -323,17 +327,9 @@ onMounted(() => {
                   <!-- Quận -->
                   <div class="form__group">
                     <label>Quận / Huyện</label>
-                    <select 
-                      v-model="address.district" 
-                      @change="handleDistrictChange"
-                      :disabled="!districts.length"
-                    >
+                    <select v-model="address.district" @change="handleDistrictChange" :disabled="!districts.length">
                       <option disabled value="">Chọn quận/huyện</option>
-                      <option 
-                        v-for="district in districts" 
-                        :key="district.code" 
-                        :value="district.code"
-                      >
+                      <option v-for="district in districts" :key="district.code" :value="district.code">
                         {{ district.name }}
                       </option>
                     </select>
@@ -342,37 +338,21 @@ onMounted(() => {
                   <!-- Phường -->
                   <div class="form__group">
                     <label>Phường / Xã</label>
-                    <select 
-                      v-model="address.ward"
-                      :disabled="!wards.length"
-                    >
+                    <select v-model="address.ward" :disabled="!wards.length">
                       <option disabled value="">Chọn phường/xã</option>
-                      <option 
-                        v-for="ward in wards" 
-                        :key="ward.code" 
-                        :value="ward.code"
-                      >
+                      <option v-for="ward in wards" :key="ward.code" :value="ward.code">
                         {{ ward.name }}
                       </option>
                     </select>
                   </div>
                   <div class="form__group">
                     <label>Địa chỉ chi tiết</label>
-                    <input 
-                      type="text" 
-                      v-model="address.detail"
-                      placeholder="Nhập số nhà, tên đường..."
-                    />
+                    <input type="text" v-model="address.detail" placeholder="Nhập số nhà, tên đường..." />
                   </div>
                   <!-- Địa chỉ đầy đủ (auto) -->
                   <div class="form__group full-width">
                     <label>Địa chỉ đầy đủ</label>
-                    <input 
-                      type="text"
-                      :value="fullAddress"
-                      disabled
-                      class="address__preview"
-                    />
+                    <input type="text" :value="fullAddress" disabled class="address__preview" />
                   </div>
 
                   <div class="form__action full-width">
