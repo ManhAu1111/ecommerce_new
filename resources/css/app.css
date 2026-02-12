@@ -243,7 +243,8 @@
 
 /* Hover */
 .review__pagination button:hover:not(.active):not(:disabled) {
-  background: #e6fffa;      /* xanh nhạt */
+  background: #e6fffa;
+  /* xanh nhạt */
   border-color: #52edc6;
   color: #0f766e;
   transform: translateY(-2px);
@@ -926,7 +927,8 @@
 
 .details__review {
   width: 100%;
-  margin: 0 auto; /* bỏ auto center */
+  margin: 0 auto;
+  /* bỏ auto center */
   padding: 0 20px;
 }
 
@@ -938,7 +940,8 @@
   gap: 50px;
   border-bottom: 2px solid #e5e7eb;
   margin-bottom: 40px;
-  justify-content: flex-start; /* đổi từ center sang trái */
+  justify-content: flex-start;
+  /* đổi từ center sang trái */
 }
 
 .review__tab {
@@ -979,14 +982,16 @@
   font-size: 22px;
   font-weight: 600;
   margin-bottom: 20px;
-  text-align: left; /* đổi */
+  text-align: left;
+  /* đổi */
 }
 
 .rate__product {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
-  justify-content: flex-start; /* bỏ center */
+  justify-content: flex-start;
+  /* bỏ center */
 }
 
 
@@ -1019,13 +1024,14 @@
 .textarea:focus {
   border-color: #0f766e;
   outline: none;
-  box-shadow: 0 0 0 4px rgba(15,118,110,0.15);
+  box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.15);
 }
 
 .form__btn {
   margin-top: 25px;
   display: flex;
-  justify-content: flex-start; /* căn trái */
+  justify-content: flex-start;
+  /* căn trái */
 }
 
 .review-submit-btn {
@@ -1078,7 +1084,7 @@
 }
 
 .review__single:hover {
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
 .review__img {
@@ -1134,7 +1140,7 @@
   background: #0f766e;
   color: white;
   border: none;
-  box-shadow: 0 6px 16px rgba(15,118,110,0.3);
+  box-shadow: 0 6px 16px rgba(15, 118, 110, 0.3);
 }
 
 .review-page-btn:disabled {
@@ -1192,9 +1198,17 @@
 
 /* Background animation */
 @keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* Container animation */
@@ -1223,8 +1237,15 @@
 
 /* Floating logo */
 @keyframes floatLogo {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
 }
 
 /* Slogan */
@@ -1241,8 +1262,13 @@
 
 /* Shimmer effect */
 @keyframes shimmer {
-  0% { background-position: 0% center; }
-  100% { background-position: 200% center; }
+  0% {
+    background-position: 0% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
 }
 
 /* Button */
@@ -1255,10 +1281,111 @@
   font-weight: 700;
   border-radius: 30px;
   transition: 0.3s ease;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
 }
 
 .brand__btn:hover {
   transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* ORDER SUMMARY CARD */
+.order-summary {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* TABLE */
+.order__table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 15px;
+}
+
+.order__item {
+  background: #fafafa;
+  border-radius: 8px;
+}
+
+.order__img {
+  width: 70px;
+  border-radius: 6px;
+}
+
+.order__info {
+  padding-left: 10px;
+}
+
+.order__price {
+  font-weight: 600;
+}
+
+/* TOTALS */
+.order__totals {
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.total__row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+
+.total__grand {
+  font-size: 18px;
+  font-weight: 700;
+  padding-top: 10px;
+  border-top: 1px dashed #ddd;
+}
+
+/* PAYMENT */
+.payment__methods {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.payment__option {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* BUTTON */
+.order__btn {
+  width: 100%;
+  margin-top: 25px;
+}
+
+/* BUTTON: dùng thông tin đã lưu */
+.saved-info-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: #1f7a6d;
+  font-weight: 600;
+}
+
+.circle-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #1f7a6d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: 0.2s;
+}
+
+.saved-info-btn:hover .circle-btn {
+  background: #1f7a6d;
+  color: #fff;
 }

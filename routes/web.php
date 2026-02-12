@@ -104,10 +104,12 @@ use App\Http\Controllers\CheckoutController;
 //     Route::get('/checkout', [CheckoutController::class, 'index'])
 //         ->name('checkout');
 // });
-
-Route::get('/checkout', [CartController::class, 'checkout'])
+Route::get('/checkout', [CheckoutController::class, 'index'])
     ->middleware('auth')
     ->name('checkout');
+// Route::get('/checkout', [CartController::class, 'checkout'])
+//     ->middleware('auth')
+//     ->name('checkout');
 /*
 |--------------------------------------------------------------------------
 | Authentication & OTP
