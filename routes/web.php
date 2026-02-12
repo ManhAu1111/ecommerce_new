@@ -197,17 +197,20 @@ Route::middleware(['auth', 'admin'])
 
 use App\Http\Controllers\UserAddressController;
 
-Route::get('/account/addresses', [UserAddressController::class, 'index'])
-    ->name('addresses.index');
+Route::middleware('auth')->group(function () {
 
-Route::post('/account/addresses', [UserAddressController::class, 'store'])
-    ->name('addresses.store');
+    Route::get('/account/addresses', [UserAddressController::class, 'index'])
+        ->name('addresses.index');
 
-Route::put('/account/addresses/{id}', [UserAddressController::class, 'update'])
-    ->name('addresses.update');
+    Route::post('/account/addresses', [UserAddressController::class, 'store'])
+        ->name('addresses.store');
 
-Route::delete('/account/addresses/{id}', [UserAddressController::class, 'destroy'])
-    ->name('addresses.destroy');
+    Route::put('/account/addresses/{id}', [UserAddressController::class, 'update'])
+        ->name('addresses.update');
+
+    Route::delete('/account/addresses/{id}', [UserAddressController::class, 'destroy'])
+        ->name('addresses.destroy');
+});
 
 /*
 |--------------------------------------------------------------------------

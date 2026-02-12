@@ -74,13 +74,17 @@ const logout = () => {
 }
 
 /* =========================
-   ADDRESS (VIETNAM API)
+   ADDRESS (1 USER - 1 ADDRESS)
 ========================= */
 
-const address = ref({
+const addressForm = useForm({
+  receiver_name: '',
+  receiver_phone: '',
   province: '',
   district: '',
-  ward: ''
+  ward: '',
+  detail: '',
+  full_address: ''
 })
 
 const provinces = ref([])
@@ -88,75 +92,82 @@ const districts = ref([])
 const wards = ref([])
 
 const fetchProvinces = async () => {
-  try {
-    const res = await fetch('https://provinces.open-api.vn/api/p/')
-    provinces.value = await res.json()
-  } catch (error) {
-    console.error('Lỗi load tỉnh:', error)
-  }
+  const res = await fetch('https://provinces.open-api.vn/api/p/')
+  provinces.value = await res.json()
 }
 
-const handleProvinceChange = async () => {
-  address.value.district = ''
-  address.value.ward = ''
+const handleProvinceChange = async (keepValue = false) => {
+  if (!keepValue) {
+    addressForm.district = ''
+    addressForm.ward = ''
+  }
+
   districts.value = []
   wards.value = []
 
-  if (!address.value.province) return
+  if (!addressForm.province) return
 
-  try {
-    const res = await fetch(
-      `https://provinces.open-api.vn/api/p/${address.value.province}?depth=2`
-    )
-    const data = await res.json()
-    districts.value = data.districts
-  } catch (error) {
-    console.error('Lỗi load quận:', error)
-  }
+  const res = await fetch(
+    `https://provinces.open-api.vn/api/p/${addressForm.province}?depth=2`
+  )
+  const data = await res.json()
+  districts.value = data.districts
 }
 
-const handleDistrictChange = async () => {
-  address.value.ward = ''
+const handleDistrictChange = async (keepValue = false) => {
+  if (!keepValue) {
+    addressForm.ward = ''
+  }
+
   wards.value = []
 
-  if (!address.value.district) return
+  if (!addressForm.district) return
 
-  try {
-    const res = await fetch(
-      `https://provinces.open-api.vn/api/d/${address.value.district}?depth=2`
-    )
-    const data = await res.json()
-    wards.value = data.wards
-  } catch (error) {
-    console.error('Lỗi load phường:', error)
-  }
+  const res = await fetch(
+    `https://provinces.open-api.vn/api/d/${addressForm.district}?depth=2`
+  )
+  const data = await res.json()
+  wards.value = data.wards
 }
+
 const fullAddress = computed(() => {
-  const province = provinces.value.find(
-    p => p.code === address.value.province
-  )
-
-  const district = districts.value.find(
-    d => d.code === address.value.district
-  )
-
-  const ward = wards.value.find(
-    w => w.code === address.value.ward
-  )
+  const province = provinces.value.find(p => p.code == addressForm.province)
+  const district = districts.value.find(d => d.code == addressForm.district)
+  const ward = wards.value.find(w => w.code == addressForm.ward)
 
   return [
-    address.value.detail,
+    addressForm.detail,
     ward?.name,
     district?.name,
     province?.name
-  ]
-    .filter(Boolean)
-    .join(', ')
+  ].filter(Boolean).join(', ')
 })
 
-onMounted(() => {
-  fetchProvinces()
+onMounted(async () => {
+  await fetchProvinces()
+
+  const res = await fetch(route('addresses.index'))
+  const data = await res.json()
+
+  if (data) {
+    Object.assign(addressForm, data)
+
+    await handleProvinceChange(true)
+    await handleDistrictChange(true)
+  }
 })
+
+const saveAddress = () => {
+  addressForm.full_address = fullAddress.value
+
+  addressForm.post(route('addresses.store'), {
+    preserveScroll: true,
+    onSuccess: () => {
+      alert('Lưu địa chỉ thành công!')
+      // KHÔNG reset form nữa
+    }
+  })
+}
 
 </script>
 
@@ -304,51 +315,74 @@ onMounted(() => {
                   <!-- Tên người nhận -->
                   <div class="form__group">
                     <label>Họ và tên người nhận</label>
-                    <input type="text" v-model="address.receiver_name" placeholder="Nhập họ tên" />
+                    <input type="text" v-model="addressForm.receiver_name" placeholder="Nhập họ tên" required />
+                    <p v-if="addressForm.errors.receiver_name" class="text-red-500 text-sm">
+                      {{ addressForm.errors.receiver_name }}
+                    </p>
                   </div>
 
                   <!-- SĐT -->
                   <div class="form__group">
                     <label>Số điện thoại</label>
-                    <input type="text" v-model="address.receiver_phone" placeholder="Nhập số điện thoại" />
+                    <input type="tel" v-model="addressForm.receiver_phone" placeholder="Nhập số điện thoại"
+                      pattern="(03|05|07|08|09)[0-9]{8}" required />
+                    <p v-if="addressForm.errors.receiver_phone" class="text-red-500 text-sm">
+                      {{ addressForm.errors.receiver_phone }}
+                    </p>
                   </div>
 
                   <!-- Tỉnh -->
                   <div class="form__group">
                     <label>Tỉnh / Thành phố</label>
-                    <select v-model="address.province" @change="handleProvinceChange">
+                    <select v-model="addressForm.province" @change="handleProvinceChange" required>
                       <option disabled value="">Chọn tỉnh/thành</option>
                       <option v-for="province in provinces" :key="province.code" :value="province.code">
                         {{ province.name }}
                       </option>
                     </select>
+                    <p v-if="addressForm.errors.province" class="text-red-500 text-sm">
+                      {{ addressForm.errors.province }}
+                    </p>
                   </div>
 
                   <!-- Quận -->
                   <div class="form__group">
                     <label>Quận / Huyện</label>
-                    <select v-model="address.district" @change="handleDistrictChange" :disabled="!districts.length">
+                    <select v-model="addressForm.district" @change="handleDistrictChange" :disabled="!districts.length"
+                      required>
                       <option disabled value="">Chọn quận/huyện</option>
                       <option v-for="district in districts" :key="district.code" :value="district.code">
                         {{ district.name }}
                       </option>
                     </select>
+                    <p v-if="addressForm.errors.district" class="text-red-500 text-sm">
+                      {{ addressForm.errors.district }}
+                    </p>
                   </div>
 
                   <!-- Phường -->
                   <div class="form__group">
                     <label>Phường / Xã</label>
-                    <select v-model="address.ward" :disabled="!wards.length">
+                    <select v-model="addressForm.ward" :disabled="!wards.length" required>
                       <option disabled value="">Chọn phường/xã</option>
                       <option v-for="ward in wards" :key="ward.code" :value="ward.code">
                         {{ ward.name }}
                       </option>
                     </select>
+                    <p v-if="addressForm.errors.ward" class="text-red-500 text-sm">
+                      {{ addressForm.errors.ward }}
+                    </p>
                   </div>
+
+                  <!-- Địa chỉ chi tiết -->
                   <div class="form__group">
                     <label>Địa chỉ chi tiết</label>
-                    <input type="text" v-model="address.detail" placeholder="Nhập số nhà, tên đường..." />
+                    <input type="text" v-model="addressForm.detail" placeholder="Nhập số nhà, tên đường..." required />
+                    <p v-if="addressForm.errors.detail" class="text-red-500 text-sm">
+                      {{ addressForm.errors.detail }}
+                    </p>
                   </div>
+
                   <!-- Địa chỉ đầy đủ (auto) -->
                   <div class="form__group full-width">
                     <label>Địa chỉ đầy đủ</label>
@@ -356,8 +390,8 @@ onMounted(() => {
                   </div>
 
                   <div class="form__action full-width">
-                    <button class="address__btn" @click="saveAddress">
-                      Lưu địa chỉ
+                    <button type="button" class="address__btn" @click="saveAddress" :disabled="addressForm.processing">
+                      {{ addressForm.processing ? 'Đang lưu...' : 'Lưu địa chỉ' }}
                     </button>
                   </div>
 

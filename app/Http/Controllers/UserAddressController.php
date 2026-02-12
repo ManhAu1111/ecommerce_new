@@ -8,49 +8,46 @@ use Illuminate\Support\Facades\Auth;
 
 class UserAddressController extends Controller
 {
+    // Lấy địa chỉ duy nhất của user
     public function index()
     {
         return response()->json(
-            Auth::user()->addresses
+            UserAddress::where('user_id', Auth::id())->first()
         );
     }
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'receiver_name' => 'required',
-            'receiver_phone' => 'required',
-            'province' => 'required',
-            'district' => 'required',
-            'ward' => 'required',
-            'detail_address' => 'required',
-            'full_address' => 'required',
+        $validated = $request->validate([
+            'receiver_name'  => ['required', 'string', 'max:255'],
+            'receiver_phone' => [
+                'required',
+                'regex:/^(03|05|07|08|09)[0-9]{8}$/'
+            ],
+            'province'       => ['required'],
+            'district'       => ['required'],
+            'ward'           => ['required'],
+            'detail'         => ['required', 'max:255'],
+            'full_address'   => ['required', 'string'],
         ]);
 
-        $data['user_id'] = Auth::id();
+        $address = UserAddress::updateOrCreate(
+            ['user_id' => Auth::id()],
+            $validated
+        );
 
-        $address = UserAddress::create($data);
-
-        return response()->json($address);
+        return back()->with('success', 'Address saved');
     }
 
+    // Vì bạn chỉ có 1 address, update riêng gần như không cần
     public function update(Request $request, $id)
     {
-        $address = UserAddress::where('user_id', Auth::id())
-            ->findOrFail($id);
-
-        $address->update($request->all());
-
-        return response()->json($address);
+        abort(404);
     }
 
+    // Nếu hệ thống chỉ cho 1 address thì destroy cũng không cần
     public function destroy($id)
     {
-        $address = UserAddress::where('user_id', Auth::id())
-            ->findOrFail($id);
-
-        $address->delete();
-
-        return response()->json(['message' => 'Deleted']);
+        abort(404);
     }
 }

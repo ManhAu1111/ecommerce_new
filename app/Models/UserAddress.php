@@ -13,7 +13,7 @@ class UserAddress extends Model
         'province',
         'district',
         'ward',
-        'detail_address',
+        'detail',
         'full_address',
         'is_default'
     ];
