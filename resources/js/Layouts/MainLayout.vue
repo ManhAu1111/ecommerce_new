@@ -226,7 +226,7 @@ onUnmounted(() => {
             </div>
             <div class="footer__bottom">
                 <p class="copyright">&copy; 2026 TOY MARK. Đã đăng ký bản quyền</p>
-                <span class="designer">Thiết kế bởi TOY MARK</span>
+                <span class="designer">Thiết kế bởi HAGAH</span>
             </div>
         </footer>
     </div>
