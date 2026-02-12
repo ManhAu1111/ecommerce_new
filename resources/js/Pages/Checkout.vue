@@ -244,6 +244,11 @@ async function useSavedInfo() {
 ================================= */
 
 function submitOrder() {
+    if (!isInfoConfirmed.value) {
+        confirmInfo()
+        if (Object.keys(form.errors).length > 0) return
+    }
+
     form.transform((data) => ({
         ...data,
         full_address: fullAddress.value,
