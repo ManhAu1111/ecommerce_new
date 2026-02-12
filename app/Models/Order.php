@@ -21,6 +21,7 @@ class Order extends Model
         'district',
         'ward',
         'detail',
+        'full_address', // thêm dòng này
         'note',
     ];
 
@@ -32,8 +33,14 @@ class Order extends Model
         parent::boot();
 
         static::creating(function ($order) {
+
             if (empty($order->public_id)) {
-                $order->public_id = 'ORD-' . now()->format('YmdHis') . '-' . strtoupper(Str::random(4));
+
+                do {
+                    $publicId = 'ORD-' . now()->format('YmdHis') . '-' . strtoupper(Str::random(4));
+                } while (self::where('public_id', $publicId)->exists());
+
+                $order->public_id = $publicId;
             }
         });
     }

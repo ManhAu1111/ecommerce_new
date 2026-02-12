@@ -1,7 +1,7 @@
 <script setup>
 import MainLayout from '@/Layouts/MainLayout.vue'
-import { Head, router } from '@inertiajs/vue3'
-import { reactive, ref, onMounted, computed, watch } from 'vue'
+import { Head, useForm } from '@inertiajs/vue3'
+import { ref, onMounted, computed, watch } from 'vue'
 
 const props = defineProps({
     cartItems: Array,
@@ -10,8 +10,58 @@ const props = defineProps({
     defaultAddress: Object,
 })
 
-const SHIPPING_FEE = 30000
+const isInfoConfirmed = ref(false)
 
+function editInfo() {
+    isInfoConfirmed.value = false
+}
+
+
+function confirmInfo() {
+    form.clearErrors()
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
+    const phoneRegex = /^(0[3|5|7|8|9])[0-9]{8}$/
+
+    if (!form.receiver_name?.trim()) {
+        form.setError('receiver_name', 'Vui lòng nhập họ tên.')
+    }
+
+    if (!form.receiver_phone?.trim()) {
+        form.setError('receiver_phone', 'Vui lòng nhập số điện thoại.')
+    } else if (!phoneRegex.test(form.receiver_phone)) {
+        form.setError('receiver_phone', 'Số điện thoại không hợp lệ.')
+    }
+
+    if (!form.receiver_email?.trim()) {
+        form.setError('receiver_email', 'Vui lòng nhập email.')
+    } else if (!emailRegex.test(form.receiver_email)) {
+        form.setError('receiver_email', 'Email không hợp lệ.')
+    }
+
+    if (!form.province) {
+        form.setError('province', 'Vui lòng chọn tỉnh/thành.')
+    }
+
+    if (!form.district) {
+        form.setError('district', 'Vui lòng chọn quận/huyện.')
+    }
+
+    if (!form.ward) {
+        form.setError('ward', 'Vui lòng chọn phường/xã.')
+    }
+
+    if (!form.detail?.trim()) {
+        form.setError('detail', 'Vui lòng nhập địa chỉ chi tiết.')
+    }
+
+    if (Object.keys(form.errors).length > 0) {
+        return
+    }
+
+    isInfoConfirmed.value = true
+}
+const SHIPPING_FEE = 30000
 /* ===============================
    TÍNH TỔNG TIỀN
 ================================= */
@@ -31,7 +81,7 @@ const grandTotal = computed(() =>
    FORM DATA
 ================================= */
 
-const form = reactive({
+const form = useForm({
     receiver_name: '',
     receiver_phone: '',
     receiver_email: '',
@@ -194,9 +244,11 @@ async function useSavedInfo() {
 ================================= */
 
 function submitOrder() {
-    router.post(route('checkout.store'), {
-        ...form,
+    form.transform((data) => ({
+        ...data,
         full_address: fullAddress.value,
+    })).post(route('checkout.store'), {
+        preserveScroll: true,
     })
 }
 /* ===============================
@@ -253,66 +305,101 @@ onMounted(async () => {
                 <div class="checkout__container container grid">
 
                     <!-- LEFT: FORM -->
-                    <div class="checkout__group">
+                    <div class="checkout__group checkout-card">
                         <h3 class="section__title">Thông tin thanh toán</h3>
 
                         <form class="form grid" @submit.prevent="submitOrder">
 
                             <div class="saved-info-btn" @click="useSavedInfo">
-                                <div class="circle-btn">
-                                    ↺
-                                </div>
+                                <div class="circle-btn">↺</div>
                                 <span>Dùng thông tin đã lưu</span>
                             </div>
 
+                            <!-- NAME -->
                             <input v-model="form.receiver_name" type="text" placeholder="Họ và tên người nhận"
-                                class="form__input" required />
+                                class="form__input" :class="{ 'input-error': form.errors.receiver_name }" />
+                            <p v-if="form.errors.receiver_name" class="error-text">
+                                {{ form.errors.receiver_name }}
+                            </p>
 
+                            <!-- PHONE -->
                             <input v-model="form.receiver_phone" type="text" placeholder="Số điện thoại"
-                                class="form__input" required />
+                                class="form__input" :class="{ 'input-error': form.errors.receiver_phone }" />
+                            <p v-if="form.errors.receiver_phone" class="error-text">
+                                {{ form.errors.receiver_phone }}
+                            </p>
 
-                            <input v-model="form.receiver_email" type="email" placeholder="Email" class="form__input" />
+                            <!-- EMAIL -->
+                            <input v-model="form.receiver_email" type="email" placeholder="Email" class="form__input"
+                                :class="{ 'input-error': form.errors.receiver_email }" />
+                            <p v-if="form.errors.receiver_email" class="error-text">
+                                {{ form.errors.receiver_email }}
+                            </p>
 
                             <!-- PROVINCE -->
-                            <select v-model="form.province" class="form__input" required>
+                            <select v-model="form.province" class="form__input"
+                                :class="{ 'input-error': form.errors.province }">
                                 <option value="">Chọn Tỉnh / Thành phố</option>
                                 <option v-for="p in provinces" :key="p.code" :value="p.code">
                                     {{ p.name }}
                                 </option>
                             </select>
+                            <p v-if="form.errors.province" class="error-text">
+                                {{ form.errors.province }}
+                            </p>
 
                             <!-- DISTRICT -->
-                            <select v-model="form.district" class="form__input" :disabled="!form.province" required>
+                            <select v-model="form.district" class="form__input" :disabled="!form.province"
+                                :class="{ 'input-error': form.errors.district }">
                                 <option value="">Chọn Quận / Huyện</option>
                                 <option v-for="d in districts" :key="d.code" :value="d.code">
                                     {{ d.name }}
                                 </option>
                             </select>
+                            <p v-if="form.errors.district" class="error-text">
+                                {{ form.errors.district }}
+                            </p>
 
                             <!-- WARD -->
-                            <select v-model="form.ward" class="form__input" :disabled="!form.district" required>
+                            <select v-model="form.ward" class="form__input" :disabled="!form.district"
+                                :class="{ 'input-error': form.errors.ward }">
                                 <option value="">Chọn Phường / Xã</option>
                                 <option v-for="w in wards" :key="w.code" :value="w.code">
                                     {{ w.name }}
                                 </option>
                             </select>
+                            <p v-if="form.errors.ward" class="error-text">
+                                {{ form.errors.ward }}
+                            </p>
 
+                            <!-- DETAIL -->
                             <input v-model="form.detail" type="text"
-                                placeholder="Địa chỉ chi tiết (số nhà, tên đường...)" class="form__input" required />
+                                placeholder="Địa chỉ chi tiết (số nhà, tên đường...)" class="form__input"
+                                :class="{ 'input-error': form.errors.detail }" />
+                            <p v-if="form.errors.detail" class="error-text">
+                                {{ form.errors.detail }}
+                            </p>
 
-                            <!-- ĐỊA CHỈ ĐẦY ĐỦ (AUTO) -->
+                            <!-- FULL ADDRESS (AUTO) -->
                             <input :value="fullAddress" type="text" class="form__input" placeholder="Địa chỉ đầy đủ"
                                 readonly />
 
                             <h3 class="checkout__title">Thông tin bổ sung</h3>
 
-                            <textarea v-model="form.note" placeholder="Ghi chú" class="form__input textarea">
-                            </textarea>
+                            <textarea v-model="form.note" placeholder="Ghi chú" class="form__input textarea"></textarea>
 
-                            <!-- <button type="submit" class="btn btn--md">
-                                Xác nhận đặt hàng
-                            </button> -->
+                            <!-- STEP 1: CONFIRM INFO -->
+                            <div class="form-actions">
 
+                                <button v-if="!isInfoConfirmed" type="button" class="btn btn--md" @click="confirmInfo">
+                                    Xác nhận thông tin
+                                </button>
+
+                                <button v-else type="button" class="btn btn--md btn-edit" @click="editInfo">
+                                    Chỉnh sửa thông tin
+                                </button>
+
+                            </div>
                         </form>
                     </div>
 
@@ -385,8 +472,11 @@ onMounted(async () => {
                             </div>
                         </div>
 
-                        <button type="button" class="btn btn--md order__btn" @click="submitOrder">
-                            Xác nhận đặt hàng
+                        <!-- STEP 2: PLACE ORDER -->
+                        <button type="button" class="btn btn--md" :disabled="!isInfoConfirmed || form.processing"
+                            @click="submitOrder">
+                            <span v-if="form.processing">Đang xử lý...</span>
+                            <span v-else>Xác nhận đặt hàng</span>
                         </button>
 
                     </div>
