@@ -1177,3 +1177,88 @@
   }
 
 }
+
+
+/* ===== TOY MARK BRAND SECTION - Animated ===== */
+
+.home__newsletter {
+  background: linear-gradient(135deg, #1b4644, #0f816e, #1b4644);
+  background-size: 200% 200%;
+  animation: gradientMove 8s ease infinite;
+  padding: 0.5rem 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Background animation */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Container animation */
+.brand__container {
+  gap: 0.7rem;
+  justify-items: center;
+  animation: fadeUp 1s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Fade up effect */
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Logo */
+.brand__logo {
+  width: 58px;
+  height: auto;
+  animation: floatLogo 3s ease-in-out infinite;
+}
+
+/* Floating logo */
+@keyframes floatLogo {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* Slogan */
+.brand__slogan {
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, #0ea5e9, #38bdf8, #0ea5e9);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+/* Shimmer effect */
+@keyframes shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Button */
+.brand__btn {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.6rem 1.6rem;
+  background: #ffffff;
+  color: #0f3d3a;
+  font-weight: 700;
+  border-radius: 30px;
+  transition: 0.3s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+
+.brand__btn:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+}

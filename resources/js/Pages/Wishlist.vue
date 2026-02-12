@@ -86,6 +86,7 @@ const handleAddToCart = async (product) => {
                                 <th>Giá</th>
                                 <th>Tình trạng tồn kho</th>
                                 <th>Hành động</th>
+                                <th>xóa</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -97,7 +98,6 @@ const handleAddToCart = async (product) => {
                                             class="table__img" />
                                     </div>
                                 </td>
-
 
                                 <td>
                                     <h3 class="table__title">
@@ -146,25 +146,13 @@ const handleAddToCart = async (product) => {
                                         @click="toggleWishlistAjax(item.product)"></i>
                                 </td>
                             </tr>
+                            <tr v-if="!wishlistItems.length">
+                                <td colspan="6" class="text-center">
+                                    Danh sách yêu thích trống
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
-                </div>
-            </section>
-
-            <!--=============== NEWSLETTER ===============-->
-            <section class="newsletter section">
-                <div class="newsletter__container container grid">
-                    <h3 class="newsletter__title flex">
-                        <img src="/assets/img/icon-email.svg" alt="" class="newsletter__icon" />
-                        Đăng ký nhận bản tin
-                    </h3>
-                    <p class="newsletter__description">
-                        ...và nhận phiếu giảm giá $25 cho lần mua sắm đầu tiên.
-                    </p>
-                    <form action="" class="newsletter__form">
-                        <input type="text" placeholder="Nhập email của bạn" class="newsletter__input" />
-                        <button type="submit" class="newsletter__btn">Đăng ký</button>
-                    </form>
                 </div>
             </section>
         </main>

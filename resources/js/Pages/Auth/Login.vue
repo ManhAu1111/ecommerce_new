@@ -75,7 +75,17 @@ const submit = () => {
 
                         <div class="mt-4">
                             <p>Bạn chưa có tài khoản? <Link :href="route('register')"
-                                    style="color: var(--first-color);">Đăng ký ngay</Link>
+                                class="
+                                    relative font-medium text-gray-600 no-underline
+                                    transition-all duration-200
+                                    hover:text-teal-600
+                                    after:absolute after:left-0 after:-bottom-0.5
+                                    after:h-[1.5px] after:w-0 after:bg-teal-600
+                                    after:transition-all after:duration-200
+                                    hover:after:w-full"
+                                    style="color: var(--first-color);">
+                                    Đăng ký ngay
+                                </Link>
                             </p>
                         </div>
                     </form>

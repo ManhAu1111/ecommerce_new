@@ -134,7 +134,19 @@ onUnmounted(() => {
         <main>
             <slot />
         </main>
+        <!--=============== NEWSLETTER ===============-->
+        <section class="newsletter section home__newsletter">
+          <div class="brand__container container grid">
+            
+            <img src="/assets/img/logo_toyMark_icon-removebg.png" 
+                alt="Toy Mark Logo" 
+                class="brand__logo" />
 
+            <p class="brand__slogan">
+              TOY MARK — A World Of Toys
+            </p>
+          </div>
+        </section>
         <footer class="footer container">
             <div class="footer__container grid">
                 <div class="footer__content">
@@ -214,7 +226,7 @@ onUnmounted(() => {
             </div>
             <div class="footer__bottom">
                 <p class="copyright">&copy; 2026 TOY MARK. Đã đăng ký bản quyền</p>
-                <span class="designer">Thiết kế bởi TOY MARK</span>
+                <span class="designer">Thiết kế bởi HAGAH</span>
             </div>
         </footer>
     </div>
