@@ -83,7 +83,7 @@ onMounted(() => {
                             <input type="text" placeholder="Địa chỉ" class="form__input" />
                             <input type="text" placeholder="Thành phố" class="form__input" />
                             <input type="text" placeholder="Quốc gia" class="form__input" />
-                            <input type="text" placeholder="Mã bưu điện" class="form__input" />
+                            <!-- <input type="text" placeholder="Mã bưu điện" class="form__input" /> -->
                             <input type="text" placeholder="Số điện thoại" class="form__input" />
                             <input type="email" placeholder="Email" class="form__input" />
                             <h3 class="checkout__title">Thông tin bổ sung</h3>
