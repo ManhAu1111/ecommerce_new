@@ -44,6 +44,30 @@ const form = reactive({
 })
 
 /* ===============================
+   FULL ADDRESS (AUTO BUILD)
+================================= */
+
+const fullAddress = computed(() => {
+    const provinceName =
+        provinces.value.find(p => String(p.code) === String(form.province))?.name || ''
+
+    const districtName =
+        districts.value.find(d => String(d.code) === String(form.district))?.name || ''
+
+    const wardName =
+        wards.value.find(w => String(w.code) === String(form.ward))?.name || ''
+
+    return [
+        form.detail,
+        wardName,
+        districtName,
+        provinceName
+    ]
+        .filter(v => v && v.trim() !== '')
+        .join(', ')
+})
+
+/* ===============================
    LOCATION DATA
 ================================= */
 
@@ -69,7 +93,11 @@ async function loadProvinces() {
 ================================= */
 
 async function loadDistricts(provinceCode) {
-    if (!provinceCode) return
+    if (!provinceCode) {
+        districts.value = []
+        wards.value = []
+        return
+    }
 
     try {
         const res = await fetch(
@@ -88,7 +116,10 @@ async function loadDistricts(provinceCode) {
 ================================= */
 
 async function loadWards(districtCode) {
-    if (!districtCode) return
+    if (!districtCode) {
+        wards.value = []
+        return
+    }
 
     try {
         const res = await fetch(
@@ -163,9 +194,11 @@ async function useSavedInfo() {
 ================================= */
 
 function submitOrder() {
-    router.post(route('checkout.store'), form)
+    router.post(route('checkout.store'), {
+        ...form,
+        full_address: fullAddress.value,
+    })
 }
-
 /* ===============================
    ON MOUNT
 ================================= */
@@ -266,6 +299,10 @@ onMounted(async () => {
 
                             <input v-model="form.detail" type="text"
                                 placeholder="Địa chỉ chi tiết (số nhà, tên đường...)" class="form__input" required />
+
+                            <!-- ĐỊA CHỈ ĐẦY ĐỦ (AUTO) -->
+                            <input :value="fullAddress" type="text" class="form__input" placeholder="Địa chỉ đầy đủ"
+                                readonly />
 
                             <h3 class="checkout__title">Thông tin bổ sung</h3>
 
