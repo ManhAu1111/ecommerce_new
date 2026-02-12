@@ -9,6 +9,8 @@ use App\Models\UserAddress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\CheckoutStoreRequest;
+use Illuminate\Support\Facades\Log;
 
 class CheckoutController extends Controller
 {
@@ -34,69 +36,116 @@ class CheckoutController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(CheckoutStoreRequest $request)
     {
         $user = Auth::user();
+        $data = $request->validated();
 
-        $request->validate([
-            'receiver_name' => 'required|string|max:255',
-            'receiver_phone' => 'required|string|max:20',
-            'receiver_email' => 'nullable|email|max:255',
-            'province' => 'required|string|max:100',
-            'district' => 'required|string|max:100',
-            'ward' => 'required|string|max:100',
-            'detail' => 'required|string|max:255',
-            'note' => 'nullable|string',
-            'payment_method' => 'required|in:cod,momo',
-        ]);
+        // Lấy tên địa phương theo code
+        $provinceName = DB::table('provinces')
+            ->where('code', $data['province'])
+            ->value('name');
 
-        $cartItems = CartItem::where('user_id', $user->id)->get();
+        $districtName = DB::table('districts')
+            ->where('code', $data['district'])
+            ->value('name');
 
-        if ($cartItems->isEmpty()) {
-            return back()->withErrors(['cart' => 'Giỏ hàng trống']);
+        $wardName = DB::table('wards')
+            ->where('code', $data['ward'])
+            ->value('name');
+
+        // Nếu không tìm thấy địa phương → lỗi
+        if (!$provinceName || !$districtName || !$wardName) {
+            return back()->withErrors([
+                'address' => 'Địa chỉ không hợp lệ. Vui lòng chọn lại.'
+            ]);
         }
 
-        DB::beginTransaction();
+        $cartItems = CartItem::where('user_id', $user->id)
+            ->with('product')
+            ->get();
 
-        try {
-            $totalPrice = $cartItems->sum(fn($item) => $item->price * $item->quantity);
-            $shippingFee = 0; // có thể tính sau
-
-            $order = Order::create([
-                'user_id' => $user->id,
-                'status' => 'pending',
-                'total_price' => $totalPrice,
-                'shipping_fee' => $shippingFee,
-                'payment_method' => $request->payment_method,
-                'receiver_name' => $request->receiver_name,
-                'receiver_phone' => $request->receiver_phone,
-                'receiver_email' => $request->receiver_email,
-                'province' => $request->province,
-                'district' => $request->district,
-                'ward' => $request->ward,
-                'detail' => $request->detail,
-                'note' => $request->note,
+        if ($cartItems->isEmpty()) {
+            return back()->withErrors([
+                'cart' => 'Giỏ hàng của bạn đang trống.'
             ]);
+        }
 
-            foreach ($cartItems as $item) {
-                OrderItem::create([
-                    'order_id' => $order->id,
-                    'product_id' => $item->product_id,
-                    'price' => $item->price,
-                    'quantity' => $item->quantity,
+        // Check tồn kho
+        foreach ($cartItems as $item) {
+            if ($item->quantity > $item->product->stock) {
+                return back()->withErrors([
+                    'stock' => "Sản phẩm {$item->product->name} không đủ số lượng trong kho."
                 ]);
             }
+        }
 
-            // Xóa cart sau khi đặt hàng
-            CartItem::where('user_id', $user->id)->delete();
+        try {
+            $order = DB::transaction(function () use (
+                $user,
+                $data,
+                $cartItems,
+                $provinceName,
+                $districtName,
+                $wardName
+            ) {
 
-            DB::commit();
+                $totalPrice = $cartItems->sum(
+                    fn($item) => $item->price * $item->quantity
+                );
 
-            return redirect()->route('orders.show', $order->id)
+                $shippingFee = 0;
+
+                $order = Order::create([
+                    'user_id' => $user->id,
+                    'status' => 'pending',
+                    'total_price' => $totalPrice,
+                    'shipping_fee' => $shippingFee,
+                    'payment_method' => $data['payment_method'],
+
+                    'receiver_name' => $data['receiver_name'],
+                    'receiver_phone' => $data['receiver_phone'],
+                    'receiver_email' => $data['receiver_email'] ?? null,
+
+                    // LƯU TÊN THẬT
+                    'province' => $provinceName,
+                    'district' => $districtName,
+                    'ward' => $wardName,
+
+                    'detail' => $data['detail'],
+                    'full_address' => $data['full_address'],
+                    'note' => $data['note'] ?? null,
+                ]);
+
+                foreach ($cartItems as $item) {
+
+                    OrderItem::create([
+                        'order_id' => $order->id,
+                        'product_id' => $item->product_id,
+                        'price' => $item->price,
+                        'quantity' => $item->quantity,
+                    ]);
+
+                    // Trừ tồn kho
+                    $item->product->decrement('stock', $item->quantity);
+                }
+
+                // Xóa giỏ hàng
+                CartItem::where('user_id', $user->id)->delete();
+
+                return $order;
+            });
+
+            return redirect()
+                ->route('orders.show', $order->id)
                 ->with('success', 'Đặt hàng thành công');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return back()->withErrors(['error' => 'Có lỗi xảy ra, vui lòng thử lại']);
+        } catch (\Throwable $e) {
+
+            Log::error('Checkout error: ' . $e->getMessage());
+
+            return back()->withErrors([
+                'error' => 'Có lỗi xảy ra trong quá trình đặt hàng. Vui lòng thử lại.'
+            ]);
         }
     }
 }

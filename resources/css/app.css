@@ -1289,6 +1289,125 @@
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
 }
 
+/* ===============================
+   Bên trái (trang checkout
+================================= */
+.checkout-card {
+  background: #fff;
+  padding: 30px;
+  /* match order-summary */
+  border-radius: 10px;
+  /* match order-summary */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Title */
+.section__title {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* Form layout */
+.form.grid {
+  display: grid;
+  gap: 15px;
+}
+
+.form__input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #fafafa;
+  /* match order item bg */
+  transition: 0.2s;
+}
+
+.form__input:focus {
+  background: #fff;
+  border-color: #ddd;
+  outline: none;
+}
+
+/* Disabled */
+select:disabled {
+  background: #f3f4f6;
+  cursor: not-allowed;
+}
+
+/* Textarea */
+.textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.input-error {
+  border-color: #e74c3c !important;
+  background: #fff5f5;
+}
+
+.error-text {
+  font-size: 13px;
+  color: #e74c3c;
+  margin-top: -8px;
+}
+
+.saved-info-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fafafa;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.saved-info-btn:hover {
+  background: #f0f0f0;
+}
+
+.circle-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #3f9588;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+
+.btn--md {
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* nút xác nhận thông tin */
+.btn-confirmed {
+  background: #3f9588;
+}
+
+.btn-confirmed:hover {
+  background: #3f9588;
+}
+
+.btn-edit {
+  background: #3eb7d2;
+}
+
+.btn-edit:hover {
+  background: #3eb7d2;
+}
+
+/* ===============================
+   Bên phải (trang checkout
+================================= */
 /* ORDER SUMMARY CARD */
 .order-summary {
   background: #fff;
@@ -1388,4 +1507,17 @@
 .saved-info-btn:hover .circle-btn {
   background: #1f7a6d;
   color: #fff;
+}
+
+/* ================= FORM ERROR STYLE ================= */
+.input-error {
+  border: 2px solid #e53935 !important;
+  background: #fff5f5;
+}
+
+.error-text {
+  color: #e53935;
+  font-size: 13px;
+  margin-top: -6px;
+  margin-bottom: 8px;
 }
