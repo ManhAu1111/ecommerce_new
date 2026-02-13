@@ -1521,3 +1521,46 @@ select:disabled {
   margin-top: -6px;
   margin-bottom: 8px;
 }
+
+/* ===== Rating Wrapper ===== */
+.detail__rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 12px;
+}
+
+/* ===== Stars ===== */
+.detail__stars {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.detail__star {
+  font-size: 18px;
+  transition: transform 0.2s ease, color 0.2s ease;
+  cursor: default;
+}
+
+/* Star active */
+.detail__star.active {
+  color: #facc15; /* vàng đẹp */
+}
+
+/* Star empty */
+.detail__star:not(.active) {
+  color: #e5e7eb; /* xám nhạt */
+}
+
+/* Hover hiệu ứng nhẹ */
+.detail__star:hover {
+  transform: scale(1.15);
+}
+
+/* Rating text */
+.detail__rating-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+}
