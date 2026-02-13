@@ -134,7 +134,7 @@ const reviews = ref([
     id: 1,
     user: 'Jacky Chan',
     avatar: '/assets/img/avatar-1.jpg',
-    rating: 5,
+    rating: 3,
     comment: 'Thank you, very fast shipping from Poland only 3days.',
     date: 'December 4, 2022'
   },
@@ -259,6 +259,22 @@ const resetHover = () => {
               <span class="new__price">{{ formattedPrice }}</span>
             </div>
             <p class="short__description">{{ product.description }}</p>
+            <div class="detail__rating">
+              <div class="detail__stars">
+                <i 
+                  v-for="i in 5" 
+                  :key="i"
+                  class="fi detail__star"
+                  :class="i <= Math.round(product.avg_rating) 
+                    ? 'fi-rs-star active' 
+                    : 'fi-rs-star-empty'"
+                ></i>
+              </div>
+
+              <span class="detail__rating-text">
+                {{ Number(product.avg_rating || 0).toFixed(1) }} / 5
+              </span>
+            </div>
             <ul class="products__list">
               <li class="list__item flex">
                 <i class="fi-rs-crown"></i> Đồ chơi chính hãng, an toàn cho trẻ em
@@ -384,6 +400,9 @@ const resetHover = () => {
                       ? 'fi-rs-star active' 
                       : 'fi-rs-star-empty'"
                   ></i>
+                  <span class="detail__rating-text">
+                    {{ Number(review.rating || 0).toFixed(1) }} / 5
+                  </span>
                 </div>
 
                 <p class="review__description">
