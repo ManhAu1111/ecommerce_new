@@ -1,6 +1,6 @@
 <script setup>
 import MainLayout from '@/Layouts/MainLayout.vue'
-import { Head, useForm } from '@inertiajs/vue3'
+import { useForm } from '@inertiajs/vue3'
 import { ref, onMounted, computed, watch } from 'vue'
 
 const props = defineProps({
@@ -8,14 +8,17 @@ const props = defineProps({
     total: Number,
     user: Object,
     defaultAddress: Object,
+    shippingFee: Number,
 })
 
 const isInfoConfirmed = ref(false)
 
 function editInfo() {
     isInfoConfirmed.value = false
+    form.clearErrors()
 }
 
+const isCartEmpty = computed(() => props.cartItems.length === 0)
 
 function confirmInfo() {
     form.clearErrors()
@@ -76,7 +79,6 @@ const subTotal = computed(() =>
 const grandTotal = computed(() =>
     subTotal.value + SHIPPING_FEE
 )
-
 /* ===============================
    FORM DATA
 ================================= */
@@ -91,6 +93,7 @@ const form = useForm({
     detail: '',
     note: '',
     payment_method: 'cod',
+    full_address: '', // thêm dòng này
 })
 
 /* ===============================
@@ -244,18 +247,31 @@ async function useSavedInfo() {
 ================================= */
 
 function submitOrder() {
-    if (!isInfoConfirmed.value) {
-        confirmInfo()
-        if (Object.keys(form.errors).length > 0) return
+    // Chặn giỏ trống
+    if (isCartEmpty.value) {
+        alert('Giỏ hàng đang trống.')
+        return
     }
 
-    form.transform((data) => ({
-        ...data,
-        full_address: fullAddress.value,
-    })).post(route('checkout.store'), {
-        preserveScroll: true,
-    })
+    // Nếu chưa xác nhận thông tin
+    if (!isInfoConfirmed.value) {
+        confirmInfo()
+
+        if (Object.keys(form.errors).length > 0) {
+            alert('Vui lòng nhập đầy đủ và chính xác thông tin giao hàng.')
+            return
+        }
+
+        alert('Vui lòng xác nhận thông tin trước khi đặt hàng.')
+        return
+    }
+
+    form.full_address = fullAddress.value
+
+    form.post(route('checkout.store'))
 }
+
+
 /* ===============================
    ON MOUNT
 ================================= */
@@ -485,7 +501,7 @@ onMounted(async () => {
                         </div>
 
                         <!-- STEP 2: PLACE ORDER -->
-                        <button type="button" class="btn btn--md" :disabled="!isInfoConfirmed || form.processing"
+                        <button type="button" class="btn btn--md" :disabled="form.processing || isCartEmpty"
                             @click="submitOrder">
                             <span v-if="form.processing">Đang xử lý...</span>
                             <span v-else>Xác nhận đặt hàng</span>
