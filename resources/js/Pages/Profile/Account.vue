@@ -61,6 +61,68 @@ const showPassword = ref({
 })
 
 /* =========================
+   Đơn Hàng
+========================= */
+const props = defineProps({
+  orders: {
+    type: Array,
+    default: () => []
+  }
+})
+
+const formatPrice = (value) => {
+  if (!value) return '0₫'
+  return Number(value).toLocaleString('vi-VN') + '₫'
+}
+
+const normalizeStatus = (status) => {
+  if (status === 'pending' || status === 'paid') {
+    return 'processing'
+  }
+
+  if (status === 'shipping') return 'delivering'
+  if (status === 'delivered') return 'completed'
+
+  return status
+}
+
+const statusMap = {
+  processing: 'Đang xử lý',
+  delivering: 'Đang giao hàng',
+  completed: 'Đã giao hàng',
+  cancelled: 'Đã huỷ'
+}
+
+const statusClass = (status) => {
+  const s = normalizeStatus(status)
+
+  switch (s) {
+    case 'processing':
+      return 'text-yellow-600 font-semibold'
+    case 'delivering':
+      return 'text-blue-600 font-semibold'
+    case 'completed':
+      return 'text-green-600 font-semibold'
+    case 'cancelled':
+      return 'text-red-600 font-semibold'
+    default:
+      return 'text-gray-500'
+  }
+}
+
+
+
+const formatDate = (date) => {
+  return new Date(date).toLocaleDateString('vi-VN', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  })
+}
+
+
+
+/* =========================
    LOGOUT
 ========================= */
 const showLogoutModal = ref(false)
@@ -268,28 +330,40 @@ const saveAddress = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>#1357</td>
-                      <td>March 19, 2022</td>
-                      <td>Đang xử lý</td>
-                      <td>$125.00</td>
-                      <td><a href="#" class="view__order">Xem</a></td>
+                    <tr v-for="order in orders ?? []" :key="order.id">
+
+                      <td>#{{ order.public_id }}</td>
+
+                      <td>
+                        {{ formatDate(order.created_at) }}
+                      </td>
+
+                      <td>
+                        <span :class="statusClass(order.status)">
+                          {{ statusMap[normalizeStatus(order.status)] }}
+                        </span>
+
+                      </td>
+
+                      <td>
+                        {{ formatPrice(order.total_price) }}
+                      </td>
+
+                      <td>
+                        <a href="#" @click.prevent="router.visit(route('orders.show', order.id))"
+                          class="text-[#3f9588] hover:underline">
+                          Xem
+                        </a>
+                      </td>
                     </tr>
-                    <tr>
-                      <td>#2468</td>
-                      <td>June 29, 2022</td>
-                      <td>Hoàn thành</td>
-                      <td>$364.00</td>
-                      <td><a href="#" class="view__order">Xem</a></td>
-                    </tr>
-                    <tr>
-                      <td>#2366</td>
-                      <td>August 02, 2022</td>
-                      <td>Hoàn thành</td>
-                      <td>$280.00</td>
-                      <td><a href="#" class="view__order">Xem</a></td>
+
+                    <tr v-if="!orders || !orders.length">
+                      <td colspan="5" class="text-center">
+                        Bạn chưa có đơn hàng nào.
+                      </td>
                     </tr>
                   </tbody>
+
                 </table>
               </div>
             </div>

@@ -120,6 +120,24 @@ Route::middleware('auth')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
+| Order Routes
+|--------------------------------------------------------------------------
+*/
+
+use App\Http\Controllers\OrderController;
+
+Route::middleware('auth')->group(function () {
+    Route::get('/orders/{order}', [OrderController::class, 'show'])
+        ->name('orders.show');
+
+    Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel'])
+        ->name('orders.cancel');
+});
+
+
+
+/*
+|--------------------------------------------------------------------------
 | Authentication & OTP
 |--------------------------------------------------------------------------
 */
@@ -146,9 +164,12 @@ use App\Http\Controllers\Profile\PasswordController;
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/account', function () {
-        return Inertia::render('Profile/Account');
-    })->name('account');
+    // Route::get('/account', function () {
+    //     return Inertia::render('Profile/Account');
+    // })->name('account');
+    Route::get('/account', [ProfileController::class, 'account'])
+        ->name('account');
+
 
     Route::put('/profile', [ProfileController::class, 'update'])
         ->name('profile.update');

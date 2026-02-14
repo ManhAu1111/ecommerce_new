@@ -15,34 +15,60 @@ use Inertia\Response;
 class ProfileController extends Controller
 {
     /**
-     * Display the user's profile form.
+     * Display profile + user orders
      */
     public function edit(Request $request): Response
     {
+        $user = $request->user();
+
+        // Lấy đơn hàng kèm chi tiết (nếu có)
+        $orders = $user->orders()
+            ->with(['orderItems.product']) // nếu bạn có quan hệ này
+            ->latest()
+            ->get();
+
         return Inertia::render('Profile/Edit', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'mustVerifyEmail' => $user instanceof MustVerifyEmail,
             'status' => session('status'),
+            'orders' => $orders,
         ]);
     }
 
+    public function account(Request $request)
+    {
+        $user = $request->user();
+
+        $orders = $user->orders()
+            ->latest()
+            ->get();
+
+        return Inertia::render('Profile/Account', [
+            'orders' => $orders,
+        ]);
+    }
+
+
     /**
-     * Update the user's profile information.
+     * Update profile
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $user->fill($request->validated());
+
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
         }
 
-        $request->user()->save();
+        $user->save();
 
-        return Redirect::route('account')->with('success', 'Profile updated successfully.');
+        return Redirect::route('profile.edit')
+            ->with('success', 'Profile updated successfully.');
     }
 
     /**
-     * Delete the user's account.
+     * Delete account
      */
     public function destroy(Request $request): RedirectResponse
     {
@@ -53,7 +79,6 @@ class ProfileController extends Controller
         $user = $request->user();
 
         Auth::logout();
-
         $user->delete();
 
         $request->session()->invalidate();
