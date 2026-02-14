@@ -134,8 +134,6 @@ Route::middleware('auth')->group(function () {
         ->name('orders.cancel');
 });
 
-
-
 /*
 |--------------------------------------------------------------------------
 | Authentication & OTP
