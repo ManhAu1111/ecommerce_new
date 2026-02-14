@@ -136,16 +136,14 @@ onUnmounted(() => {
         </main>
         <!--=============== NEWSLETTER ===============-->
         <section class="newsletter section home__newsletter">
-          <div class="brand__container container grid">
-            
-            <img src="/assets/img/logo_toyMark_icon-removebg.png" 
-                alt="Toy Mark Logo" 
-                class="brand__logo" />
+            <div class="brand__container container grid">
 
-            <p class="brand__slogan">
-              TOY MARK — A World Of Toys
-            </p>
-          </div>
+                <img src="/assets/img/logo_toyMark_icon-removebg.png" alt="Toy Mark Logo" class="brand__logo" />
+
+                <p class="brand__slogan">
+                    TOY MARK — A World Of Toys
+                </p>
+            </div>
         </section>
         <footer class="footer container">
             <div class="footer__container grid">
@@ -221,7 +219,8 @@ onUnmounted(() => {
                 </div>
                 <div class="footer__content">
                     <h3 class="footer__title">Cổng thanh toán an toàn</h3>
-                    <img src="/assets/img/payment-method.png" alt="" class="payment__img" />
+                    <!-- <img src="/assets/img/payment-method.png" alt="" class="payment__img" /> -->
+                    <img src="/assets/img/momo.png" alt="" class="w-[224px] h-[80px] object-contain" />
                 </div>
             </div>
             <div class="footer__bottom">
