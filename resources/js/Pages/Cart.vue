@@ -4,6 +4,8 @@ import { Head } from '@inertiajs/vue3';
 import axios from 'axios'
 import { computed } from 'vue'
 import { router } from '@inertiajs/vue3'
+import { usePage } from '@inertiajs/vue3'
+import { onMounted } from 'vue'
 
 const props = defineProps({
   cartItems: Array
@@ -15,6 +17,18 @@ const totalPrice = computed(() =>
     0
   )
 )
+
+const page = usePage()
+
+// 1 SP thì mới được checkout, nếu ko sẽ báo lỗi
+const goCheckout = () => {
+  if (!props.cartItems.length) {
+    alert('Giỏ hàng đang trống. Vui lòng thêm sản phẩm trước khi thanh toán.')
+    return
+  }
+
+  router.visit(route('checkout'))
+}
 
 // xóa SP
 const removeItem = async (itemId) => {
@@ -52,6 +66,16 @@ const subTotal = computed(() =>
 
 const total = computed(() => subTotal.value + SHIPPING_FEE)
 
+onMounted(() => {
+  if (page.props.flash?.success) {
+    alert(page.props.flash.success)
+  }
+
+  if (page.props.flash?.error) {
+    alert(page.props.flash.error)
+  }
+})
+
 </script>
 
 <template>
@@ -86,8 +110,8 @@ const total = computed(() => subTotal.value + SHIPPING_FEE)
               <tr v-for="item in cartItems" :key="item.id">
                 <td class="table__img-cell">
                   <div class="table__img-wrapper">
-                    <img :src="item.product.primary_image?.image_url ?? '/assets/img/default.jpg'" class="table__img" 
-                    @click="router.visit(route('detail', item.product.id))"/>
+                    <img :src="item.product.primary_image?.image_url ?? '/assets/img/default.jpg'" class="table__img"
+                      @click="router.visit(route('detail', item.product.id))" />
                   </div>
                 </td>
 
@@ -200,7 +224,7 @@ const total = computed(() => subTotal.value + SHIPPING_FEE)
               </tr>
             </table>
 
-            <a :href="route('checkout')" class="btn flex btn--md cart__checkout-btn">
+            <a href="#" class="btn flex btn--md cart__checkout-btn" @click.prevent="goCheckout">
               <i class="fi fi-rs-box-alt"></i> Tiến hành thanh toán
             </a>
           </div>

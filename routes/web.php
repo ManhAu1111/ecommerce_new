@@ -94,22 +94,30 @@ Route::get('/wishlist/count', [WishlistController::class, 'count'])
     ->name('wishlist.count');
 /*
 |--------------------------------------------------------------------------
-| Checkout Routes
+| Checkout Routes và Payment Routes
 |--------------------------------------------------------------------------
 */
 
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\PaymentController;
 
-// Route::middleware('auth')->group(function () {
-//     Route::get('/checkout', [CheckoutController::class, 'index'])
-//         ->name('checkout');
-// });
-Route::get('/checkout', [CheckoutController::class, 'index'])
-    ->middleware('auth')
-    ->name('checkout');
-// Route::get('/checkout', [CartController::class, 'checkout'])
-//     ->middleware('auth')
-//     ->name('checkout');
+Route::middleware('auth')->group(function () {
+
+    Route::get('/checkout', [CheckoutController::class, 'index'])
+        ->name('checkout');
+
+    Route::post('/checkout', [CheckoutController::class, 'store'])
+        ->name('checkout.store');
+
+    // Route::get('/payment/momo/create/{order_id}', [PaymentController::class, 'createMomo'])
+    //     ->name('payment.momo.create');
+    Route::get('/payment/momo/create', [PaymentController::class, 'createMomo'])
+        ->name('payment.momo.create');
+
+    Route::get('/payment/momo/callback', [PaymentController::class, 'momoCallback'])
+        ->name('payment.momo.callback');
+});
+
 /*
 |--------------------------------------------------------------------------
 | Authentication & OTP
