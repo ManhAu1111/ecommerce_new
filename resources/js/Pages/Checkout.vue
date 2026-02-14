@@ -479,17 +479,24 @@ onMounted(async () => {
                         <!-- PAYMENT -->
                         <div class="payment__methods">
                             <h3 class="checkout__title payment__title">
+                                <i class="fa-solid fa-credit-card"></i>
                                 Phương thức thanh toán
                             </h3>
 
                             <div class="payment__option">
-                                <input type="radio" value="cod" v-model="form.payment_method" />
-                                <label>Thanh toán khi nhận hàng</label>
+                                <input type="radio" id="cod" value="cod" v-model="form.payment_method" />
+                                <label for="cod">
+                                    <i class="fa-solid fa-truck"></i>
+                                    Thanh toán khi nhận hàng
+                                </label>
                             </div>
 
                             <div class="payment__option">
-                                <input type="radio" value="momo" v-model="form.payment_method" />
-                                <label>Thanh toán MoMo</label>
+                                <input type="radio" id="momo" value="momo" v-model="form.payment_method" />
+                                <label for="momo">
+                                    <i class="fa-solid fa-wallet"></i>
+                                    Thanh toán MoMo
+                                </label>
                             </div>
                         </div>
 
