@@ -319,53 +319,56 @@ const saveAddress = () => {
             <div class="tab__content" :class="{ 'active-tab': activeTab === 'orders' }" v-if="activeTab === 'orders'">
               <h3 class="tab__header">Đơn hàng của bạn</h3>
               <div class="tab__body">
-                <table class="placed__order-table">
-                  <thead>
-                    <tr>
-                      <th>Đơn hàng</th>
-                      <th>Ngày</th>
-                      <th>Trạng thái</th>
-                      <th>Tổng tiền</th>
-                      <th>Hành động</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="order in orders ?? []" :key="order.id">
+                <div class="max-h-[300px] overflow-y-auto">
+                  <table class="placed__order-table w-full table-fixed border-collapse">
 
-                      <td>#{{ order.public_id }}</td>
+                    <thead>
+                      <tr>
+                        <th class="sticky top-0 bg-white z-20 text-left">Đơn hàng</th>
+                        <th class="sticky top-0 bg-white z-20 text-left">Ngày</th>
+                        <th class="sticky top-0 bg-white z-20 text-left">Trạng thái</th>
+                        <th class="sticky top-0 bg-white z-20 text-left">Tổng tiền</th>
+                        <th class="sticky top-0 bg-white z-20 text-left">Hành động</th>
+                      </tr>
+                    </thead>
 
-                      <td>
-                        {{ formatDate(order.created_at) }}
-                      </td>
+                    <tbody>
+                      <tr v-for="order in orders ?? []" :key="order.id">
+                        <td>#{{ order.public_id }}</td>
 
-                      <td>
-                        <span :class="statusClass(order.status)">
-                          {{ statusMap[normalizeStatus(order.status)] }}
-                        </span>
+                        <td>
+                          {{ formatDate(order.created_at) }}
+                        </td>
 
-                      </td>
+                        <td>
+                          <span :class="statusClass(order.status)">
+                            {{ statusMap[normalizeStatus(order.status)] }}
+                          </span>
+                        </td>
 
-                      <td>
-                        {{ formatPrice(order.total_price) }}
-                      </td>
+                        <td>
+                          {{ formatPrice(order.total_price) }}
+                        </td>
 
-                      <td>
-                        <a href="#" @click.prevent="router.visit(route('orders.show', order.id))"
-                          class="text-[#3f9588] hover:underline">
-                          Xem
-                        </a>
-                      </td>
-                    </tr>
+                        <td>
+                          <a href="#" @click.prevent="router.visit(route('orders.show', order.id))"
+                            class="text-[#3f9588] hover:underline">
+                            Xem
+                          </a>
+                        </td>
+                      </tr>
 
-                    <tr v-if="!orders || !orders.length">
-                      <td colspan="5" class="text-center">
-                        Bạn chưa có đơn hàng nào.
-                      </td>
-                    </tr>
-                  </tbody>
+                      <tr v-if="!orders || !orders.length">
+                        <td colspan="5" class="text-center">
+                          Bạn chưa có đơn hàng nào.
+                        </td>
+                      </tr>
+                    </tbody>
 
-                </table>
+                  </table>
+                </div>
               </div>
+
             </div>
 
             <div class="tab__content" :class="{ 'active-tab': activeTab === 'update-profile' }"
