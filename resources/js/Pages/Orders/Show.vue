@@ -2,6 +2,21 @@
 import MainLayout from '@/Layouts/MainLayout.vue'
 import { router } from '@inertiajs/vue3'
 import { computed, ref } from 'vue'
+import { usePage } from '@inertiajs/vue3'
+import { onMounted } from 'vue'
+
+const page = usePage()
+
+// thông báo flash message nếu có
+onMounted(() => {
+    if (page.props.flash?.success) {
+        alert(page.props.flash.success)
+    }
+
+    if (page.props.flash?.error) {
+        alert(page.props.flash.error)
+    }
+})
 
 const props = defineProps({
     order: Object
@@ -111,13 +126,12 @@ const isPaid = computed(() => {
                             </h2>
                             <span
                                 class="inline-flex items-center justify-center px-4 h-9 text-sm font-semibold rounded-full border whitespace-nowrap"
-                                :class="getStatusColor(normalizedStatus)"
-                            >
+                                :class="getStatusColor(normalizedStatus)">
                                 {{
                                     normalizedStatus === 'processing' ? 'Đang xử lý' :
-                                    normalizedStatus === 'delivering' ? 'Đang giao hàng' :
-                                    normalizedStatus === 'completed' ? 'Giao hàng thành công' :
-                                    'Đã huỷ'
+                                        normalizedStatus === 'delivering' ? 'Đang giao hàng' :
+                                            normalizedStatus === 'completed' ? 'Giao hàng thành công' :
+                                                'Đã huỷ'
                                 }}
                             </span>
                         </div>
@@ -129,9 +143,7 @@ const isPaid = computed(() => {
                     <div class="flex items-center gap-4 shrink-0">
 
                         <!-- Xem & In -->
-                        <a :href="route('orders.invoice', order.id)"
-                        target="_blank"
-                        class="group relative inline-flex items-center justify-center gap-2
+                        <a :href="route('orders.invoice', order.id)" target="_blank" class="group relative inline-flex items-center justify-center gap-2
                                h-11 px-6
                                font-semibold rounded-xl
                                bg-gradient-to-r from-emerald-500 to-teal-600
@@ -143,13 +155,13 @@ const isPaid = computed(() => {
                             <span>Xem & In hóa đơn</span>
 
                             <!-- hiệu ứng ánh sáng -->
-                            <span class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition duration-300"></span>
+                            <span
+                                class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition duration-300"></span>
                         </a>
 
 
                         <!-- Tải PDF -->
-                        <a :href="route('orders.invoice.pdf', order.id)"
-                        class="group relative inline-flex items-center justify-center gap-2
+                        <a :href="route('orders.invoice.pdf', order.id)" class="group relative inline-flex items-center justify-center gap-2
                                h-11 px-6
                                font-semibold rounded-xl
                                bg-gradient-to-r from-gray-700 to-gray-900
@@ -161,14 +173,13 @@ const isPaid = computed(() => {
                             <span>Tải PDF</span>
 
                             <!-- hiệu ứng glow -->
-                            <span class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition duration-300"></span>
+                            <span
+                                class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition duration-300"></span>
                         </a>
 
 
                         <!-- Huỷ đơn -->
-                        <button v-if="canCancel"
-                            @click="cancelOrder"
-                            :disabled="cancelling"
+                        <button v-if="canCancel" @click="cancelOrder" :disabled="cancelling"
                             class="px-6 py-2.5 font-semibold rounded-xl transition-all duration-300"
                             :class="cancelling
                                 ? 'bg-gray-200 text-gray-400 cursor-not-allowed'

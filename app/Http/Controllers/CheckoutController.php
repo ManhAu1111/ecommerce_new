@@ -134,10 +134,9 @@ class CheckoutController extends Controller
                 ->send(new OrderCreatedMail($order));
 
             return redirect()
-                ->route('cart.index')
+                ->route('orders.show', $order->id)
                 ->with('success', "Đặt hàng thành công. Mã đơn: {$order->public_id}");
         }
-
 
         // ==========================
         // MOMO → KHÔNG TẠO ORDER
