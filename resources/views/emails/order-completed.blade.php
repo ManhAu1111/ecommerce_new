@@ -30,7 +30,7 @@
                         <td align="center" style="padding:10px 30px 20px;">
                             <h2 style="margin:0;font-family:'Segoe UI';
                        font-size:20px;font-weight:600;">
-                                Đơn hàng đã giao thành công 🎉
+                                Đơn hàng đã giao thành công
                             </h2>
                         </td>
                     </tr>
