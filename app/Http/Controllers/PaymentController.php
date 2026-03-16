@@ -29,35 +29,35 @@ class PaymentController extends Controller
         $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
 
         $partnerCode = env('MOMO_PARTNER_CODE');
-        $accessKey   = env('MOMO_ACCESS_KEY');
-        $secretKey   = env('MOMO_SECRET_KEY');
+        $accessKey = env('MOMO_ACCESS_KEY');
+        $secretKey = env('MOMO_SECRET_KEY');
 
         $amount = (string) $checkoutData['total'];
         $orderId = 'MOMO-' . strtoupper(Str::random(10)); // ID tạm
         $orderInfo = "Thanh toán đơn hàng";
 
         $redirectUrl = env('MOMO_REDIRECT_URL');
-        $ipnUrl      = env('MOMO_IPN_URL');
-        $requestId   = time();
+        $ipnUrl = env('MOMO_IPN_URL');
+        $requestId = time();
         $requestType = "captureWallet";
-        $extraData   = "";
+        $extraData = "";
 
         $rawHash = "accessKey={$accessKey}&amount={$amount}&extraData={$extraData}&ipnUrl={$ipnUrl}&orderId={$orderId}&orderInfo={$orderInfo}&partnerCode={$partnerCode}&redirectUrl={$redirectUrl}&requestId={$requestId}&requestType={$requestType}";
         $signature = hash_hmac("sha256", $rawHash, $secretKey);
 
         $response = Http::post($endpoint, [
             'partnerCode' => $partnerCode,
-            'accessKey'   => $accessKey, // 🔥 THÊM DÒNG NÀY
-            'requestId'   => $requestId,
-            'amount'      => $amount,
-            'orderId'     => $orderId,
-            'orderInfo'   => $orderInfo,
+            'accessKey' => $accessKey, // 🔥 THÊM DÒNG NÀY
+            'requestId' => $requestId,
+            'amount' => $amount,
+            'orderId' => $orderId,
+            'orderInfo' => $orderInfo,
             'redirectUrl' => $redirectUrl,
-            'ipnUrl'      => $ipnUrl,
-            'lang'        => 'vi',
-            'extraData'   => $extraData,
+            'ipnUrl' => $ipnUrl,
+            'lang' => 'vi',
+            'extraData' => $extraData,
             'requestType' => $requestType,
-            'signature'   => $signature
+            'signature' => $signature
         ]);
 
         $data = $response->json();
@@ -65,7 +65,7 @@ class PaymentController extends Controller
         if (!isset($data['payUrl'])) {
             Log::error('MoMo error', [
                 'status' => $response->status(),
-                'body'   => $response->body(),
+                'body' => $response->body(),
             ]);
 
             return redirect()->route('cart.index')
@@ -96,11 +96,11 @@ class PaymentController extends Controller
             $publicId = 'ORD-' . strtoupper(Str::random(8));
 
             $order = Order::create([
-                'public_id'      => $publicId,
-                'user_id'        => $checkoutData['user_id'],
-                'status'         => 'paid',
-                'total_price'    => $checkoutData['total'],
-                'shipping_fee'   => $checkoutData['shipping_fee'],
+                'public_id' => $publicId,
+                'user_id' => $checkoutData['user_id'],
+                'status' => 'paid',
+                'total_price' => $checkoutData['total'],
+                'shipping_fee' => $checkoutData['shipping_fee'],
                 'payment_method' => 'momo',
 
                 ...$checkoutData['form_data']
@@ -116,14 +116,13 @@ class PaymentController extends Controller
 
                 // 🔥 TẠO ORDER ITEM
                 OrderItem::create([
-                    'order_id'   => $order->id,
+                    'order_id' => $order->id,
                     'product_id' => $product->id,
-                    'price'      => $item['price'],
-                    'quantity'   => $item['quantity'],
+                    'price' => $item['price'],
+                    'quantity' => $item['quantity'],
                 ]);
 
-                // 🔥 TRỪ TỒN KHO
-                $product->decrement('quantity', $item['quantity']);
+                // 🔥 KHÔNG TRỪ TỒN KHO Ở ĐÂY NỮA (Chuyển sang lúc admin duyệt đơn)
             }
 
             CartItem::where('user_id', $checkoutData['user_id'])->delete();

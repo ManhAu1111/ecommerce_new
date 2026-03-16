@@ -20,6 +20,25 @@ class OrderService
 
         $this->validateStateTransition($oldStatus, $newStatus);
 
+        // 🔥 TRỪ TỒN KHO KHI ADMIN DUYỆT CHUYỂN SANG ĐANG GIAO
+        if ($newStatus === 'delivering' && in_array($oldStatus, ['pending', 'paid'])) {
+            $order->load('items.product');
+
+            // 1. Kiểm tra tồn kho trước
+            foreach ($order->items as $item) {
+                if ($item->product && $item->quantity > $item->product->quantity) {
+                    throw new \Exception("Sản phẩm '{$item->product->name}' không đủ tồn kho (Còn {$item->product->quantity}).");
+                }
+            }
+
+            // 2. Nếu đủ thì mới tiến hành trừ
+            foreach ($order->items as $item) {
+                if ($item->product) {
+                    $item->product->decrement('quantity', $item->quantity);
+                }
+            }
+        }
+
         $order->update(['status' => $newStatus]);
 
         $this->dispatchStatusEmail($order, $oldStatus, $newStatus);

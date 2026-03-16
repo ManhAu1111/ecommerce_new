@@ -73,34 +73,28 @@ class CheckoutController extends Controller
         // ==========================
         if ($data['payment_method'] === 'cod') {
 
-            $order = DB::transaction(function () use (
-                $user,
-                $data,
-                $cartItems,
-                $total,
-                $shippingFee
-            ) {
+            $order = DB::transaction(function () use ($user, $data, $cartItems, $total, $shippingFee) {
 
                 $publicId = 'ORD-' . strtoupper(Str::random(8));
 
                 $order = Order::create([
-                    'public_id'      => $publicId,
-                    'user_id'        => $user->id,
-                    'status'         => 'pending',
-                    'total_price'    => $total,
-                    'shipping_fee'   => $shippingFee,
+                    'public_id' => $publicId,
+                    'user_id' => $user->id,
+                    'status' => 'pending',
+                    'total_price' => $total,
+                    'shipping_fee' => $shippingFee,
                     'payment_method' => 'cod',
 
-                    'receiver_name'  => $data['receiver_name'],
+                    'receiver_name' => $data['receiver_name'],
                     'receiver_phone' => $data['receiver_phone'],
                     'receiver_email' => $data['receiver_email'] ?? null,
 
-                    'province'       => $data['province'],
-                    'district'       => $data['district'],
-                    'ward'           => $data['ward'],
-                    'detail'         => $data['detail'],
-                    'full_address'   => $data['full_address'],
-                    'note'           => $data['note'] ?? null,
+                    'province' => $data['province'],
+                    'district' => $data['district'],
+                    'ward' => $data['ward'],
+                    'detail' => $data['detail'],
+                    'full_address' => $data['full_address'],
+                    'note' => $data['note'] ?? null,
                 ]);
 
                 foreach ($cartItems as $item) {
@@ -113,14 +107,14 @@ class CheckoutController extends Controller
 
                     // 🔥 TẠO ORDER ITEM
                     OrderItem::create([
-                        'order_id'   => $order->id,
+                        'order_id' => $order->id,
                         'product_id' => $product->id,
-                        'price'      => $item->price,
-                        'quantity'   => $item->quantity,
+                        'price' => $item->price,
+                        'quantity' => $item->quantity,
                     ]);
 
-                    // 🔥 TRỪ TỒN KHO
-                    $product->decrement('quantity', $item->quantity);
+                    // 🔥 KHÔNG TRỪ TỒN KHO Ở ĐÂY NỮA (Chuyển sang lúc admin duyệt đơn)
+
                 }
 
                 // 🔥 XOÁ GIỎ
