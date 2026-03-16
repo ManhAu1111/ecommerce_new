@@ -141,6 +141,7 @@ class PaymentController extends Controller
         session()->forget('checkout_data');
 
         return redirect()->route('orders.show', $order->id)
-            ->with('success', 'Thanh toán thành công.');
+            // ->with('success', 'Thanh toán thành công.');
+            ->with('success', "Đặt hàng thành công. Mã đơn: {$order->public_id}");
     }
 }
