@@ -228,7 +228,7 @@ const clampQuantity = (item) => {
               </li>
               <li>
                 <i class="fi fi-rs-check"></i>
-                Phí vận chuyển sẽ được tính ở bước thanh toán
+                Phí vận chuyển sẽ được tính ở bên thứ ba dựa trên địa chỉ giao hàng và khối lượng đơn hàng
               </li>
               <li>
                 <i class="fi fi-rs-check"></i>
