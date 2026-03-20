@@ -64,7 +64,7 @@ function confirmInfo() {
 
     isInfoConfirmed.value = true
 }
-const SHIPPING_FEE = 30000
+const SHIPPING_FEE = 0
 /* ===============================
    TÍNH TỔNG TIỀN
 ================================= */
@@ -464,10 +464,10 @@ onMounted(async () => {
                                 <span>{{ subTotal.toLocaleString('vi-VN') }}₫</span>
                             </div>
 
-                            <div class="total__row">
+                            <!-- <div class="total__row">
                                 <span>Phí vận chuyển</span>
-                                <span>30.000₫</span>
-                            </div>
+                                <span>0₫</span>
+                            </div> -->
 
                             <div class="total__row total__grand">
                                 <span>Tổng cộng</span>

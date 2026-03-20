@@ -42,12 +42,14 @@ class PaymentController extends Controller
         $requestType = "captureWallet";
         $extraData = "";
 
-        $rawHash = "accessKey={$accessKey}&amount={$amount}&extraData={$extraData}&ipnUrl={$ipnUrl}&orderId={$orderId}&orderInfo={$orderInfo}&partnerCode={$partnerCode}&redirectUrl={$redirectUrl}&requestId={$requestId}&requestType={$requestType}";
+        $rawHash = "accessKey={$accessKey}&amount={$amount}&extraData={$extraData}
+        &ipnUrl={$ipnUrl}&orderId={$orderId}&orderInfo={$orderInfo}&partnerCode={$partnerCode}
+        &redirectUrl={$redirectUrl}&requestId={$requestId}&requestType={$requestType}";
         $signature = hash_hmac("sha256", $rawHash, $secretKey);
 
         $response = Http::post($endpoint, [
             'partnerCode' => $partnerCode,
-            'accessKey' => $accessKey, // 🔥 THÊM DÒNG NÀY
+            'accessKey' => $accessKey,
             'requestId' => $requestId,
             'amount' => $amount,
             'orderId' => $orderId,
@@ -114,15 +116,12 @@ class PaymentController extends Controller
                     throw new \Exception("Sản phẩm {$product->name} không đủ tồn kho.");
                 }
 
-                // 🔥 TẠO ORDER ITEM
                 OrderItem::create([
                     'order_id' => $order->id,
                     'product_id' => $product->id,
                     'price' => $item['price'],
                     'quantity' => $item['quantity'],
                 ]);
-
-                // 🔥 KHÔNG TRỪ TỒN KHO Ở ĐÂY NỮA (Chuyển sang lúc admin duyệt đơn)
             }
 
             CartItem::where('user_id', $checkoutData['user_id'])->delete();

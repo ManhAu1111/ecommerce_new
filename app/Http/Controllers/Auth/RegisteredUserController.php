@@ -37,11 +37,6 @@ class RegisteredUserController extends Controller
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|lowercase|email:rfc,dns|max:255',
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
-                // 'password' => [
-                //     'required',
-                //     'confirmed',
-                //     'digits:6',
-                // ],
             ],
             [
                 'name.required' => 'Vui lòng nhập họ tên.',
@@ -56,14 +51,12 @@ class RegisteredUserController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        // Scenario A: Account Exists & Verified
         if ($user && $user->email_verified_at) {
             return back()->withErrors(['email' => 'Tài khoản này đã được đăng ký. Vui lòng đăng nhập.']);
         }
 
         $otp = (string) rand(100000, 999999);
 
-        // Scenario B: Account Exists but Unverified (Retry)
         if ($user) {
             $user->update([
                 'name' => $request->name,
@@ -71,9 +64,7 @@ class RegisteredUserController extends Controller
                 'verification_code' => $otp,
                 'role' => 'user',
             ]);
-        }
-        // Scenario C: New User
-        else {
+        } else {
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -83,11 +74,10 @@ class RegisteredUserController extends Controller
             ]);
         }
 
-        // Send OTP Email
+        // gửi OTP Email
         Mail::to($user)->send(new OtpMail($otp));
 
-        // Redirect to OTP verification page
-        session(['otp_email' => $request->email]); // Lưu email vào session với tên 'otp_email'
+        session(['otp_email' => $request->email]);
         return redirect()->route('verification.otp');
     }
 
@@ -132,7 +122,6 @@ class RegisteredUserController extends Controller
 
         session()->forget('otp_email');
 
-        // Do not auto-login. Redirect to Login with success message.
         return redirect()->route('login')->with('success', 'Đăng ký thành công! Vui lòng đăng nhập.');
     }
 }

@@ -37,7 +37,6 @@ class CartController extends Controller
 
         $product = Product::findOrFail($productId);
 
-        // Nếu sản phẩm đã tồn tại trong giỏ → tăng số lượng
         $cartItem = CartItem::where('user_id', $userId)
             ->where('product_id', $productId)
             ->first();
@@ -49,7 +48,7 @@ class CartController extends Controller
                 'user_id'    => $userId,
                 'product_id' => $productId,
                 'quantity'   => $qty,
-                'price'      => $product->price, // snapshot giá tại thời điểm thêm
+                'price'      => $product->price,
             ]);
         }
 
@@ -59,9 +58,6 @@ class CartController extends Controller
         ]);
     }
 
-    /**
-     * Cập nhật số lượng sản phẩm trong giỏ
-     */
     public function update(Request $request)
     {
         $request->validate([
@@ -82,9 +78,6 @@ class CartController extends Controller
         ]);
     }
 
-    /**
-     * Xóa sản phẩm khỏi giỏ
-     */
     public function remove($id)
     {
         CartItem::where('id', $id)
