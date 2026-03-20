@@ -65,7 +65,7 @@ class CheckoutController extends Controller
             fn($item) => $item->price * $item->quantity
         );
 
-        $shippingFee = 30000;
+        $shippingFee = 0;
         $total = $totalPrice + $shippingFee;
 
         // ==========================

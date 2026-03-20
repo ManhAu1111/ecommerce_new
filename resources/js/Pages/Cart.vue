@@ -80,7 +80,7 @@ const updateCart = async () => {
 }
 
 // phí ship
-const SHIPPING_FEE = 30000
+const SHIPPING_FEE = 0
 
 const subTotal = computed(() =>
   props.cartItems.reduce(
@@ -172,14 +172,8 @@ const clampQuantity = (item) => {
 
                 <td>
                   <template v-if="item.product.quantity > 0">
-                    <input
-                      type="number"
-                      class="quantity"
-                      :min="1"
-                      :max="item.product.quantity"
-                      v-model.number="item.quantity"
-                      @input="clampQuantity(item)"
-                    />
+                    <input type="number" class="quantity" :min="1" :max="item.product.quantity"
+                      v-model.number="item.quantity" @input="clampQuantity(item)" />
                   </template>
 
                   <template v-else>
@@ -261,14 +255,14 @@ const clampQuantity = (item) => {
                 </td>
               </tr>
 
-              <tr>
+              <!-- <tr>
                 <td><span class="cart__total-title">Vận chuyển</span></td>
                 <td>
                   <span class="cart__total-price">
                     {{ SHIPPING_FEE.toLocaleString('vi-VN') }}₫
                   </span>
                 </td>
-              </tr>
+              </tr> -->
 
               <tr class="cart__total-final">
                 <td><span class="cart__total-title">Tổng cộng</span></td>

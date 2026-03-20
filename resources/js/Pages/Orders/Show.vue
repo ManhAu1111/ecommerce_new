@@ -316,10 +316,10 @@ const isPaid = computed(() => {
                                 <span>{{ formatPrice(subTotal) }}</span>
                             </div>
 
-                            <div class="flex justify-between">
+                            <!-- <div class="flex justify-between">
                                 <span>Phí vận chuyển</span>
                                 <span>{{ formatPrice(order.shipping_fee) }}</span>
-                            </div>
+                            </div> -->
                         </div>
 
                         <!-- Tổng -->
